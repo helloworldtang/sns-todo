@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <link href="webjars/materializecss/0.96.0/css/materialize.css" type="text/css"
+          rel="stylesheet" media="screen,projection">
+    <title>default</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <p>Page content goes here</p>
+</section>
+<script th:src="@{/webjars/jquery/2.1.4/jquery.js}"></script>
+<script th:src="@{/webjars/materializecss/0.96.0/js/materialize.js}"></script>
+</body>
+</html>

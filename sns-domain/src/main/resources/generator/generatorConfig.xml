@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="com.tangcheng.zhiban.sns.todo.domain.util.MyMapper"/>
+        </plugin>
+
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/sns-todo-dev"
+                        userId="root"
+                        password=""/>
+
+        <javaModelGenerator targetPackage="com.tangcheng.zhiban.sns.todo.domain.model"
+                            targetProject="src/main/java"/>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+
+        <javaClientGenerator targetPackage="com.tangcheng.zhiban.sns.todo.domain.mapper"
+                             targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+
+        <table tableName="sns-todo-detail" domainObjectName="SnsTodoDetailDO">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+<!--
+        <table tableName="sns-todo-type" domainObjectName="SnsTodoTypeDO">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+
+        <table tableName="sns-user" domainObjectName="SnsUserDO">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>-->
+
+
+    </context>
+</generatorConfiguration>
