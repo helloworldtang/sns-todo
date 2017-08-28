@@ -1,4 +1,4 @@
-package com.tangcheng.zhiban.sns.todo.domain.util;
+package com.tangcheng.zhiban.sns.todo.core.util;
 
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;

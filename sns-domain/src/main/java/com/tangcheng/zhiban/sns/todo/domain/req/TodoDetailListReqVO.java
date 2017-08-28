@@ -13,4 +13,5 @@ public class TodoDetailListReqVO extends PageVO {
     public void setFinished(Boolean finished) {
         this.finished = finished;
     }
+
 }

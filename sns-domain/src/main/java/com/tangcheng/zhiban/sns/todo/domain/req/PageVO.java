@@ -6,6 +6,8 @@ package com.tangcheng.zhiban.sns.todo.domain.req;
 public class PageVO {
     private Integer pageNum = 1;
     private Integer pageSize = 20;
+    private Boolean needTotal = false;
+
 
     public Integer getPageNum() {
         return pageNum;
@@ -21,5 +23,13 @@ public class PageVO {
 
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public Boolean getNeedTotal() {
+        return needTotal;
+    }
+
+    public void setNeedTotal(Boolean needTotal) {
+        this.needTotal = needTotal;
     }
 }
