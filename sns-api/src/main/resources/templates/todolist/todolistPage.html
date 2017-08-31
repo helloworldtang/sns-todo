@@ -8,36 +8,37 @@
 </head>
 <body>
 
-<a id="addNew" onclick="addNew()">add new Todo</a>
 
 <div class="row" layout:fragment="content">
+    <a id="addNew" th:href="@{/web/v1/user/todo/add}">add new Todo</a>
+
 
     <h2 class="indigo-text center">Todolist Detail</h2>
-    <div class="row" th:each="item:${list}">
-        <div class="col s6">
-            ID: <input id="todoId" type="text" th:text="${item.id}"/>
-            type: <input type="text" th:text="${item.type}"/>
-            digest: <input type="text" th:text="${item.digest}"/>
-            content: <input type="text" th:text="${item.content}"/>
-            finished: <input type="text" th:text="${item.finished}"/>
-            createTime:<input type="text" th:text="${#dates.format(item.createTime,'yyyy/MM/dd HH:mm')}"/>
-            <a onclick="finish()">
-                完成
-            </a>
-        </div>
+    <div class="row">
+        <ul class="collection" th:each="item:${list}">
+            <li class="collection-item">
+                ID: <span id="todoId" th:text="${item.id}">id</span><br/>
+                type: <span th:text="${item.type}">type</span><br/>
+                digest: <span th:text="${item.digest}">digest</span><br/>
+                content: <span th:text="${item.content}">content</span><br/>
+                finished: <span th:text="${item.finished}">finished</span><br/>
+                createTime: <span th:text="${#dates.format(item.createTime,'yyyy/MM/dd HH:mm')}">createTime</span><br/>
+                <a onclick="finish()">
+                    完成
+                </a>
+            </li>
+        </ul>
+
     </div>
+
 </div>
 
 <script layout:fragment="script">
     function finish() {
-        $.post("/web/v1/user/todo/" + $('#todoId').value,
-            function (data, status) {
-                window.location.reload();
+        $.post("/web/v1/user/todo/" + $('#todoId').text(), {
+                _csrf: $('meta[name=_csrf]').attr('content') //csrf
             }
         );
-    }
-    function addNew() {
-
     }
 </script>
 
