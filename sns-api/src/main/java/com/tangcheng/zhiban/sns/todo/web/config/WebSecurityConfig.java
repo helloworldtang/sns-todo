@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl(ApiVersion.WEB_V1 + "/todo")
+                .defaultSuccessUrl(ApiVersion.WEB_V1 + "/user/todo?finished=false", true)
                 .and()
                 .logout()
                 .invalidateHttpSession(true)//用户的HTTP session将会在退出时被失效。在一些场景下，这是必要的（如用户拥有一个购物车时）

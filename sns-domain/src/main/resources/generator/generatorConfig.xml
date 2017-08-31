@@ -31,25 +31,26 @@
                              type="XMLMAPPER"/>
 
 
-         <table tableName="sns_user" domainObjectName="SnsUserDO">
-                    <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-                </table>
+        <table tableName="sns_todo_detail" domainObjectName="SnsTodoDetailDO">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <!--
+       <table tableName="sns_user" domainObjectName="SnsUserDO">
+           <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+       </table>
 
-                <table tableName="sns_role" domainObjectName="SnsRoleDO">
-                    <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-                </table>
+       <table tableName="sns_role" domainObjectName="SnsRoleDO">
+           <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+       </table>
 
-                <table tableName="sns_user_role" domainObjectName="SnsUserRoleDO">
-                    <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-                </table>
-
-        <!--   -->
+       <table tableName="sns_user_role" domainObjectName="SnsUserRoleDO">
+           <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+       </table>
+        -->
 
         <!--
 
-                <table tableName="sns_todo_detail" domainObjectName="SnsTodoDetailDO">
-                    <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-                </table>
+
 
                 <table tableName="sns_todo_type" domainObjectName="SnsTodoTypeDO">
                     <generatedKey column="id" sqlStatement="Mysql" identity="true"/>

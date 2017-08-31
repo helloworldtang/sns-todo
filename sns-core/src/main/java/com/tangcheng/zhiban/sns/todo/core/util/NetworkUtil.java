@@ -37,6 +37,9 @@ public class NetworkUtil {
      * @throws IOException
      */
     private static String getIpAddress(HttpServletRequest request) throws IOException {
+        if (request == null) {
+            return InetAddress.getLocalHost().getHostAddress();
+        }
         String ip = request.getHeader("X-Forwarded-For");
 
         LOGGER.debug("X-Forwarded-For {}", ip);

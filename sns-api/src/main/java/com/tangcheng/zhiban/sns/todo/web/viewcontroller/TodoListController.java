@@ -25,19 +25,25 @@ public class TodoListController {
     @GetMapping
     public String listTodoList(TodoDetailListReqVO todoDetailListReqVO, Model model) {
         List<TodoDetailResVO> detailResVOList = todoDetailService.listWeb(todoDetailListReqVO);
-        model.addAttribute("", detailResVOList);
+        model.addAttribute("list", detailResVOList);
         return "todolist/todolistPage";
     }
 
-    @PostMapping("${id}")
-    public void listTodoList(@PathVariable Long id) {
+    @GetMapping("add")
+    public String add() {
+        return "todolist/addNewTodo";
+    }
+
+
+    @PostMapping("{id}")
+    public void finish(@PathVariable Long id) {
         todoDetailService.finish(id);
     }
 
     @PostMapping
     public String save(@Valid TodoDetailReqVO todoDetailReqVO) {
         todoDetailService.save(todoDetailReqVO);
-        return "todolist/todolistPage";
+        return "redirect:"+ApiVersion.WEB_V1 + "/user/todo?finished=false";
     }
 
 

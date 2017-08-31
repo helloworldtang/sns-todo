@@ -16,7 +16,7 @@
                 <span class="card-title">Invalid user name or password</span>
             </div>
 
-            <form class="col s12" action="/login" method="post">
+            <form class="col s12" th:action="@{/login}" method="post">
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="username" name="username" type="text" class="validate"/>
@@ -34,7 +34,6 @@
                         <i class="mdi-content-send right"></i>
                     </button>
                 </div>
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             </form>
 
             <form th:action="@{/signin/twitter}" method="POST" class="center">

@@ -9,6 +9,8 @@
 
     <link href="/webjars/materializecss/0.96.0/css/materialize.css" type="text/css" rel="stylesheet"
           media="screen,projection"/>
+    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}" content="_csrf.parameterName"/>
+    <meta name="_csrf" th:content="${_csrf.token}" content="_csrf.token"/>
 </head>
 <body>
 

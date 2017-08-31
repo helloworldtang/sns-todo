@@ -22,7 +22,7 @@ INSERT INTO `sns_role` VALUES ('2', 'ROLE_USER', 'user');
 DROP TABLE IF EXISTS `sns_user`;
 CREATE TABLE `sns_user` (
   `id` bigint(19) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
+  `username` varchar(190) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `icon` varchar(200) DEFAULT NULL,
@@ -41,8 +41,9 @@ CREATE TABLE `sns_user` (
   `last_login_ip` varchar(50) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_username` (`username`) USING BTREE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sns_user

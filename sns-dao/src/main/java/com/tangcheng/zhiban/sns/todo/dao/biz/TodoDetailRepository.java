@@ -7,6 +7,7 @@ import com.tangcheng.zhiban.sns.todo.domain.mapper.SnsTodoDetailDOMapper;
 import com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDO;
 import com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDOExample;
 import com.tangcheng.zhiban.sns.todo.domain.req.TodoDetailReqVO;
+import com.tangcheng.zhiban.sns.todo.domain.util.SecurityUtil;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,13 @@ public class TodoDetailRepository {
         SnsTodoDetailDO snsTodoDetailDO = new SnsTodoDetailDO();
         BeanUtils.copyProperties(todoDetailReqVO, snsTodoDetailDO);
 
+        snsTodoDetailDO.setUserName(SecurityUtil.getUserName());
         snsTodoDetailDO.setCreateIp(NetworkUtil.getRemoteIp());
         snsTodoDetailDO.setFinished(false);
         Date now = new Date();
         snsTodoDetailDO.setCreateDate(now);
+        snsTodoDetailDO.setCreateTime(now);
         snsTodoDetailDO.setUpdateTime(now);
-        snsTodoDetailDO.setCreateDate(now);
         snsTodoDetailDO.setStatus(Flag.UniversalFlag.NORMAL);
 
         snsTodoDetailDOMapper.insertUseGeneratedKeys(snsTodoDetailDO);

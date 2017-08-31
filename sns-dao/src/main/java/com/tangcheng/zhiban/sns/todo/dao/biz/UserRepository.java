@@ -2,6 +2,7 @@ package com.tangcheng.zhiban.sns.todo.dao.biz;
 
 import com.tangcheng.zhiban.sns.todo.domain.mapper.SnsUserDOMapper;
 import com.tangcheng.zhiban.sns.todo.domain.model.CustomUserDetails;
+import com.tangcheng.zhiban.sns.todo.domain.model.SnsUserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,8 @@ public class UserRepository {
     }
 
 
+    public Long save(SnsUserDO snsUserDO) {
+        snsUserDOMapper.insertUseGeneratedKeys(snsUserDO);
+        return snsUserDO.getId();
+    }
 }

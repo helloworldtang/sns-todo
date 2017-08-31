@@ -11,4 +11,17 @@ public class Flag {
         public static final byte DELETE = 0;
 
     }
+
+    public static final class UserRoleFlag {
+        public static final long ADMIN = 1;
+        public static final long USER = 2;
+    }
+
+    public static final class UserTypeFlag {
+        public static final byte SIGN_UP = 1;
+        public static final byte TWITTER = 2;
+        public static final byte FACEBOOK = 3;
+    }
+
+
 }

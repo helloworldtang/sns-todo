@@ -33,6 +33,9 @@ public class RequestHolder {
     public static HttpServletRequest getRequestFacade() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+        if (servletRequestAttributes == null) {
+            return null;
+        }
         return servletRequestAttributes.getRequest();
     }
 

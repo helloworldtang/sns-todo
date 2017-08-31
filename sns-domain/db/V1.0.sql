@@ -22,6 +22,8 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `sns_todo_detail`;
 CREATE TABLE `sns_todo_detail` (
   `id` bigint(19) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(19) unsigned DEFAULT NULL,
+  `user_name` varchar(190) NOT NULL,
   `type` bigint(19) NOT NULL,
   `digest` varchar(200) DEFAULT NULL,
   `content` varchar(300) NOT NULL,

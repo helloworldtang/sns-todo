@@ -36,10 +36,10 @@ public class CustomUserDetails extends SnsUserDO {
     }
 
     public boolean generateAccountNonExpired() {
-        return new Date().after(this.getAccountExpired());
+        return new Date().before(this.getAccountExpired());
     }
 
     public boolean generateCredentialsNonExpired() {
-        return new Date().after(this.getCredentialsExpired());
+        return new Date().before(this.getCredentialsExpired());
     }
 }
