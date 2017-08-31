@@ -1,4 +1,4 @@
-package com.tangcheng.zhiban.sns.todo.domain.util;
+package com.tangcheng.zhiban.sns.todo.core.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

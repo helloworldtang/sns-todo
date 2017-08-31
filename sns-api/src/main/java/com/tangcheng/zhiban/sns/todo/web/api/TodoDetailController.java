@@ -12,22 +12,18 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * Created by tangcheng on 8/26/2017.
  */
 @Api(tags = "TodoContent", description = "todoContent")
 @RestController
-@RequestMapping(ApiVersion.V1 + "/todo")
+@RequestMapping(ApiVersion.API_V1 + "/todo")
 public class TodoDetailController {
 
     @Autowired
     private TodoDetailService todoDetailService;
-
-    private HttpServletRequest httpServletRequest;
 
     @PostMapping
     public ResultData<Long> save(@Valid TodoDetailReqVO todoDetailReqVO) {
@@ -40,6 +36,11 @@ public class TodoDetailController {
         return new ResultData<>(GlobalCode.SUCCESS);
     }
 
+    @GetMapping
+    public ResultData<PageData<TodoDetailResVO>> list(TodoDetailListReqVO todoDetailListReqVO) {
+        PageData<TodoDetailResVO> pageData = todoDetailService.list(todoDetailListReqVO);
+        return new ResultData<>(pageData);
+    }
 
 
 }

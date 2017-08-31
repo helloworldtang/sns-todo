@@ -11,7 +11,7 @@ public class TodoDetailResVO {
     private String digest;
     private String content;
     private Boolean finished;
-    private Date create_time;
+    private Date createTime;
 
     public Long getId() {
         return id;
@@ -53,11 +53,11 @@ public class TodoDetailResVO {
         this.finished = finished;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

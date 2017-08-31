@@ -2,63 +2,41 @@ package com.tangcheng.zhiban.sns.todo.web.config;
 
 import com.tangcheng.zhiban.sns.todo.domain.exception.CaptchaException;
 import com.tangcheng.zhiban.sns.todo.web.config.security.LoginAuthenticationFailureHandler;
-import com.tangcheng.zhiban.sns.todo.web.config.security.LoginAuthenticationFilter;
+import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.security.auth.login.AccountExpiredException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by tangcheng on 8/26/2017.
- */
 @Configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password("yigepingguo.com").roles("ADMIN", "USER")
-                .and()
-                .withUser("user").password("user").roles("USER");
-    }
-
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter();
-        loginAuthenticationFilter.setAuthenticationManager(authenticationManager());
-        loginAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
-
-        http.authorizeRequests()
-                .antMatchers("/favicon.ico", "/css/**", "/js/**", "/captcha.jpg").permitAll()
-                .antMatchers("/user/**").hasRole("ADMIN")//Any URL that starts with "/admin/" will be restricted to users who have the role "ROLE_ADMIN". You will notice that since we are invoking the hasRole method we do not need to specify the "ROLE_" prefix.
-                .antMatchers("/db/**").access("hasRole('ROLE_ADMIN')")
-                .anyRequest().fullyAuthenticated()//Any URL that has not already been matched on only requires that the user be authenticated
-                .and()
-                .addFilterBefore(loginAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .formLogin().permitAll().loginPage("/login").defaultSuccessUrl("/home")
+        http.formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl(ApiVersion.WEB_V1 + "/todo")
                 .and()
                 .logout()
                 .invalidateHttpSession(true)//用户的HTTP session将会在退出时被失效。在一些场景下，这是必要的（如用户拥有一个购物车时）
                 .clearAuthentication(true)
                 .logoutSuccessUrl("/login")//用户在退出后将要被重定向到的URL。默认为/。将会通过HttpServletResponse.redirect来处理。
-        ;
+                .and()
+                .authorizeRequests()
+                .antMatchers("/web/jars/**", "/favicon.ico", "/css/**", "/js/**", "login", "/signin/**", "/signup")
+                .permitAll()
+                .anyRequest().authenticated();
     }
-
 
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {

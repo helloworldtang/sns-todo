@@ -12,6 +12,7 @@
         <module>sns-manager</module>
         <module>sns-dao</module>
         <module>sns-domain</module>
+        <module>sns-core</module>
     </modules>
     <packaging>pom</packaging>
     <name>sns-todo</name>
@@ -53,6 +54,12 @@
             <dependency>
                 <groupId>com.tangcheng.zhiban.sns.todo</groupId>
                 <artifactId>sns-domain</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tangcheng.zhiban.sns.todo</groupId>
+                <artifactId>sns-core</artifactId>
                 <version>1.0.0</version>
             </dependency>
 

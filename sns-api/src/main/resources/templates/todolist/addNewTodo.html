@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<head>
+    <meta charset="UTF-8">
+    <title>AddNewTodo</title>
+</head>
+<body>
+
+<form name="form" th:action="@{/web/v1/user/todo}" method="post">
+    <div class="panel panel-body login-form">
+        <div class="form-group has-feedback has-feedback-left">
+            <input type="text" id="digest" name="digest" class="form-control"
+                   placeholder="digest">
+            <div class="form-control-feedback">
+                <i class="icon-lock2 text-muted"></i>
+            </div>
+        </div>
+
+        <div class="form-group has-feedback has-feedback-left">
+            <input type="text" class="form-control" name="content" placeholder="content"/>
+            <div class="form-control-feedback">
+                <i class="icon-lock2 text-muted"></i>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Add
+                <i class="icon-circle-right2 position-right"></i></button>
+        </div>
+    </div>
+</form>
+
+
+</body>
+</html>
