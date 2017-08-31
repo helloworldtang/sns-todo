@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="zh"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/default">
@@ -35,8 +35,15 @@
 
 <script layout:fragment="script">
     function finish() {
-        $.post("/web/v1/user/todo/" + $('#todoId').text(), {
-                _csrf: $('meta[name=_csrf]').attr('content') //csrf
+        $.ajax({
+                type: 'PUT',
+                url: "/api/v1/user/todo/" + $('#todoId').text(),
+                data: {
+                    _csrf: $('meta[name=_csrf]').attr('content') //csrf
+                },
+                success: function () {
+                    window.location.href = "/web/v1/user/todo?finished=false";
+                }
             }
         );
     }
