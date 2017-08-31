@@ -34,6 +34,17 @@ public class TodoDetailServiceImpl implements TodoDetailService {
 
     @Override
     public PageData<TodoDetailResVO> list(TodoDetailListReqVO todoDetailListReqVO) {
+
+        List<TodoDetailResVO> detailResVOList = listWeb(todoDetailListReqVO);
+        PageData<TodoDetailResVO> pageData = new PageData<>(detailResVOList, todoDetailListReqVO);
+        if (todoDetailListReqVO.getNeedTotal()) {
+            pageData.setTotal(todoDetailRepository.count(todoDetailListReqVO.getFinished()));
+        }
+        return pageData;
+    }
+
+    @Override
+    public List<TodoDetailResVO> listWeb(TodoDetailListReqVO todoDetailListReqVO) {
         Boolean finished = todoDetailListReqVO.getFinished();
         List<SnsTodoDetailDO> detailDOList = todoDetailRepository.list(finished, todoDetailListReqVO.getPageNum(), todoDetailListReqVO.getPageSize());
 
@@ -44,14 +55,8 @@ public class TodoDetailServiceImpl implements TodoDetailService {
             BeanUtils.copyProperties(snsTodoDetailDO, resVO);
             detailResVOList.add(resVO);
         }
-
-        PageData<TodoDetailResVO> pageData = new PageData<>(detailResVOList, todoDetailListReqVO);
-        if (todoDetailListReqVO.getNeedTotal()) {
-            pageData.setTotal(todoDetailRepository.count(finished));
-        }
-        return pageData;
+        return detailResVOList;
     }
-
 
 
 }

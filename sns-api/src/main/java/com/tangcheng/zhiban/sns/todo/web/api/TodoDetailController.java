@@ -19,7 +19,7 @@ import javax.validation.Valid;
  */
 @Api(tags = "TodoContent", description = "todoContent")
 @RestController
-@RequestMapping(ApiVersion.V1 + "/todo")
+@RequestMapping(ApiVersion.API_V1 + "/todo")
 public class TodoDetailController {
 
     @Autowired
