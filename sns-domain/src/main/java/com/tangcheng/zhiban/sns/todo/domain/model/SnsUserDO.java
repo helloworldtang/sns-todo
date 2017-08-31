@@ -3,23 +3,35 @@ package com.tangcheng.zhiban.sns.todo.domain.model;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "sns-user")
+@Table(name = "sns_user")
 public class SnsUserDO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Byte type;
-
     private String username;
-
-    private String icon;
 
     private String password;
 
+    private String email;
+
+    private String icon;
+
     private String salt;
 
-    private Byte status;
+    private Byte type;
+
+    @Column(name = "account_enabled")
+    private Boolean accountEnabled;
+
+    @Column(name = "account_expired")
+    private Date accountExpired;
+
+    @Column(name = "credentials_expired")
+    private Date credentialsExpired;
+
+    @Column(name = "account_locked")
+    private Boolean accountLocked;
 
     @Column(name = "create_ip")
     private String createIp;
@@ -60,20 +72,6 @@ public class SnsUserDO {
     }
 
     /**
-     * @return type
-     */
-    public Byte getType() {
-        return type;
-    }
-
-    /**
-     * @param type
-     */
-    public void setType(Byte type) {
-        this.type = type;
-    }
-
-    /**
      * @return username
      */
     public String getUsername() {
@@ -85,20 +83,6 @@ public class SnsUserDO {
      */
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    /**
-     * @return icon
-     */
-    public String getIcon() {
-        return icon;
-    }
-
-    /**
-     * @param icon
-     */
-    public void setIcon(String icon) {
-        this.icon = icon;
     }
 
     /**
@@ -116,6 +100,34 @@ public class SnsUserDO {
     }
 
     /**
+     * @return email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return icon
+     */
+    public String getIcon() {
+        return icon;
+    }
+
+    /**
+     * @param icon
+     */
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    /**
      * @return salt
      */
     public String getSalt() {
@@ -130,17 +142,73 @@ public class SnsUserDO {
     }
 
     /**
-     * @return status
+     * @return type
      */
-    public Byte getStatus() {
-        return status;
+    public Byte getType() {
+        return type;
     }
 
     /**
-     * @param status
+     * @param type
      */
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setType(Byte type) {
+        this.type = type;
+    }
+
+    /**
+     * @return account_enabled
+     */
+    public Boolean getAccountEnabled() {
+        return accountEnabled;
+    }
+
+    /**
+     * @param accountEnabled
+     */
+    public void setAccountEnabled(Boolean accountEnabled) {
+        this.accountEnabled = accountEnabled;
+    }
+
+    /**
+     * @return account_expired
+     */
+    public Date getAccountExpired() {
+        return accountExpired;
+    }
+
+    /**
+     * @param accountExpired
+     */
+    public void setAccountExpired(Date accountExpired) {
+        this.accountExpired = accountExpired;
+    }
+
+    /**
+     * @return credentials_expired
+     */
+    public Date getCredentialsExpired() {
+        return credentialsExpired;
+    }
+
+    /**
+     * @param credentialsExpired
+     */
+    public void setCredentialsExpired(Date credentialsExpired) {
+        this.credentialsExpired = credentialsExpired;
+    }
+
+    /**
+     * @return account_locked
+     */
+    public Boolean getAccountLocked() {
+        return accountLocked;
+    }
+
+    /**
+     * @param accountLocked
+     */
+    public void setAccountLocked(Boolean accountLocked) {
+        this.accountLocked = accountLocked;
     }
 
     /**

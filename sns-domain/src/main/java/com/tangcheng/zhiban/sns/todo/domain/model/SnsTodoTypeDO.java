@@ -3,7 +3,7 @@ package com.tangcheng.zhiban.sns.todo.domain.model;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "sns-todo-type")
+@Table(name = "sns_todo_type")
 public class SnsTodoTypeDO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
