@@ -7,7 +7,8 @@ import java.util.Date;
  */
 public class TodoDetailResVO {
     private Long id;
-    private Long type;
+    private Long categoryId;
+    private Integer weight;
     private String digest;
     private String content;
     private Boolean finished;
@@ -21,12 +22,20 @@ public class TodoDetailResVO {
         this.id = id;
     }
 
-    public Long getType() {
-        return type;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setType(Long type) {
-        this.type = type;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     public String getDigest() {

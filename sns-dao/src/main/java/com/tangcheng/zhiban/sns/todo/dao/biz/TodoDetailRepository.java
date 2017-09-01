@@ -61,7 +61,7 @@ public class TodoDetailRepository {
         }
         criteria.andStatusEqualTo(Flag.UniversalFlag.NORMAL);
 
-        example.setOrderByClause(" type desc,create_time desc ");
+        example.setOrderByClause(" weight desc,create_time desc ");
 
         return snsTodoDetailDOMapper.selectByExampleAndRowBounds(example, new RowBounds(pageNum, pageSize));
     }
@@ -86,8 +86,9 @@ public class TodoDetailRepository {
 
     public void update(Long todoId, TodoDetailReqVO todoDetailReqVO) {
         SnsTodoDetailDO record = new SnsTodoDetailDO();
-        record.setDigest(todoDetailReqVO.getDigest());
-        record.setContent(todoDetailReqVO.getContent());
+        BeanUtils.copyProperties(todoDetailReqVO, record);
+        record.setUpdateTime(new Date());
+        record.setUpdateIp(NetworkUtil.getRemoteIp());
 
         SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
         example.createCriteria().andIdEqualTo(todoId)

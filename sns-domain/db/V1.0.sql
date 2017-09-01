@@ -24,9 +24,10 @@ CREATE TABLE `sns_todo_detail` (
   `id` bigint(19) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(19) unsigned DEFAULT NULL,
   `user_name` varchar(190) NOT NULL,
-  `type` bigint(19) NOT NULL,
-  `digest` varchar(200) NOT NULL,
-  `content` text,
+  `category_id` bigint(19) NOT NULL,
+  `digest` varchar(200) DEFAULT NULL,
+  `content` text NOT NULL,
+  `weight` int(11) unsigned NOT NULL,
   `finished` tinyint(1) NOT NULL,
   `create_ip` varchar(50) DEFAULT NULL,
   `update_ip` varchar(50) DEFAULT NULL,
@@ -44,8 +45,8 @@ CREATE TABLE `sns_todo_detail` (
 -- ----------------------------
 -- Table structure for sns_todo_type
 -- ----------------------------
-DROP TABLE IF EXISTS `sns_todo_type`;
-CREATE TABLE `sns_todo_type` (
+DROP TABLE IF EXISTS `sns_todo_category`;
+CREATE TABLE `sns_todo_category` (
   `id` bigint(19) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `detail` varchar(100) DEFAULT NULL,

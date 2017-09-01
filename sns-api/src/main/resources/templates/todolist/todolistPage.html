@@ -17,7 +17,8 @@
         <ul class="collection" th:each="item:${list}">
             <li class="collection-item">
                 ID: <span id="todoId" th:text="${item.id}">id</span><br/>
-                type: <span th:text="${item.type}">type</span><br/>
+                categoryId: <span th:text="${item.categoryId}">categoryId</span><br/>
+                weight: <span th:text="${item.weight}">weight</span><br/>
                 digest: <span th:text="${item.digest}">digest</span><br/>
                 content: <span th:text="${item.content}">content</span><br/>
                 finished: <span th:text="${item.finished}">finished</span><br/>

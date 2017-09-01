@@ -2,6 +2,7 @@ package com.tangcheng.zhiban.sns.todo.domain.req;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -10,8 +11,10 @@ import javax.validation.constraints.Size;
  */
 public class TodoDetailReqVO {
 
-    @NotNull
-    private Long type = 1L;
+    private Long categoryId=1L;
+
+    @Min(1)
+    private Integer weight=1;
 
     @NotEmpty
     @Size(min = 2, max = 200)
@@ -20,12 +23,20 @@ public class TodoDetailReqVO {
     @Size(max = 1000)
     private String content;
 
-    public Long getType() {
-        return type;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setType(Long type) {
-        this.type = type;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     public String getDigest() {

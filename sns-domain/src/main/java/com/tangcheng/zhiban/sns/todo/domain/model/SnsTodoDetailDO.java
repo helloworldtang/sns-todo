@@ -15,11 +15,12 @@ public class SnsTodoDetailDO {
     @Column(name = "user_name")
     private String userName;
 
-    private Long type;
+    @Column(name = "category_id")
+    private Long categoryId;
 
     private String digest;
 
-    private String content;
+    private Integer weight;
 
     private Boolean finished;
 
@@ -39,6 +40,8 @@ public class SnsTodoDetailDO {
 
     @Column(name = "update_time")
     private Date updateTime;
+
+    private String content;
 
     /**
      * @return id
@@ -83,17 +86,17 @@ public class SnsTodoDetailDO {
     }
 
     /**
-     * @return type
+     * @return category_id
      */
-    public Long getType() {
-        return type;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
     /**
-     * @param type
+     * @param categoryId
      */
-    public void setType(Long type) {
-        this.type = type;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     /**
@@ -111,17 +114,17 @@ public class SnsTodoDetailDO {
     }
 
     /**
-     * @return content
+     * @return weight
      */
-    public String getContent() {
-        return content;
+    public Integer getWeight() {
+        return weight;
     }
 
     /**
-     * @param content
+     * @param weight
      */
-    public void setContent(String content) {
-        this.content = content;
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     /**
@@ -220,5 +223,19 @@ public class SnsTodoDetailDO {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    /**
+     * @return content
+     */
+    public String getContent() {
+        return content;
+    }
+
+    /**
+     * @param content
+     */
+    public void setContent(String content) {
+        this.content = content;
     }
 }

@@ -7,13 +7,5 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface SnsTodoDetailDOMapper extends MyMapper<SnsTodoDetailDO> {
-    int countByExample(SnsTodoDetailDOExample example);
 
-    int deleteByExample(SnsTodoDetailDOExample example);
-
-    List<SnsTodoDetailDO> selectByExample(SnsTodoDetailDOExample example);
-
-    int updateByExampleSelective(@Param("record") SnsTodoDetailDO record, @Param("example") SnsTodoDetailDOExample example);
-
-    int updateByExample(@Param("record") SnsTodoDetailDO record, @Param("example") SnsTodoDetailDOExample example);
 }

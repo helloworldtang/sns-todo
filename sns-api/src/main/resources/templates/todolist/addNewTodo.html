@@ -31,6 +31,32 @@
 
         <div class="form-group center-block">
             <div class="input-field col s6">
+                <label for="categoryId">categoryId</label>
+
+                <input type="text"
+                       id="categoryId"
+                       th:value="${item!=null}?${item.categoryId}:1"
+                       name="categoryId"
+                       class="form-control"
+                       placeholder="categoryId">
+            </div>
+        </div>
+
+        <div class="form-group center-block">
+            <div class="input-field col s6">
+                <label for="weight">Weight(Desc)</label>
+
+                <input type="text"
+                       id="weight"
+                       th:value="${item!=null}?${item.weight}:1"
+                       name="weight"
+                       class="form-control"
+                       placeholder="digest">
+            </div>
+        </div>
+
+        <div class="form-group center-block">
+            <div class="input-field col s6">
                 <label for="digest"><i class="mdi-action-stars">Digest(required)</i></label>
 
                 <input type="text"
