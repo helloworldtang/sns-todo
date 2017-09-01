@@ -30,9 +30,10 @@
 <div sec:authorize="isAuthenticated()">
     You are logged as <b sec:authentication="name"/> with roles <span sec:authentication="authorities"/>
     -
-    <form th:action="@{/logout}" method="post" style="display: inline-block">
-        <input type="submit" value="Sign Out"/>
-    </form>
+
+    <a onclick="signOut()">
+        Sign Out
+    </a>
     ||
     <a th:href="@{/web/v1/user/profile/change-pwd}">ChangePwd</a>
     <hr/>
@@ -42,10 +43,17 @@
     <p>Page content goes here</p>
 </section>
 
+<form id="signOut" th:action="@{/logout}" method="post">
+</form>
+
 <script src="/webjars/jquery/2.1.4/jquery.js"></script>
 <script src="/webjars/materializecss/0.96.0/js/materialize.js"></script>
 <script type="text/javascript">
     $(".dropdown-button").dropdown();
+
+    function signOut() {
+        $("#signOut").submit();
+    }
 </script>
 <script type="text/javascript" layout:fragment="script">
 </script>
