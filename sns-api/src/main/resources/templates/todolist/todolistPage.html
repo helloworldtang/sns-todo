@@ -5,14 +5,13 @@
       layout:decorator="layout/default">
 <head>
     <title>TodoList</title>
+    <link href="/webjars/materializecss/0.96.0/css/materialize.css" type="text/css" rel="stylesheet"
+          media="screen,projection"/>
 </head>
+
 <body>
-
-
 <div class="row" layout:fragment="content">
     <a id="addNew" th:href="@{/web/v1/user/todo/add}">add new Todo</a>
-
-
     <h4 class="indigo-text center">Todolist Detail</h4>
     <div class="row">
         <ul class="collection" th:each="item:${list}">
@@ -23,9 +22,19 @@
                 content: <span th:text="${item.content}">content</span><br/>
                 finished: <span th:text="${item.finished}">finished</span><br/>
                 createTime: <span th:text="${#dates.format(item.createTime,'yyyy/MM/dd HH:mm')}">createTime</span><br/>
-                <a onclick="finish()">
-                    完成
+
+                <a class="doneTodo" th:id="${item.id}">
+                    <i class="mdi-action-done">Done</i>
                 </a>
+                <i class="mdi-action-tab"></i>
+                <a th:href="@{/web/v1/user/todo/{id}/modify(id=${item.id})}">
+                    <i class="mdi-notification-system-update">Modify</i>
+                </a>
+                <i class="mdi-action-tab"></i>
+                <a class="deleteTodo" th:id="${item.id}">
+                    <i class="mdi-action-delete">Delete</i>
+                </a>
+
             </li>
         </ul>
 
@@ -34,19 +43,45 @@
 </div>
 
 <script layout:fragment="script">
-    function finish() {
-        $.ajax({
-                type: 'PUT',
-                url: "/api/v1/user/todo/" + $('#todoId').text(),
-                data: {
-                    _csrf: $('meta[name=_csrf]').attr('content') //csrf
-                },
-                success: function () {
-                    window.location.href = "/web/v1/user/todo?finished=false";
+    $(function () {
+        $(".doneTodo").click(function () {
+
+            var todoId = $(this).attr("id");
+            console.log(todoId)
+            $.ajax({
+                    type: 'PUT',
+                    url: "/api/v1/user/todo/" + todoId,
+                    data: {
+                        _csrf: $('meta[name=_csrf]').attr('content') //csrf
+                    },
+                    success: function () {
+                        window.location.href = "/web/v1/user/todo?finished=false";
+                    }
                 }
-            }
-        );
-    }
+            );
+
+        })
+
+
+        $(".deleteTodo").click(function () {
+            var todoId = $(this).attr("id");
+            console.log(todoId)
+            $.ajax({
+                    type: 'DELETE',
+                    url: "/api/v1/user/todo/" + todoId,
+                    data: {
+                        _csrf: $('meta[name=_csrf]').attr('content') //csrf
+                    },
+                    success: function () {
+                        window.location.href = "/web/v1/user/todo?finished=false";
+                    }
+                }
+            );
+
+        })
+
+
+    });
 </script>
 
 </body>

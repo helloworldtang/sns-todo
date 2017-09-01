@@ -79,4 +79,32 @@ public class TodoDetailRepository {
 
         return snsTodoDetailDOMapper.selectCountByExample(example);
     }
+
+    public SnsTodoDetailDO get(Long todoId) {
+        return snsTodoDetailDOMapper.selectByPrimaryKey(todoId);
+    }
+
+    public void update(Long todoId, TodoDetailReqVO todoDetailReqVO) {
+        SnsTodoDetailDO record = new SnsTodoDetailDO();
+        record.setDigest(todoDetailReqVO.getDigest());
+        record.setContent(todoDetailReqVO.getContent());
+
+        SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
+        example.createCriteria().andIdEqualTo(todoId)
+                .andStatusEqualTo(Flag.UniversalFlag.NORMAL)
+                .andFinishedEqualTo(false);
+        snsTodoDetailDOMapper.updateByExampleSelective(record, example);
+    }
+
+
+    public void remove(Long todoId) {
+        SnsTodoDetailDO record = new SnsTodoDetailDO();
+        record.setStatus(Flag.UniversalFlag.DELETE);
+        record.setUpdateTime(new Date());
+        record.setUpdateIp(NetworkUtil.getRemoteIp());
+
+        SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
+        example.createCriteria().andIdEqualTo(todoId);
+        snsTodoDetailDOMapper.updateByExampleSelective(record, example);
+    }
 }

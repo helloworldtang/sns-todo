@@ -58,5 +58,26 @@ public class TodoDetailServiceImpl implements TodoDetailService {
         return detailResVOList;
     }
 
+    @Override
+    public TodoDetailResVO get(Long id) {
+        SnsTodoDetailDO snsTodoDetailDO = todoDetailRepository.get(id);
+        if (snsTodoDetailDO == null) {
+            return null;
+        }
+        TodoDetailResVO resVO = new TodoDetailResVO();
+        BeanUtils.copyProperties(snsTodoDetailDO, resVO);
+        return resVO;
+    }
+
+    @Override
+    public void update(Long todoId, TodoDetailReqVO todoDetailReqVO) {
+        todoDetailRepository.update(todoId, todoDetailReqVO);
+    }
+
+    @Override
+    public void remove(Long id) {
+        todoDetailRepository.remove(id);
+    }
+
 
 }

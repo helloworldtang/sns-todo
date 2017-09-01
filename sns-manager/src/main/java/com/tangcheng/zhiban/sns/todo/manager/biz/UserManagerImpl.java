@@ -32,10 +32,11 @@ public class UserManagerImpl implements UserManager, CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        CustomUserDetails userDetails = userRepository.getUser("admin");
+        String username = "todoList";
+        CustomUserDetails userDetails = userRepository.getUser(username);
         if (userDetails == null) {
             SnsUserDO snsUserDO = new SnsUserDO();
-            snsUserDO.setUsername("admin");
+            snsUserDO.setUsername(username);
             snsUserDO.setPassword(passwordEncoder.encode("admin123456"));
             snsUserDO.setEmail("793059909@qq.com");
             snsUserDO.setCreateIp(NetworkUtil.getRemoteIp());

@@ -19,4 +19,10 @@ public interface TodoDetailService {
     PageData<TodoDetailResVO> list(TodoDetailListReqVO todoDetailListReqVO);
 
     List<TodoDetailResVO> listWeb(TodoDetailListReqVO todoDetailListReqVO);
+
+    TodoDetailResVO get(Long id);
+
+    void update(Long todoId, TodoDetailReqVO todoDetailReqVO);
+
+    void remove(Long id);
 }

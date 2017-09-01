@@ -9,28 +9,47 @@
 </head>
 <body>
 <div class="row" layout:fragment="content">
-    <form name="form" th:action="@{/web/v1/user/todo}" method="post">
-        <div class="panel panel-body login-form">
-            <div class="form-group has-feedback has-feedback-left">
-                <input type="text" id="digest" name="digest" class="form-control"
-                       placeholder="digest">
-                <div class="form-control-feedback">
-                    <i class="icon-lock2 text-muted"></i>
-                </div>
-            </div>
+    <a id="addNew" th:href="@{/web/v1/user/todo}">TodoList</a>
 
-            <div class="form-group has-feedback has-feedback-left">
-                <input type="text" class="form-control" name="content" placeholder="content"/>
-                <div class="form-control-feedback">
-                    <i class="icon-lock2 text-muted"></i>
-                </div>
-            </div>
+    <form name="form"
+          class="center-align"
+          th:action="${url}"
+          method="post">
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Add
-                    <i class="icon-circle-right2 position-right"></i></button>
+        <div class="form-group center-block">
+            <div class="input-field col s6">
+                <label for="content">Content</label>
+
+                <input type="text"
+                       id="content"
+                       th:value="${item!=null}?${item.content}"
+                       class="form-control"
+                       name="content"
+                       placeholder="content"/>
             </div>
         </div>
+
+        <div class="form-group center-block">
+            <div class="input-field col s6">
+                <label for="digest"><i class="mdi-action-stars">Digest(required)</i></label>
+
+                <input type="text"
+                       id="digest"
+                       th:value="${item!=null}?${item.digest}"
+                       name="digest"
+                       class="form-control"
+                       placeholder="digest">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit"
+                    class="btn btn-primary btn-block"
+                    th:text="${btnShowValue}">
+                Add
+            </button>
+        </div>
+
     </form>
 </div>
 

@@ -30,20 +30,47 @@ public class TodoListController {
     }
 
     @GetMapping("add")
-    public String add() {
+    public String add(Model model) {
+        model.addAttribute("url", ApiVersion.WEB_V1 + "/user/todo");
+        model.addAttribute("btnShowValue", "Add");
         return "todolist/addNewTodo";
+    }
+
+    @PostMapping
+    public String save(@Valid TodoDetailReqVO todoDetailReqVO) {
+        todoDetailService.save(todoDetailReqVO);
+        return "redirect:" + ApiVersion.WEB_V1 + "/user/todo?finished=false";
+    }
+
+
+    @GetMapping("{id}/modify")
+    public String update(@PathVariable Long id, Model model) {
+        TodoDetailResVO detailResVO = todoDetailService.get(id);
+        if (detailResVO == null) {
+            return "redirect:" + ApiVersion.WEB_V1 + "/user/todo?finished=false";
+        }
+
+        model.addAttribute("url", ApiVersion.WEB_V1 + "/user/todo/" + id + "/modify");
+        model.addAttribute("item", detailResVO);
+        model.addAttribute("btnShowValue", "Modify");
+        return "todolist/addNewTodo";
+    }
+
+    @PostMapping("{id}/modify")
+    public String update(@PathVariable Long id,
+                         @Valid TodoDetailReqVO todoDetailReqVO,
+                         Model model) {
+        todoDetailService.update(id, todoDetailReqVO);
+
+        TodoDetailListReqVO todoDetailListReqVO = new TodoDetailListReqVO();
+        todoDetailListReqVO.setFinished(false);
+        return listTodoList(todoDetailListReqVO, model);
     }
 
 
     @PostMapping("{id}")
     public void finish(@PathVariable Long id) {
         todoDetailService.finish(id);
-    }
-
-    @PostMapping
-    public String save(@Valid TodoDetailReqVO todoDetailReqVO) {
-        todoDetailService.save(todoDetailReqVO);
-        return "redirect:"+ApiVersion.WEB_V1 + "/user/todo?finished=false";
     }
 
 

@@ -8,7 +8,7 @@ public class Flag {
     public static class UniversalFlag {
         public static final byte NORMAL = 0;
         public static final byte PENDING = -1;
-        public static final byte DELETE = 0;
+        public static final byte DELETE = -2;
 
     }
 

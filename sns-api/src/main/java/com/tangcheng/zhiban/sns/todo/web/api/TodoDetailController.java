@@ -36,6 +36,13 @@ public class TodoDetailController {
         return new ResultData<>(GlobalCode.SUCCESS);
     }
 
+
+    @DeleteMapping("{id}")
+    public ResultData<String> remove(@PathVariable Long id) {
+        todoDetailService.remove(id);
+        return new ResultData<>(GlobalCode.SUCCESS);
+    }
+
     @GetMapping
     public ResultData<PageData<TodoDetailResVO>> list(TodoDetailListReqVO todoDetailListReqVO) {
         PageData<TodoDetailResVO> pageData = todoDetailService.list(todoDetailListReqVO);
