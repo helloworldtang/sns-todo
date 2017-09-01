@@ -5,12 +5,11 @@ import com.tangcheng.zhiban.sns.todo.service.biz.UserService;
 import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +24,7 @@ import java.security.Principal;
 public class UserController {
 
     @Autowired
-    private SecurityContextLogoutHandler securityContextLogoutHandler;
+    private LogoutHandler logoutHandler;
 
     @Autowired
     private UserService userService;
@@ -34,14 +33,13 @@ public class UserController {
     public String changePwd(HttpServletRequest request,
                             HttpServletResponse response,
                             Principal principal,
-                            @Valid ChangePwdReqVO changePwdReqVO,
-                            RedirectAttributes redirectAttributes) {
+                            @Valid ChangePwdReqVO changePwdReqVO) {
         int count = userService.changePwd(principal.getName(), changePwdReqVO);
         if (count == 1) {
-            securityContextLogoutHandler.logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+            logoutHandler.logout(request, response, SecurityContextHolder.getContext().getAuthentication());
             return "redirect:/login";
         }
-        return "redirect:/login?error";
+        return "profile/changePwdPage";
     }
 
     @GetMapping("change-pwd")

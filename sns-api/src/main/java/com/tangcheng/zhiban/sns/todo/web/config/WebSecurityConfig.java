@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
 import javax.security.auth.login.AccountExpiredException;
 import java.util.HashMap;
@@ -20,6 +22,11 @@ import java.util.Map;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    public LogoutHandler logoutHandler(){
+        return new SecurityContextLogoutHandler();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
