@@ -42,13 +42,14 @@
                     <label for="remember-me">Remember me</label>
                 </div>
             </div>
+
             <div class="row center">
-                <div class="input-field col s12 indigo">
-                    <a onclick="login()" class="indigo waves-effect waves-light">
-                        <i class="mdi-content-send right ">Login</i>
-                    </a>
-                </div>
+                <button class="btn indigo waves-effect waves-light" type="submit">
+                    <i class="mdi-content-send right ">Login</i>
+                </button>
             </div>
+
+
             <div class="row">
                 <div class="input-field col s6 m6 l6">
                     <p class="margin medium-small"><a href="page-register.html">Register Now!</a></p>
@@ -68,12 +69,6 @@
             </div>
         </form>
     </div>
-
-    <script layout:fragment="script">
-        function login() {
-            $("#login").submit();
-        }
-    </script>
 
 </div>
 </body>
