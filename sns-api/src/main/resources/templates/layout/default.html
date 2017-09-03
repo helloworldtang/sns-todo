@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
@@ -21,29 +21,36 @@
 <nav>
     <div class="nav-wrapper indigo">
         <ul class="right">
-            <li><a class="dropdown-button" href="#!" data-activates="lang-dropdown"><i
-                    class="mdi-action-language right"></i> Lang</a></li>
+            <li>
+                <a class="dropdown-button" href="#!" data-activates="lang-dropdown">
+                    <i class="mdi-action-language right">Lang</i>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
-
-<div sec:authorize="isAuthenticated()">
-    You are logged as <b sec:authentication="name"/> with roles <span sec:authentication="authorities"/>
-    -
-
-    <a onclick="signOut()">
-        Sign Out
+<ul id="userManager-dropdown" class="dropdown-content">
+    <li class="nav-link"><a onclick="logout()">Logout</a></li>
+    <li class="nav-link"><a th:href="@{/web/v1/user/profile/change-pwd}">ChangePwd</a></li>
+</ul>
+<div class="right" sec:authorize="isAuthenticated()">
+    <a class="mdi-action-home" th:href="@{/}">Home</a>
+    You are logged as
+    <a href="#!"
+       class="dropdown-button nav-link mdi-action-account-circle"
+       data-activates="userManager-dropdown"
+       sec:authentication="name">
+        name
     </a>
-    ||
-    <a th:href="@{/web/v1/user/profile/change-pwd}">ChangePwd</a>
-    <hr/>
+    with roles
+    <span sec:authentication="authorities">roles</span>
 </div>
 
 <section layout:fragment="content">
     <p>Page content goes here</p>
 </section>
 
-<form id="signOut" th:action="@{/logout}" method="post">
+<form id="logout" th:action="@{/logout}" method="post">
 </form>
 
 <script src="/webjars/jquery/2.1.4/jquery.js"></script>
@@ -51,8 +58,8 @@
 <script type="text/javascript">
     $(".dropdown-button").dropdown();
 
-    function signOut() {
-        $("#signOut").submit();
+    function logout() {
+        $("#logout").submit();
     }
 </script>
 <script type="text/javascript" layout:fragment="script">
