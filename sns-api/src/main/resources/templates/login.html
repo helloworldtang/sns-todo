@@ -6,45 +6,75 @@
     <title>Login</title>
 </head>
 <body>
-<div class="section no-pad-bot" layout:fragment="content">
-    <div class="container">
-
-        <h2 class="header center orange-text">Login</h2>
-
-        <div class="row">
-            <div id="errorMessage" class="card-panel red lighten-2" th:if="${param.error}">
-                <span class="card-title">Invalid user name or password</span>
+<div class="section container" layout:fragment="content">
+    <div id="errorMessage" class="card-panel red lighten-2" th:if="${param.error}">
+        <span class="card-title">Invalid user name or password</span>
+    </div>
+    <div class="col s12 z-depth-4 card-panel">
+        <form id="login"
+              class="login-form"
+              th:action="@{/login}"
+              method="post">
+            <div class="row">
+                <div class="input-field col s12 center">
+                    <p class="center login-form-text">
+                    <h2 class="circle responsive-img valign profile-image-login header center orange-text">Login</h2>
+                    </p>
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="input-field col s12">
+                    <i class="mdi-social-person-outline prefix"></i>
+                    <input id="username" name="username" type="text" class="validate"/>
+                    <label for="username" class="center-align">Username</label>
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="input-field col s12">
+                    <i class="mdi-action-lock-outline prefix"></i>
+                    <input id="password" name="password" type="password" class="validate"/>
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12 l12  login-text">
+                    <input type="checkbox" id="remember-me"/>
+                    <label for="remember-me">Remember me</label>
+                </div>
+            </div>
+            <div class="row center">
+                <div class="input-field col s12 indigo">
+                    <a onclick="login()" class="indigo waves-effect waves-light">
+                        <i class="mdi-content-send right ">Login</i>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6 m6 l6">
+                    <p class="margin medium-small"><a href="page-register.html">Register Now!</a></p>
+                </div>
+                <div class="input-field col s6 m6 l6">
+                    <p class="margin right-align medium-small"><a href="page-forgot-password.html">Forgot password ?</a>
+                    </p>
+                </div>
             </div>
 
-            <form class="col s12" th:action="@{/login}" method="post">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="username" name="username" type="text" class="validate"/>
-                        <label for="username">Username</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="password" name="password" type="password" class="validate"/>
-                        <label for="password">Password</label>
-                    </div>
-                </div>
-                <div class="row center">
-                    <button class="btn indigo waves-effect waves-light" type="submit" name="action">Submit
-                        <i class="mdi-content-send right"></i>
-                    </button>
-                </div>
-            </form>
-
-            <form th:action="@{/signin/twitter}" method="POST" class="center">
-                <div class="row">
-                    <button class="btn indigo" name="twitterSignin" type="submit">Connect with Twitter
-                        <i class="mdi-social-group-add left"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
+        </form>
+        <form th:action="@{/signin/twitter}" method="POST" class="center">
+            <div class="row">
+                <button class="btn indigo" name="twitterSignin" type="submit">Connect with Twitter
+                    <i class="mdi-social-group-add left"></i>
+                </button>
+            </div>
+        </form>
     </div>
+
+    <script layout:fragment="script">
+        function login() {
+            $("#login").submit();
+        }
+    </script>
+
 </div>
 </body>
 </html>
