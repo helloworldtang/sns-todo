@@ -11,6 +11,7 @@
     <result column="category_id" property="categoryId" jdbcType="BIGINT" />
     <result column="digest" property="digest" jdbcType="VARCHAR" />
     <result column="weight" property="weight" jdbcType="INTEGER" />
+    <result column="expect_finish_time" property="expectFinishTime" jdbcType="TIMESTAMP" />
     <result column="finished" property="finished" jdbcType="BIT" />
     <result column="create_ip" property="createIp" jdbcType="VARCHAR" />
     <result column="update_ip" property="updateIp" jdbcType="VARCHAR" />

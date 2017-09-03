@@ -512,6 +512,66 @@ public class SnsTodoDetailDOExample {
             return (Criteria) this;
         }
 
+        public Criteria andExpectFinishTimeIsNull() {
+            addCriterion("expect_finish_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectFinishTimeIsNotNull() {
+            addCriterion("expect_finish_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectFinishTimeEqualTo(Date value) {
+            addCriterion("expect_finish_time =", value, "expectFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectFinishTimeNotEqualTo(Date value) {
+            addCriterion("expect_finish_time <>", value, "expectFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectFinishTimeGreaterThan(Date value) {
+            addCriterion("expect_finish_time >", value, "expectFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectFinishTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("expect_finish_time >=", value, "expectFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectFinishTimeLessThan(Date value) {
+            addCriterion("expect_finish_time <", value, "expectFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectFinishTimeLessThanOrEqualTo(Date value) {
+            addCriterion("expect_finish_time <=", value, "expectFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectFinishTimeIn(List<Date> values) {
+            addCriterion("expect_finish_time in", values, "expectFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectFinishTimeNotIn(List<Date> values) {
+            addCriterion("expect_finish_time not in", values, "expectFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectFinishTimeBetween(Date value1, Date value2) {
+            addCriterion("expect_finish_time between", value1, value2, "expectFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectFinishTimeNotBetween(Date value1, Date value2) {
+            addCriterion("expect_finish_time not between", value1, value2, "expectFinishTime");
+            return (Criteria) this;
+        }
+
         public Criteria andFinishedIsNull() {
             addCriterion("finished is null");
             return (Criteria) this;

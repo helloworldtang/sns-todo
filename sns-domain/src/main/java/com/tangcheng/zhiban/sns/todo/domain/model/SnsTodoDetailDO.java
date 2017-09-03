@@ -22,6 +22,9 @@ public class SnsTodoDetailDO {
 
     private Integer weight;
 
+    @Column(name = "expect_finish_time")
+    private Date expectFinishTime;
+
     private Boolean finished;
 
     @Column(name = "create_ip")
@@ -131,6 +134,20 @@ public class SnsTodoDetailDO {
      */
     public void setWeight(Integer weight) {
         this.weight = weight;
+    }
+
+    /**
+     * @return expect_finish_time
+     */
+    public Date getExpectFinishTime() {
+        return expectFinishTime;
+    }
+
+    /**
+     * @param expectFinishTime
+     */
+    public void setExpectFinishTime(Date expectFinishTime) {
+        this.expectFinishTime = expectFinishTime;
     }
 
     /**
