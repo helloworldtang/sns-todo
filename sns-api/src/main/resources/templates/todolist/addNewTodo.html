@@ -4,13 +4,11 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/default">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>AddNewTodo</title>
 </head>
 <body>
 <div class="row" layout:fragment="content">
-    <a th:href="/web/v1/user/todo?finished=false">TodoList</a>
-
     <form name="form"
           class="center-align"
           th:action="${url}"
@@ -38,7 +36,7 @@
                        th:value="${item!=null}?${item.categoryId}:1"
                        name="categoryId"
                        class="form-control"
-                       placeholder="categoryId">
+                       placeholder="categoryId"/>
             </div>
         </div>
 
@@ -51,7 +49,7 @@
                        th:value="${item!=null}?${item.weight}:1"
                        name="weight"
                        class="form-control"
-                       placeholder="digest">
+                       placeholder="digest"/>
             </div>
         </div>
 
@@ -64,15 +62,15 @@
                        th:value="${item!=null}?${item.digest}"
                        name="digest"
                        class="form-control"
-                       placeholder="digest">
+                       placeholder="digest"/>
             </div>
         </div>
 
         <div class="form-group">
             <button type="submit"
-                    class="btn btn-primary btn-block"
+                    class="btn btn-outline-warning btn-sm mdi-content-save"
                     th:text="${btnShowValue}">
-                Add
+                submit
             </button>
         </div>
 

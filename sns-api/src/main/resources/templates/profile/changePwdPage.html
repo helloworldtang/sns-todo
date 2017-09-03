@@ -9,8 +9,8 @@
 </head>
 <body>
 <div class="row" layout:fragment="content">
-    <div id="errorMessage" class="card-panel red lighten-2" th:if="${param.error}">
-        <span class="card-title">Invalid Old Pwd</span>
+    <div id="errorMessage" class="card-panel red lighten-2" th:if="${error}!=null">
+        <span class="card-title">Invalid Old Pwd,Please try again!</span>
     </div>
     <form name="form" th:action="@{/web/v1/user/profile/change-pwd}" method="post">
         <div class="panel panel-body login-form">
@@ -31,9 +31,8 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">
+                <button type="submit" class="btn btn-outline-warning btn-sm mdi-content-save">
                     ChangePwd
-                    <i class="icon-circle-right2 position-right"></i>
                 </button>
             </div>
         </div>
