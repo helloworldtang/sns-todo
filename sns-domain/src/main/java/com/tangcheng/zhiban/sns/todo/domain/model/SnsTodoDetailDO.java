@@ -41,6 +41,12 @@ public class SnsTodoDetailDO {
     @Column(name = "update_time")
     private Date updateTime;
 
+    @Column(name = "finish_time")
+    private Date finishTime;
+
+    @Column(name = "finish_ip")
+    private String finishIp;
+
     private String content;
 
     /**
@@ -223,6 +229,34 @@ public class SnsTodoDetailDO {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    /**
+     * @return finish_time
+     */
+    public Date getFinishTime() {
+        return finishTime;
+    }
+
+    /**
+     * @param finishTime
+     */
+    public void setFinishTime(Date finishTime) {
+        this.finishTime = finishTime;
+    }
+
+    /**
+     * @return finish_ip
+     */
+    public String getFinishIp() {
+        return finishIp;
+    }
+
+    /**
+     * @param finishIp
+     */
+    public void setFinishIp(String finishIp) {
+        this.finishIp = finishIp;
     }
 
     /**

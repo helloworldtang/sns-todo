@@ -951,6 +951,136 @@ public class SnsTodoDetailDOExample {
             addCriterion("update_time not between", value1, value2, "updateTime");
             return (Criteria) this;
         }
+
+        public Criteria andFinishTimeIsNull() {
+            addCriterion("finish_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishTimeIsNotNull() {
+            addCriterion("finish_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishTimeEqualTo(Date value) {
+            addCriterion("finish_time =", value, "finishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishTimeNotEqualTo(Date value) {
+            addCriterion("finish_time <>", value, "finishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishTimeGreaterThan(Date value) {
+            addCriterion("finish_time >", value, "finishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("finish_time >=", value, "finishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishTimeLessThan(Date value) {
+            addCriterion("finish_time <", value, "finishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishTimeLessThanOrEqualTo(Date value) {
+            addCriterion("finish_time <=", value, "finishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishTimeIn(List<Date> values) {
+            addCriterion("finish_time in", values, "finishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishTimeNotIn(List<Date> values) {
+            addCriterion("finish_time not in", values, "finishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishTimeBetween(Date value1, Date value2) {
+            addCriterion("finish_time between", value1, value2, "finishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishTimeNotBetween(Date value1, Date value2) {
+            addCriterion("finish_time not between", value1, value2, "finishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpIsNull() {
+            addCriterion("finish_ip is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpIsNotNull() {
+            addCriterion("finish_ip is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpEqualTo(String value) {
+            addCriterion("finish_ip =", value, "finishIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpNotEqualTo(String value) {
+            addCriterion("finish_ip <>", value, "finishIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpGreaterThan(String value) {
+            addCriterion("finish_ip >", value, "finishIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpGreaterThanOrEqualTo(String value) {
+            addCriterion("finish_ip >=", value, "finishIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpLessThan(String value) {
+            addCriterion("finish_ip <", value, "finishIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpLessThanOrEqualTo(String value) {
+            addCriterion("finish_ip <=", value, "finishIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpLike(String value) {
+            addCriterion("finish_ip like", value, "finishIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpNotLike(String value) {
+            addCriterion("finish_ip not like", value, "finishIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpIn(List<String> values) {
+            addCriterion("finish_ip in", values, "finishIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpNotIn(List<String> values) {
+            addCriterion("finish_ip not in", values, "finishIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpBetween(String value1, String value2) {
+            addCriterion("finish_ip between", value1, value2, "finishIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIpNotBetween(String value1, String value2) {
+            addCriterion("finish_ip not between", value1, value2, "finishIp");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

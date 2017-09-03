@@ -46,6 +46,8 @@ public class TodoDetailRepository {
         SnsTodoDetailDO record = new SnsTodoDetailDO();
         record.setId(id);
         record.setFinished(true);
+        record.setFinishTime(new Date());
+        record.setFinishIp(NetworkUtil.getRemoteIp());
         snsTodoDetailDOMapper.updateByPrimaryKeySelective(record);
     }
 

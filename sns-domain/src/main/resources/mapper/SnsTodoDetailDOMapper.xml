@@ -18,6 +18,14 @@
     <result column="create_date" property="createDate" jdbcType="DATE" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
+    <result column="finish_ip" property="finishIp" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDO" extends="BaseResultMap" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
 
 </mapper>
