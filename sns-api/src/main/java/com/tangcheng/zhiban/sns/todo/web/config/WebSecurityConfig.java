@@ -5,6 +5,7 @@ import com.tangcheng.zhiban.sns.todo.web.config.security.LoginAuthenticationFail
 import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
@@ -24,7 +25,7 @@ import java.util.Map;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
-    public LogoutHandler logoutHandler(){
+    public LogoutHandler logoutHandler() {
         return new SecurityContextLogoutHandler();
     }
 
@@ -59,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
+    @Profile("!prod")
     @Override
     public void configure(WebSecurity web) throws Exception {
         //allow Swagger URL to be accessed without authentication

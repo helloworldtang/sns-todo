@@ -46,9 +46,9 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
         http.antMatcher(ApiVersion.API_V1 + "/**")
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET).hasAnyRole("USER","ADMIN")
-                .antMatchers(HttpMethod.POST).hasAnyRole("USER","ADMIN")
-                .antMatchers(HttpMethod.PUT).hasAnyRole("USER","ADMIN")
+                .antMatchers(HttpMethod.GET).hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST).hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT).hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .antMatchers(HttpMethod.DELETE).access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')");
     }
 
