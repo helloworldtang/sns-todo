@@ -31,7 +31,7 @@
 </nav>
 <ul id="userManager-dropdown" class="dropdown-content">
     <li class="nav-link"><a th:href="@{/web/v1/user/profile/change-pwd}">ChangePwd</a></li>
-    <li class="nav-link"><a onclick="logout()">Logout</a></li>
+    <li class="nav-link"><a class="mdi-action-exit-to-app" onclick="logout()">Logout</a></li>
 </ul>
 <div class="right" sec:authorize="isAuthenticated()">
     <a class="mdi-action-home" th:href="@{/}">Home</a>
