@@ -8,26 +8,14 @@
     <title>AddNewTodo</title>
 </head>
 <body>
-<div class="row" layout:fragment="content">
+<div class="section container" layout:fragment="content">
     <form name="form"
-          class="center-align"
+          class="col s12"
           th:action="${url}"
           method="post">
 
-        <div class="form-group center-block">
-            <div class="input-field col s6">
-                <label for="content">Content</label>
 
-                <input type="text"
-                       id="content"
-                       th:value="${item!=null}?${item.content}"
-                       class="form-control"
-                       name="content"
-                       placeholder="content"/>
-            </div>
-        </div>
-
-        <div class="form-group center-block">
+        <div class="row">
             <div class="input-field col s6">
                 <label for="categoryId">categoryId</label>
 
@@ -40,7 +28,7 @@
             </div>
         </div>
 
-        <div class="form-group center-block">
+        <div class="row">
             <div class="input-field col s6">
                 <label for="weight">Weight(Desc)</label>
 
@@ -53,7 +41,21 @@
             </div>
         </div>
 
-        <div class="form-group center-block">
+        <div class="row">
+            <div class="input-field col s6">
+                <label for="content">Content</label>
+
+                <textarea id="content"
+                          name="content"
+                          placeholder="content"
+                          th:text="${item!=null}?${item.content}"
+                          class="materialize-textarea">
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="input-field col s6">
                 <label for="digest"><i class="mdi-action-stars">Digest(required)</i></label>
 
@@ -66,7 +68,8 @@
             </div>
         </div>
 
-        <div class="form-group">
+
+        <div class="row">
             <button type="submit"
                     class="btn btn-outline-warning btn-sm mdi-content-save"
                     th:text="${btnShowValue}">
