@@ -55,7 +55,7 @@ public class NetworkUtil {
             }
             if (StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
                 ip = request.getHeader("HTTP_CLIENT_IP");
-                LOGGER.info("HTTP_CLIENT_IP {}", ip);
+                LOGGER.debug("HTTP_CLIENT_IP {}", ip);
             }
             if (StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
                 ip = request.getHeader("HTTP_X_FORWARDED_FOR");
