@@ -43,7 +43,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/web/jars/**", "/favicon.ico", "/css/**", "/js/**", "/login", "/signin/**", "/signup")
                 .permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and()
+                .portMapper().http(80).mapsTo(443);
     }
 
     @Bean
