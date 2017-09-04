@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<head>
+    <title>TodoList</title>
+    <link href="/webjars/materializecss/0.96.0/css/materialize.css" type="text/css" rel="stylesheet"
+          media="screen,projection"/>
+</head>
+
+<body>
+<div layout:fragment="content">
+
+    <form th:action="@{${url}}" method="post">
+
+        <label for="key">Key</label>
+        <input placeholder="Please input key..."
+               id="key"
+               name="key"
+               type="text"
+               class="validate"/>
+
+        <div class="row">
+            <div class="input-field col s12">
+
+                <button type="submit"
+                        class="btn form-control mdi-action-search"
+                        th:text="Search">
+                    submit
+                </button>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="row" th:if="${list!=nul}">
+        <div class="row mdi-alert-warning" th:if="${#lists.isEmpty(list)}">
+            Find nothing!
+        </div>
+        <ul class="collection" th:each="item:${list}">
+            <li class="collection-item">
+                ID: <span id="todoId" th:text="${item.id}">id</span><br/>
+                categoryId: <span th:text="${item.categoryId}">categoryId</span><br/>
+                weight: <span th:text="${item.weight}">weight</span><br/>
+                digest: <span th:text="${item.digest}">digest</span><br/>
+                content: <span th:text="${item.content}">content</span><br/>
+                finished: <span th:text="${item.finished}">finished</span><br/>
+                createTime: <span th:text="${#dates.format(item.createTime,'yyyy/MM/dd HH:mm')}">createTime</span><br/>
+
+                <a class="doneTodo" th:id="${item.id}">
+                    <i class="mdi-action-done">Done</i>
+                </a>
+                <i class="mdi-action-tab"></i>
+                <a th:href="@{/web/v1/user/todo/{id}/modify(id=${item.id})}">
+                    <i class="mdi-notification-system-update">Modify</i>
+                </a>
+                <i class="mdi-action-tab"></i>
+                <a class="deleteTodo" th:id="${item.id}">
+                    <i class="mdi-action-delete">Delete</i>
+                </a>
+
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+<script layout:fragment="script">
+    $(function () {
+        $(".doneTodo").click(function () {
+
+            var todoId = $(this).attr("id");
+            console.log(todoId)
+            $.ajax({
+                    type: 'PUT',
+                    url: "/api/v1/user/todo/" + todoId,
+                    data: {
+                        _csrf: $('meta[name=_csrf]').attr('content') //csrf
+                    },
+                    success: function () {
+                        window.location.href = "/web/v1/user/todo?finished=false";
+                    }
+                }
+            );
+
+        })
+
+
+        $(".deleteTodo").click(function () {
+            var todoId = $(this).attr("id");
+            console.log(todoId)
+            $.ajax({
+                    type: 'DELETE',
+                    url: "/api/v1/user/todo/" + todoId,
+                    data: {
+                        _csrf: $('meta[name=_csrf]').attr('content') //csrf
+                    },
+                    success: function () {
+                        window.location.href = "/web/v1/user/todo?finished=false";
+                    }
+                }
+            );
+
+        })
+
+
+    });
+</script>
+
+</body>
+</html>

@@ -5,6 +5,7 @@ import com.tangcheng.zhiban.sns.todo.domain.global.PageData;
 import com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDO;
 import com.tangcheng.zhiban.sns.todo.domain.req.TodoDetailListReqVO;
 import com.tangcheng.zhiban.sns.todo.domain.req.TodoDetailReqVO;
+import com.tangcheng.zhiban.sns.todo.domain.req.TodoSearchReqVO;
 import com.tangcheng.zhiban.sns.todo.domain.res.TodoDetailResVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,11 @@ public class TodoDetailServiceImpl implements TodoDetailService {
     @Override
     public void remove(Long id) {
         todoDetailRepository.remove(id);
+    }
+
+    @Override
+    public List<TodoDetailResVO> search(TodoSearchReqVO searchReqVO) {
+        return todoDetailRepository.search(searchReqVO.getKey(), searchReqVO.getPageNum(), searchReqVO.getPageSize());
     }
 
 

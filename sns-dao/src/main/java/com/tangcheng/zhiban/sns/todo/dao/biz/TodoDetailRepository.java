@@ -7,6 +7,7 @@ import com.tangcheng.zhiban.sns.todo.domain.mapper.SnsTodoDetailDOMapper;
 import com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDO;
 import com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDOExample;
 import com.tangcheng.zhiban.sns.todo.domain.req.TodoDetailReqVO;
+import com.tangcheng.zhiban.sns.todo.domain.res.TodoDetailResVO;
 import com.tangcheng.zhiban.sns.todo.domain.util.SecurityUtil;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
@@ -14,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by tangcheng on 8/27/2017.
@@ -109,5 +112,11 @@ public class TodoDetailRepository {
         SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
         example.createCriteria().andIdEqualTo(todoId);
         snsTodoDetailDOMapper.updateByExampleSelective(record, example);
+    }
+
+    public List<TodoDetailResVO> search(String key, Integer pageNum, Integer pageSize) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("key", "%" + key + "%");
+        return snsTodoDetailDOMapper.search(params, new RowBounds(pageNum, pageSize));
     }
 }

@@ -1,32 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tangcheng.zhiban.sns.todo.domain.mapper.SnsTodoDetailDOMapper" >
-  <resultMap id="BaseResultMap" type="com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDO" >
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="user_id" property="userId" jdbcType="BIGINT" />
-    <result column="user_name" property="userName" jdbcType="VARCHAR" />
-    <result column="category_id" property="categoryId" jdbcType="BIGINT" />
-    <result column="digest" property="digest" jdbcType="VARCHAR" />
-    <result column="weight" property="weight" jdbcType="INTEGER" />
-    <result column="expect_finish_time" property="expectFinishTime" jdbcType="TIMESTAMP" />
-    <result column="finished" property="finished" jdbcType="BIT" />
-    <result column="create_ip" property="createIp" jdbcType="VARCHAR" />
-    <result column="update_ip" property="updateIp" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="TINYINT" />
-    <result column="create_date" property="createDate" jdbcType="DATE" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
-    <result column="finish_ip" property="finishIp" jdbcType="VARCHAR" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDO" extends="BaseResultMap" >
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
-  </resultMap>
+<mapper namespace="com.tangcheng.zhiban.sns.todo.domain.mapper.SnsTodoDetailDOMapper">
+    <resultMap id="BaseResultMap" type="com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDO">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="category_id" property="categoryId" jdbcType="BIGINT"/>
+        <result column="digest" property="digest" jdbcType="VARCHAR"/>
+        <result column="weight" property="weight" jdbcType="INTEGER"/>
+        <result column="expect_finish_time" property="expectFinishTime" jdbcType="TIMESTAMP"/>
+        <result column="finished" property="finished" jdbcType="BIT"/>
+        <result column="create_ip" property="createIp" jdbcType="VARCHAR"/>
+        <result column="update_ip" property="updateIp" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="create_date" property="createDate" jdbcType="DATE"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP"/>
+        <result column="finish_ip" property="finishIp" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDO"
+               extends="BaseResultMap">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+
+    <select id="search" resultType="com.tangcheng.zhiban.sns.todo.domain.res.TodoDetailResVO">
+    SELECT
+     id,
+     category_id categoryId,
+     weight,
+     digest,
+     content,
+     finished,
+     create_time createTime
+      FROM sns_todo_detail
+    WHERE (digest like #{key} or content like #{key})
+    and status=0
+  </select>
 
 </mapper>

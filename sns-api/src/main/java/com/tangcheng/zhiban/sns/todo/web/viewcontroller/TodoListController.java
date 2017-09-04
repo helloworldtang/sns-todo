@@ -2,6 +2,7 @@ package com.tangcheng.zhiban.sns.todo.web.viewcontroller;
 
 import com.tangcheng.zhiban.sns.todo.domain.req.TodoDetailListReqVO;
 import com.tangcheng.zhiban.sns.todo.domain.req.TodoDetailReqVO;
+import com.tangcheng.zhiban.sns.todo.domain.req.TodoSearchReqVO;
 import com.tangcheng.zhiban.sns.todo.domain.res.TodoDetailResVO;
 import com.tangcheng.zhiban.sns.todo.service.biz.TodoDetailService;
 import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
@@ -71,6 +72,21 @@ public class TodoListController {
     @PostMapping("{id}")
     public void finish(@PathVariable Long id) {
         todoDetailService.finish(id);
+    }
+
+
+    @GetMapping("search")
+    public String search(Model model) {
+        model.addAttribute("url", ApiVersion.WEB_V1 + "/user/todo/search");
+        return "todolist/todoSearch";
+    }
+
+    @PostMapping("search")
+    public String search(@Valid TodoSearchReqVO searchReqVO, Model model) {
+        List<TodoDetailResVO> detailResVOList = todoDetailService.search(searchReqVO);
+        model.addAttribute("url", ApiVersion.WEB_V1 + "/user/todo/search");
+        model.addAttribute("list", detailResVOList);
+        return "todolist/todoSearch";
     }
 
 

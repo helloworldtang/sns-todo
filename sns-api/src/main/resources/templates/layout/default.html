@@ -34,6 +34,7 @@
     <li class="nav-link"><a class="mdi-action-exit-to-app" onclick="logout()">Logout</a></li>
 </ul>
 <div class="right" sec:authorize="isAuthenticated()">
+    <a class="mdi-action-search" th:href="@{/web/v1/user/todo/search}">Search</a> ||
     <a class="mdi-action-home" th:href="@{/}">Home</a>
     You are logged as
     <a href="#!"

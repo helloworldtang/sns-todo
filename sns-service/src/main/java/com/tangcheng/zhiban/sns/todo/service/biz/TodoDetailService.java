@@ -1,9 +1,9 @@
 package com.tangcheng.zhiban.sns.todo.service.biz;
 
-import com.tangcheng.zhiban.sns.todo.domain.global.BizError;
 import com.tangcheng.zhiban.sns.todo.domain.global.PageData;
 import com.tangcheng.zhiban.sns.todo.domain.req.TodoDetailListReqVO;
 import com.tangcheng.zhiban.sns.todo.domain.req.TodoDetailReqVO;
+import com.tangcheng.zhiban.sns.todo.domain.req.TodoSearchReqVO;
 import com.tangcheng.zhiban.sns.todo.domain.res.TodoDetailResVO;
 
 import java.util.List;
@@ -25,4 +25,6 @@ public interface TodoDetailService {
     void update(Long todoId, TodoDetailReqVO todoDetailReqVO);
 
     void remove(Long id);
+
+    List<TodoDetailResVO> search(TodoSearchReqVO searchReqVO);
 }
