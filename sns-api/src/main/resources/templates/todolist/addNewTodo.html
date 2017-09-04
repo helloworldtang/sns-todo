@@ -8,15 +8,15 @@
     <title>AddNewTodo</title>
 </head>
 <body>
-<div class="section container" layout:fragment="content">
+<div class="section container center s12" layout:fragment="content">
     <form name="form"
-          class="col s12"
+          class="col s12 "
           th:action="${url}"
           method="post">
 
 
         <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s12">
                 <label for="categoryId">categoryId</label>
 
                 <input type="text"
@@ -29,7 +29,7 @@
         </div>
 
         <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s12">
                 <label for="weight">Weight(Desc)</label>
 
                 <input type="text"
@@ -42,21 +42,7 @@
         </div>
 
         <div class="row">
-            <div class="input-field col s6">
-                <label for="content">Content</label>
-
-                <textarea id="content"
-                          name="content"
-                          placeholder="content"
-                          th:text="${item!=null}?${item.content}"
-                          class="materialize-textarea">
-
-                </textarea>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s12">
                 <label for="digest"><i class="mdi-action-stars">Digest(required)</i></label>
 
                 <input type="text"
@@ -70,11 +56,31 @@
 
 
         <div class="row">
-            <button type="submit"
-                    class="btn btn-outline-warning btn-sm mdi-content-save"
-                    th:text="${btnShowValue}">
-                submit
-            </button>
+            <div class="input-field col s12">
+                <label for="content">Content</label>
+
+                <textarea id="content"
+                          name="content"
+                          placeholder="content"
+                          th:text="${item!=null}?${item.content}"
+                          class="materialize-textarea">
+
+                </textarea>
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="input-field col s12">
+
+                <button type="submit"
+                        class="btn form-control mdi-content-save"
+                        th:text="${btnShowValue}">
+                    submit
+                </button>
+            </div>
         </div>
 
     </form>
