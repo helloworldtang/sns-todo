@@ -7,49 +7,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <title>Default title</title>
 
-    <link href="/webjars/materializecss/0.96.0/css/materialize.css" type="text/css" rel="stylesheet"
+    <link href="/webjars/materializecss/0.96.0/css/materialize.css"
+          type="text/css"
+          rel="stylesheet"
           media="screen,projection"/>
     <meta name="_csrf_parameter" th:content="${_csrf.parameterName}" content="_csrf.parameterName"/>
     <meta name="_csrf" th:content="${_csrf.token}" content="_csrf.token"/>
 </head>
 <body>
 
-<ul id="lang-dropdown" class="dropdown-content">
-    <li><a href="?lang=en_US">English</a></li>
-    <li><a href="?lang=fr">French</a></li>
-</ul>
-<nav>
-    <div class="nav-wrapper indigo">
-        <ul class="right">
-            <li>
-                <a class="dropdown-button" href="#!" data-activates="lang-dropdown">
-                    <i class="mdi-action-language right">Lang</i>
-                </a>
-            </li>
+
+<nav class="indigo" role="navigation">
+    <div class="nav-wrapper container">
+        <ul id="userManager-dropdown" class="dropdown-content">
+            <li class="nav-link"><a th:href="@{/web/v1/user/profile/change-pwd}">ChangePwd</a></li>
+            <li class="nav-link"><a class="mdi-action-exit-to-app" onclick="logout()">Logout</a></li>
         </ul>
+        <span sec:authorize="isAuthenticated()" class="right">
+                <a class="mdi-action-home" th:href="@{/}">Home</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="mdi-action-search" th:href="@{/web/v1/user/todo/search}">Search</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+                Welcome &nbsp;
+                <a href="#!"
+                   class="dropdown-button mdi-action-account-circle"
+                   data-activates="userManager-dropdown"
+                   sec:authentication="name">
+                    name
+                </a>
+                &nbsp;&nbsp;
+            <span sec:authentication="authorities">roles</span>
+        </span>
     </div>
 </nav>
-<ul id="userManager-dropdown" class="dropdown-content">
-    <li class="nav-link"><a th:href="@{/web/v1/user/profile/change-pwd}">ChangePwd</a></li>
-    <li class="nav-link"><a class="mdi-action-exit-to-app" onclick="logout()">Logout</a></li>
-</ul>
-<div class="right" sec:authorize="isAuthenticated()">
-    <a class="mdi-action-search" th:href="@{/web/v1/user/todo/search}">Search</a> ||
-    <a class="mdi-action-home" th:href="@{/}">Home</a>
-    You are logged as
-    <a href="#!"
-       class="dropdown-button nav-link mdi-action-account-circle"
-       data-activates="userManager-dropdown"
-       sec:authentication="name">
-        name
-    </a>
-    with roles
-    <span sec:authentication="authorities">roles</span>
-</div>
 
-<section layout:fragment="content">
-    <p>Page content goes here</p>
-</section>
+<div class="container">
+    <section layout:fragment="content">
+        <p>Page content goes here</p>
+    </section>
+</div>
 
 <form id="logout" th:action="@{/logout}" method="post">
 </form>
