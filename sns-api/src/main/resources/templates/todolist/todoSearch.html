@@ -45,10 +45,11 @@
                 weight: <span th:text="${item.weight}">weight</span><br/>
                 digest: <span th:text="${item.digest}">digest</span><br/>
                 content: <span th:text="${item.content}">content</span><br/>
-                finished: <span th:text="${item.finished}">finished</span><br/>
+                progress: <span th:class="${item.finished}?'mdi-action-done green-text'"
+                                th:text="${item.finished}?'DONE':'NEED TO DO' ">finished</span><br/>
                 createTime: <span th:text="${#dates.format(item.createTime,'yyyy/MM/dd HH:mm')}">createTime</span><br/>
 
-                <a class="doneTodo" th:id="${item.id}">
+                <a th:if="!${item.finished}" class="doneTodo" th:id="${item.id}">
                     <i class="mdi-action-done">Done</i>
                 </a>
                 <i class="mdi-action-tab"></i>
