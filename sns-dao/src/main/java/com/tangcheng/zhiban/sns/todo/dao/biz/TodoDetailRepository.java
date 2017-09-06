@@ -97,8 +97,7 @@ public class TodoDetailRepository {
 
         SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
         example.createCriteria().andIdEqualTo(todoId)
-                .andStatusEqualTo(Flag.UniversalFlag.NORMAL)
-                .andFinishedEqualTo(false);
+                .andStatusEqualTo(Flag.UniversalFlag.NORMAL);
         snsTodoDetailDOMapper.updateByExampleSelective(record, example);
     }
 
