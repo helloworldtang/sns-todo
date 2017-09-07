@@ -13,6 +13,7 @@
 <div class="row" layout:fragment="content">
     <h4 class="indigo-text center">Todolist Detail
         <a class="btn-floating btn-large waves-effect waves-light indigo"
+           th:if="${#lists.size(list)>0}"
            th:href="@{/web/v1/user/todo/add}">
             +
         </a>
@@ -20,8 +21,16 @@
 
 
     <div class="row">
-        <ul class="collection" th:each="item:${list}">
-            <li class="collection-item">
+        <div class="center" th:if="${#lists.isEmpty(list)}">
+            So great! Add a new Todo first <br/>
+            <a class="btn-floating btn-large waves-effect waves-light indigo"
+               th:href="@{/web/v1/user/todo/add}">
+                +
+            </a>
+        </div>
+
+        <ul class="collection" th:if="${#lists.size(list)>0}">
+            <li class="collection-item" th:each="item:${list}">
                 ID: <span id="todoId" th:text="${item.id}">id</span><br/>
                 categoryId: <span th:text="${item.categoryId}">categoryId</span><br/>
                 weight: <span th:text="${item.weight}">weight</span><br/>

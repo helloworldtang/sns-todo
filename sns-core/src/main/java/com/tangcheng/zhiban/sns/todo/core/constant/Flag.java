@@ -1,9 +1,14 @@
-package com.tangcheng.zhiban.sns.todo.domain.constant;
+package com.tangcheng.zhiban.sns.todo.core.constant;
 
 /**
  * Created by tangcheng on 8/27/2017.
  */
 public class Flag {
+
+    public static final class BizLogFlag {
+        public static final String WARN_CHECK = "Please check.";
+
+    }
 
     public static class UniversalFlag {
         public static final byte NORMAL = 0;

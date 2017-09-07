@@ -10,61 +10,62 @@
 </head>
 
 <body>
-<div layout:fragment="content">
+<div class="row" layout:fragment="content">
 
-    <form th:action="@{${url}}" method="post">
+    <h4 class="indigo-text center">Please enter a search term</h4>
 
-        <label for="key">Key</label>
-        <input placeholder="Please input key..."
-               id="key"
-               name="key"
-               type="text"
-               class="validate"/>
-
-        <div class="row">
-            <div class="input-field col s12">
-
-                <button type="submit"
-                        class="btn form-control mdi-action-search"
-                        th:text="Search">
-                    submit
-                </button>
+    <div class="col s12">
+        <div id="errorMessage" class="card-panel red lighten-2" th:if="${error}">
+            <span class="card-title" th:text="${error}"></span>
+        </div>
+        <form th:action="@{${url}}" method="post" class="col s12">
+            <div class="row center">
+                <div class="input-field">
+                    <label for="key" class="mdi-action-search prefix"></label>
+                    <input id="key" name="key" type="text" class="validate">
+                </div>
             </div>
+
+        </form>
+
+
+        <div class="col s12" th:if="${list!=nul}">
+            <h6 class="indigo-text center" th:text="|results for key: ${key}|">todo</h6>
+
+            <div class="mdi-alert-warning center" th:if="${#lists.isEmpty(list)}">
+                Find nothing!
+            </div>
+            <ul class="collection" th:if="${#lists.size(list)>0}">
+                <li class=" collection-item" th:each="item:${list}">
+                    ID: <span id="todoId" th:text="${item.id}">id</span><br/>
+                    categoryId: <span th:text="${item.categoryId}">categoryId</span><br/>
+                    weight: <span th:text="${item.weight}">weight</span><br/>
+                    digest: <span th:text="${item.digest}">digest</span><br/>
+                    content: <span th:text="${item.content}">content</span><br/>
+                    progress: <span th:class="${item.finished}?'mdi-action-done green-text'"
+                                    th:text="${item.finished}?'DONE':'NEED TO DO' ">finished</span><br/>
+                    createTime: <span
+                        th:text="${#dates.format(item.createTime,'yyyy/MM/dd HH:mm')}">createTime</span><br/>
+
+                    <a th:if="!${item.finished}" class="doneTodo" th:id="${item.id}">
+                        <i class="mdi-action-done">Done</i>
+                    </a>
+                    <i class="mdi-action-tab"></i>
+                    <a th:href="@{/web/v1/user/todo/{id}/modify(id=${item.id})}">
+                        <i class="mdi-notification-system-update">Modify</i>
+                    </a>
+                    <i class="mdi-action-tab"></i>
+                    <a class="deleteTodo" th:id="${item.id}">
+                        <i class="mdi-action-delete">Delete</i>
+                    </a>
+
+                </li>
+            </ul>
+
         </div>
-    </form>
-
-
-    <div class="row" th:if="${list!=nul}">
-        <div class="row mdi-alert-warning" th:if="${#lists.isEmpty(list)}">
-            Find nothing!
-        </div>
-        <ul class="collection" th:each="item:${list}">
-            <li class="collection-item">
-                ID: <span id="todoId" th:text="${item.id}">id</span><br/>
-                categoryId: <span th:text="${item.categoryId}">categoryId</span><br/>
-                weight: <span th:text="${item.weight}">weight</span><br/>
-                digest: <span th:text="${item.digest}">digest</span><br/>
-                content: <span th:text="${item.content}">content</span><br/>
-                progress: <span th:class="${item.finished}?'mdi-action-done green-text'"
-                                th:text="${item.finished}?'DONE':'NEED TO DO' ">finished</span><br/>
-                createTime: <span th:text="${#dates.format(item.createTime,'yyyy/MM/dd HH:mm')}">createTime</span><br/>
-
-                <a th:if="!${item.finished}" class="doneTodo" th:id="${item.id}">
-                    <i class="mdi-action-done">Done</i>
-                </a>
-                <i class="mdi-action-tab"></i>
-                <a th:href="@{/web/v1/user/todo/{id}/modify(id=${item.id})}">
-                    <i class="mdi-notification-system-update">Modify</i>
-                </a>
-                <i class="mdi-action-tab"></i>
-                <a class="deleteTodo" th:id="${item.id}">
-                    <i class="mdi-action-delete">Delete</i>
-                </a>
-
-            </li>
-        </ul>
 
     </div>
+
 
 </div>
 

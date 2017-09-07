@@ -5,6 +5,9 @@ import com.alibaba.fastjson.serializer.ValueFilter;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.web.servlet.ErrorPage;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -48,6 +51,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         });
         httpMessageConverter.setFastJsonConfig(fastJsonConfig);
         converters.add(httpMessageConverter);
+    }
+
+
+    @Bean
+    public EmbeddedServletContainerCustomizer containerCustomizer() {
+        return container -> container.addErrorPages(new ErrorPage(Throwable.class, "/global/error"));
     }
 
 

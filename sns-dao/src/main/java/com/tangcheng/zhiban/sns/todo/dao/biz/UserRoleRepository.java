@@ -1,6 +1,5 @@
 package com.tangcheng.zhiban.sns.todo.dao.biz;
 
-import com.tangcheng.zhiban.sns.todo.domain.constant.Flag;
 import com.tangcheng.zhiban.sns.todo.domain.mapper.SnsUserRoleDOMapper;
 import com.tangcheng.zhiban.sns.todo.domain.model.SnsUserRoleDO;
 import org.springframework.beans.factory.annotation.Autowired;

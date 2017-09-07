@@ -7,6 +7,7 @@ import com.tangcheng.zhiban.sns.todo.domain.req.TodoDetailListReqVO;
 import com.tangcheng.zhiban.sns.todo.domain.req.TodoDetailReqVO;
 import com.tangcheng.zhiban.sns.todo.domain.req.TodoSearchReqVO;
 import com.tangcheng.zhiban.sns.todo.domain.res.TodoDetailResVO;
+import com.tangcheng.zhiban.sns.todo.domain.util.SecurityUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,8 @@ public class TodoDetailServiceImpl implements TodoDetailService {
 
     @Override
     public void finish(Long id) {
-        todoDetailRepository.finish(id);
+        String userName = SecurityUtil.getUserName();
+        todoDetailRepository.finish(userName, id);
     }
 
     @Override
@@ -39,7 +41,8 @@ public class TodoDetailServiceImpl implements TodoDetailService {
         List<TodoDetailResVO> detailResVOList = listWeb(todoDetailListReqVO);
         PageData<TodoDetailResVO> pageData = new PageData<>(detailResVOList, todoDetailListReqVO);
         if (todoDetailListReqVO.getNeedTotal()) {
-            pageData.setTotal(todoDetailRepository.count(todoDetailListReqVO.getFinished()));
+            String userName = SecurityUtil.getUserName();
+            pageData.setTotal(todoDetailRepository.count(userName, todoDetailListReqVO.getFinished()));
         }
         return pageData;
     }
@@ -47,7 +50,10 @@ public class TodoDetailServiceImpl implements TodoDetailService {
     @Override
     public List<TodoDetailResVO> listWeb(TodoDetailListReqVO todoDetailListReqVO) {
         Boolean finished = todoDetailListReqVO.getFinished();
-        List<SnsTodoDetailDO> detailDOList = todoDetailRepository.list(finished, todoDetailListReqVO.getPageNum(), todoDetailListReqVO.getPageSize());
+        Integer pageNum = todoDetailListReqVO.getPageNum();
+        Integer pageSize = todoDetailListReqVO.getPageSize();
+        String userName = SecurityUtil.getUserName();
+        List<SnsTodoDetailDO> detailDOList = todoDetailRepository.list(userName, finished, pageNum, pageSize);
 
         List<TodoDetailResVO> detailResVOList = new ArrayList<>(detailDOList.size());
 
@@ -61,7 +67,8 @@ public class TodoDetailServiceImpl implements TodoDetailService {
 
     @Override
     public TodoDetailResVO get(Long id) {
-        SnsTodoDetailDO snsTodoDetailDO = todoDetailRepository.get(id);
+        String userName = SecurityUtil.getUserName();
+        SnsTodoDetailDO snsTodoDetailDO = todoDetailRepository.get(id, userName);
         if (snsTodoDetailDO == null) {
             return null;
         }
@@ -72,17 +79,23 @@ public class TodoDetailServiceImpl implements TodoDetailService {
 
     @Override
     public void update(Long todoId, TodoDetailReqVO todoDetailReqVO) {
-        todoDetailRepository.update(todoId, todoDetailReqVO);
+        String userName = SecurityUtil.getUserName();
+        todoDetailRepository.update(userName, todoId, todoDetailReqVO);
     }
 
     @Override
     public void remove(Long id) {
-        todoDetailRepository.remove(id);
+        String userName = SecurityUtil.getUserName();
+        todoDetailRepository.remove(userName, id);
     }
 
     @Override
     public List<TodoDetailResVO> search(TodoSearchReqVO searchReqVO) {
-        return todoDetailRepository.search(searchReqVO.getKey(), searchReqVO.getPageNum(), searchReqVO.getPageSize());
+        String userName = SecurityUtil.getUserName();
+        String key = searchReqVO.getKey();
+        Integer pageNum = searchReqVO.getPageNum();
+        Integer pageSize = searchReqVO.getPageSize();
+        return todoDetailRepository.search(userName, key, pageNum, pageSize);
     }
 
 

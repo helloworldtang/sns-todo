@@ -2,7 +2,7 @@ package com.tangcheng.zhiban.sns.todo.dao.biz;
 
 
 import com.tangcheng.zhiban.sns.todo.core.util.NetworkUtil;
-import com.tangcheng.zhiban.sns.todo.domain.constant.Flag;
+import com.tangcheng.zhiban.sns.todo.core.constant.Flag;
 import com.tangcheng.zhiban.sns.todo.domain.mapper.SnsTodoDetailDOMapper;
 import com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDO;
 import com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDOExample;
@@ -24,6 +24,7 @@ import java.util.Map;
  */
 @Repository
 public class TodoDetailRepository {
+
     @Autowired
     private SnsTodoDetailDOMapper snsTodoDetailDOMapper;
 
@@ -45,26 +46,33 @@ public class TodoDetailRepository {
     }
 
 
-    public void finish(Long id) {
+    public void finish(String userName, Long id) {
         SnsTodoDetailDO record = new SnsTodoDetailDO();
-        record.setId(id);
         record.setFinished(true);
         record.setFinishTime(new Date());
         record.setFinishIp(NetworkUtil.getRemoteIp());
-        snsTodoDetailDOMapper.updateByPrimaryKeySelective(record);
+
+        SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
+        example.createCriteria().andIdEqualTo(id)
+                .andUserNameEqualTo(userName)
+                .andFinishedEqualTo(false);
+        snsTodoDetailDOMapper.updateByExampleSelective(record, example);
     }
 
 
-    public List<SnsTodoDetailDO> list(Boolean finished, Integer pageNum, Integer pageSize) {
+    public List<SnsTodoDetailDO> list(String userName, Boolean finished, Integer pageNum, Integer pageSize) {
         SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
         SnsTodoDetailDOExample.Criteria criteria = example.createCriteria();
-        if (finished == null) {
-        } else if (finished) {
-            criteria.andFinishedEqualTo(true);
-        } else {
-            criteria.andFinishedEqualTo(false);
+        criteria.andUserNameEqualTo(userName);
+        if (finished != null) {
+            if (finished) {
+                criteria.andFinishedEqualTo(true);
+            } else {
+                criteria.andFinishedEqualTo(false);
+            }
         }
         criteria.andStatusEqualTo(Flag.UniversalFlag.NORMAL);
+
 
         example.setOrderByClause(" weight desc,create_time desc ");
 
@@ -72,24 +80,28 @@ public class TodoDetailRepository {
     }
 
 
-    public long count(Boolean finished) {
+    public long count(String userName, Boolean finished) {
         SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
         SnsTodoDetailDOExample.Criteria criteria = example.createCriteria();
-        if (finished == null) {
-        } else if (finished) {
-            criteria.andFinishedEqualTo(true);
-        } else {
-            criteria.andFinishedEqualTo(false);
+        criteria.andUserNameEqualTo(userName);
+        if (finished != null) {
+            if (finished) {
+                criteria.andFinishedEqualTo(true);
+            } else {
+                criteria.andFinishedEqualTo(false);
+            }
         }
-
         return snsTodoDetailDOMapper.selectCountByExample(example);
     }
 
-    public SnsTodoDetailDO get(Long todoId) {
-        return snsTodoDetailDOMapper.selectByPrimaryKey(todoId);
+    public SnsTodoDetailDO get(Long todoId, String userName) {
+        SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
+        example.createCriteria().andIdEqualTo(todoId)
+                .andUserNameEqualTo(userName);
+        return snsTodoDetailDOMapper.selectByExample(example).stream().findAny().orElse(null);
     }
 
-    public void update(Long todoId, TodoDetailReqVO todoDetailReqVO) {
+    public void update(String userName, Long todoId, TodoDetailReqVO todoDetailReqVO) {
         SnsTodoDetailDO record = new SnsTodoDetailDO();
         BeanUtils.copyProperties(todoDetailReqVO, record);
         record.setUpdateTime(new Date());
@@ -97,25 +109,28 @@ public class TodoDetailRepository {
 
         SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
         example.createCriteria().andIdEqualTo(todoId)
+                .andUserNameEqualTo(userName)
                 .andStatusEqualTo(Flag.UniversalFlag.NORMAL);
         snsTodoDetailDOMapper.updateByExampleSelective(record, example);
     }
 
 
-    public void remove(Long todoId) {
+    public void remove(String userName, Long todoId) {
         SnsTodoDetailDO record = new SnsTodoDetailDO();
         record.setStatus(Flag.UniversalFlag.DELETE);
         record.setUpdateTime(new Date());
         record.setUpdateIp(NetworkUtil.getRemoteIp());
 
         SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
-        example.createCriteria().andIdEqualTo(todoId);
+        example.createCriteria().andIdEqualTo(todoId)
+                .andUserNameEqualTo(userName);
         snsTodoDetailDOMapper.updateByExampleSelective(record, example);
     }
 
-    public List<TodoDetailResVO> search(String key, Integer pageNum, Integer pageSize) {
+    public List<TodoDetailResVO> search(String userName, String key, Integer pageNum, Integer pageSize) {
         Map<String, Object> params = new HashMap<>();
         params.put("key", "%" + key + "%");
+        params.put("userName", userName);
         return snsTodoDetailDOMapper.search(params, new RowBounds(pageNum, pageSize));
     }
 }

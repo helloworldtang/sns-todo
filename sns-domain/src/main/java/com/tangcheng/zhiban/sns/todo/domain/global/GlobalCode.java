@@ -3,7 +3,12 @@ package com.tangcheng.zhiban.sns.todo.domain.global;
 public enum GlobalCode implements BizError {
     SUCCESS(0, "success"),
     FAIL(-1, "fail"),
-    NOT_EXIST(-2, "not exist");
+    NOT_EXIST(-2, "not exist"),
+
+
+    UNKNOWN(-999, "unknown");
+
+
     private final int code;
     private final String msg;
 

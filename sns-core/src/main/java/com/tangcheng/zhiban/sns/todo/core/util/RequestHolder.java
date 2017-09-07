@@ -1,5 +1,7 @@
 package com.tangcheng.zhiban.sns.todo.core.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -8,7 +10,12 @@ import org.springframework.web.context.request.ServletWebRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.tangcheng.zhiban.sns.todo.core.constant.Flag.BizLogFlag.WARN_CHECK;
+
 public class RequestHolder {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(RequestHolder.class);
+
     /**
      * 文件上传，form表单的enctype类型为”multipart/form-data”，
      * spring mvc对文件上传的处理类实际却为spring-mvc.xml文件中配置的CommonsMultipartResolver，
@@ -34,6 +41,7 @@ public class RequestHolder {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
         if (servletRequestAttributes == null) {
+            LOGGER.warn("{} from {} find no available ServletRequestAttributes", WARN_CHECK, NetworkUtil.getRemoteIp());
             return null;
         }
         return servletRequestAttributes.getRequest();
@@ -44,5 +52,19 @@ public class RequestHolder {
         ServletWebRequest servletWebRequest = (ServletWebRequest) requestAttributes;
         return servletWebRequest.getResponse();
     }
+
+    public static String getLastAccessUri() {
+        HttpServletRequest request = getRequestFacade();
+        if (request == null) {
+            return "null.find no valid HttpServletRequest";
+        }
+        String uri = request.getRequestURI();
+        String queryString = request.getQueryString();
+        if (queryString == null) {
+            return uri;
+        }
+        return uri + "?" + queryString;
+    }
+
 
 }

@@ -84,6 +84,7 @@ public class TodoListController {
     @PostMapping("search")
     public String search(@Valid TodoSearchReqVO searchReqVO, Model model) {
         List<TodoDetailResVO> detailResVOList = todoDetailService.search(searchReqVO);
+        model.addAttribute("key", searchReqVO.getKey());
         model.addAttribute("url", ApiVersion.WEB_V1 + "/user/todo/search");
         model.addAttribute("list", detailResVOList);
         return "todolist/todoSearch";

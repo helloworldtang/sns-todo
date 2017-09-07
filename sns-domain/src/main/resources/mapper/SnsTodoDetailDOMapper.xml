@@ -41,6 +41,7 @@
      create_time createTime
       FROM sns_todo_detail
     WHERE (digest like #{key} or content like #{key})
+    and user_name=#{userName}
     and status=0
   </select>
 

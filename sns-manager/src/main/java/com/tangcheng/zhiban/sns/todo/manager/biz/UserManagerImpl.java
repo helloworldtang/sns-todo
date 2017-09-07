@@ -3,7 +3,7 @@ package com.tangcheng.zhiban.sns.todo.manager.biz;
 import com.tangcheng.zhiban.sns.todo.core.util.NetworkUtil;
 import com.tangcheng.zhiban.sns.todo.dao.biz.UserRepository;
 import com.tangcheng.zhiban.sns.todo.dao.biz.UserRoleRepository;
-import com.tangcheng.zhiban.sns.todo.domain.constant.Flag;
+import com.tangcheng.zhiban.sns.todo.core.constant.Flag;
 import com.tangcheng.zhiban.sns.todo.domain.model.CustomUserDetails;
 import com.tangcheng.zhiban.sns.todo.domain.model.SnsUserDO;
 import org.joda.time.LocalDate;
