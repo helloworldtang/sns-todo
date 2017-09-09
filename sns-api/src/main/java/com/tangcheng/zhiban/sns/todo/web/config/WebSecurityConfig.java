@@ -2,7 +2,7 @@ package com.tangcheng.zhiban.sns.todo.web.config;
 
 import com.tangcheng.zhiban.sns.todo.domain.exception.CaptchaException;
 import com.tangcheng.zhiban.sns.todo.web.config.security.LoginAuthenticationFailureHandler;
-import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -12,6 +12,7 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -24,6 +25,9 @@ import java.util.Map;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
+
     @Bean
     public LogoutHandler logoutHandler() {
         return new SecurityContextLogoutHandler();
@@ -33,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl(ApiVersion.WEB_V1 + "/user/todo?finished=false", true)
+                .defaultSuccessUrl("/", true)
                 .and()
                 .logout()
                 .invalidateHttpSession(true)//用户的HTTP session将会在退出时被失效。在一些场景下，这是必要的（如用户拥有一个购物车时）
@@ -41,11 +45,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")//用户在退出后将要被重定向到的URL。默认为/。将会通过HttpServletResponse.redirect来处理。
                 .and()
                 .authorizeRequests()
-                .antMatchers("/web/jars/**", "/favicon.ico", "/logo.png","/css/**", "/js/**", "/login", "/signin/**", "/signup")
+                .antMatchers("/web/jars/**", "/favicon.ico", "/logo.png", "/css/**", "/js/**", "/login", "/signin/**", "/signup")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .portMapper().http(80).mapsTo(443);
+                .portMapper().http(80).mapsTo(443)
+                .and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
 
     @Bean
