@@ -5,6 +5,7 @@ import com.tangcheng.zhiban.sns.todo.core.util.RequestHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
@@ -19,7 +20,7 @@ public class GlobalController {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(GlobalController.class);
 
-    @RequestMapping("error")
+    @GetMapping("error")
     public ModelAndView globalError(HttpServletRequest request) {
         String remoteIp = NetworkUtil.getRemoteIp();
         String lastAccessUri = RequestHolder.getLastAccessUri();
