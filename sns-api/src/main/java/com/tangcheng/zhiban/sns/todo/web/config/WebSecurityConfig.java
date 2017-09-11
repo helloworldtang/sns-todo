@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")//用户在退出后将要被重定向到的URL。默认为/。将会通过HttpServletResponse.redirect来处理。
                 .and()
                 .authorizeRequests()
-                .antMatchers("/web/jars/**", "/favicon.ico", "/logo.png", "/css/**", "/js/**", "/login", "/signin/**", "/signup")
+                .antMatchers("/web/jars/**", "/favicon.ico", "/logo.png", "/css/**", "/js/**", "/login", "/mp/verify/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
