@@ -4,13 +4,13 @@ package com.tangcheng.zhiban.sns.todo.web.config;
 import com.tangcheng.zhiban.sns.todo.core.constant.Flag;
 import com.tangcheng.zhiban.sns.todo.core.util.NetworkUtil;
 import com.tangcheng.zhiban.sns.todo.core.util.RequestHolder;
-import com.tangcheng.zhiban.sns.todo.domain.global.ResultData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -45,14 +45,44 @@ public class WebGlobalHandler {
 
     @ExceptionHandler(BindException.class)
     public ModelAndView handleBindException(BindException e, ModelAndView modelAndView) {
-        modelAndView.setViewName("error");
         StringBuilder result = new StringBuilder();
         for (FieldError fieldError : e.getFieldErrors()) {
             result.append(fieldError.getField()).append(":").
                     append(fieldError.getDefaultMessage()).
                     append(System.lineSeparator());
         }
+        modelAndView.setViewName("error");
         modelAndView.addObject("message", result.toString());
+        return modelAndView;
+    }
+
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ModelAndView handleMethodArgumentNotValidException(MethodArgumentNotValidException e, ModelAndView modelAndView) {
+        LOGGER.error("MethodArgumentNotValidException:{},url:{}", e.getMessage(), RequestHolder.getLastAccessUri());
+        StringBuilder builder = new StringBuilder();
+        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
+            builder.append(fieldError.getField())
+                    .append(":")
+                    .append(fieldError.getDefaultMessage())
+                    .append(System.lineSeparator());
+        }
+        modelAndView.setViewName("error");
+        modelAndView.addObject("message", builder.toString());
+        return modelAndView;
+    }
+
+
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleDbException(Exception e, ModelAndView modelAndView) {
+        LOGGER.error("default:{}", e.getMessage(), e);
+        modelAndView.setViewName("error");
+        if (e instanceof SQLException || e instanceof DataAccessException) {
+            String msg = "has error.Look for tangcheng@hujiang.com to solve";
+            modelAndView.addObject("message", msg);
+            return modelAndView;
+        }
+        modelAndView.addObject("message", e.getMessage());
         return modelAndView;
     }
 
