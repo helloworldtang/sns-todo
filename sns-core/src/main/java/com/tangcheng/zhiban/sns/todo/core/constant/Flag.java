@@ -20,6 +20,15 @@ public class Flag {
     public static final class UserRoleFlag {
         public static final long ADMIN = 1;
         public static final long USER = 2;
+
+
+        public static long[] adminRoles() {
+            return new long[]{ADMIN, USER};
+        }
+
+        public static long[] userRoles() {
+            return new long[]{USER};
+        }
     }
 
     public static final class UserTypeFlag {
