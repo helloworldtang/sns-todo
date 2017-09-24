@@ -27,6 +27,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/").setViewName("redirect:" + ApiVersion.WEB_V1 + "/user/todo?finished=false");
+        registry.addViewController("/wx").setViewName("wx/get-wx-code");
     }
 
     @Override
