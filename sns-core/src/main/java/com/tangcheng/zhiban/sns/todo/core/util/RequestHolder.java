@@ -41,7 +41,7 @@ public class RequestHolder {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
         if (servletRequestAttributes == null) {
-            LOGGER.warn("{} from {} find no available ServletRequestAttributes", WARN_CHECK, NetworkUtil.getRemoteIp());
+            LOGGER.warn("{}  find no available ServletRequestAttributes", WARN_CHECK);
             return null;
         }
         return servletRequestAttributes.getRequest();

@@ -74,7 +74,7 @@ public class NetworkUtil {
                 }
             }
         }
-        if (ip.equals("0:0:0:0:0:0:0:1")) {//win7下使用localhost访问时没有经过路由
+        if ("0:0:0:0:0:0:0:1".equals(ip)) {//win7下使用localhost访问时没有经过路由
             return InetAddress.getLocalHost().getHostAddress();
         }
         if (StringUtils.isBlank(ip)) {
