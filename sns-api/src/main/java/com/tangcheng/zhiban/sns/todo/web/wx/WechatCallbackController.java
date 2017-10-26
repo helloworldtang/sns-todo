@@ -1,11 +1,9 @@
 package com.tangcheng.zhiban.sns.todo.web.wx;
 
-import com.mxixm.fastboot.weixin.config.WxProperties;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,13 +19,9 @@ public class WechatCallbackController {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(WechatCallbackController.class);
 
-    @Autowired
-    private WxProperties wxProperties;
-
     @ApiOperation("oauth2.0 callback")
     @GetMapping("callback")
     public String callback(@RequestParam String code, @RequestParam String state) {
-
         LOGGER.info("code:{},state:{}", code, state);
         return code;
     }

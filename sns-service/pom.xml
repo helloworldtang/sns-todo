@@ -29,10 +29,9 @@
         <dependency>
             <groupId>com.mxixm</groupId>
             <artifactId>fastboot-weixin</artifactId>
-            <version>0.1.2.rc</version>
+            <version>0.2.1.beta</version>
         </dependency>
 
-        <!-- 暂时只能使用apache的http，后续可加入其它http支持 -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>

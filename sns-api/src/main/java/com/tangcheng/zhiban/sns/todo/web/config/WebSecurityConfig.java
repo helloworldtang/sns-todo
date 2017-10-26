@@ -5,7 +5,7 @@ import com.tangcheng.zhiban.sns.todo.web.config.security.LoginAuthenticationFail
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
@@ -45,16 +45,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")//用户在退出后将要被重定向到的URL。默认为/。将会通过HttpServletResponse.redirect来处理。
                 .and()
                 .authorizeRequests()
-                .antMatchers(
+                .antMatchers("/wx/**").permitAll()
+                .antMatchers(HttpMethod.GET,
                         "/web/jars/**",
                         "/favicon.ico",
                         "/logo.png",
                         "/css/**",
                         "/js/**",
-                        "/login",
-                        "/wx/**",
-                        "/mp/verify/**")
-                .permitAll()
+                        "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .portMapper().http(80).mapsTo(443)
@@ -76,7 +74,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Profile("!prod")
     @Override
     public void configure(WebSecurity web) throws Exception {
         //allow Swagger URL to be accessed without authentication
