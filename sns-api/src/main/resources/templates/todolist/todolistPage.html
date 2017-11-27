@@ -29,32 +29,42 @@
             </a>
         </div>
 
-        <ul class="collection" th:if="${#lists.size(list)>0}">
-            <li class="collection-item" th:each="item:${list}">
-                ID: <span id="todoId" th:text="${item.id}">id</span><br/>
-                categoryId: <span th:text="${item.categoryId}">categoryId</span><br/>
-                weight: <span th:text="${item.weight}">weight</span><br/>
-                digest: <span th:text="${item.digest}">digest</span><br/>
-                content: <span th:text="${item.content}">content</span><br/>
-                progress: <span th:class="${item.finished}?' mdi-action-done green-text'"
-                                th:text="${item.finished}?'DONE':'NEED TO DO' ">finished</span><br/>
-                createTime: <span th:text=" ${#dates.format(item.createTime,'yyyy/MM/dd HH:mm')}">createTime</span><br/>
-
-                <a th:if="!${item.finished}" class="doneTodo" th:id="${item.id}">
-                    <i class="mdi-action-done">Done</i>
-                </a>
-                <i class="mdi-action-tab"></i>
-                <a th:href="@{/web/v1/user/todo/{id}/modify(id=${item.id})}">
-                    <i class="mdi-notification-system-update">Modify</i>
-                </a>
-                <i class="mdi-action-tab"></i>
-                <a class="deleteTodo" th:id="${item.id}">
-                    <i class="mdi-action-delete">Delete</i>
-                </a>
-
-            </li>
-        </ul>
-
+        <table class="table table-striped table-hover" th:if="${#lists.size(list)>0}">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>CategoryId</th>
+                <th>Weight</th>
+                <th>Digest</th>
+                <th>Content</th>
+                <th>Progress</th>
+                <th>CreateTime</th>
+                <th style="text-align: center" colspan="3">Operate</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item:${list}">
+                <th th:text="${item.id}">id</th>
+                <td th:text="${item.categoryId}">categoryId</td>
+                <td th:text="${item.weight}">weight</td>
+                <td th:text="${item.digest}">digest</td>
+                <td th:text="${item.content}">content</td>
+                <td th:class="${item.finished}?' mdi-action-done green-text'"
+                    th:text="${item.finished}?'DONE':'NEED TO DO' ">finished
+                </td>
+                <td th:text=" ${#dates.format(item.createTime,'yyyy/MM/dd HH:mm')}">createTime</td>
+                <td><a th:if="!${item.finished}" class="doneTodo" th:id="${item.id}">
+                    <i class="mdi-action-done">Done</i></a>
+                </td>
+                <td><a th:href="@{/web/v1/user/todo/{id}/modify(id=${item.id})}">
+                    <i class="mdi-notification-system-update">Modify</i></a>
+                </td>
+                <td><a class="deleteTodo" th:id="${item.id}">
+                    <i class="mdi-action-delete">Delete</i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 </div>
