@@ -25,11 +25,10 @@
 
 
         <!-- fastbootWeixin的核心依赖 -->
-        <!--https://git.oschina.net/kingshine/FastBootWeixin.git-->
         <dependency>
             <groupId>com.mxixm</groupId>
             <artifactId>fastboot-weixin</artifactId>
-            <version>0.3.1</version>
+            <version>0.3.3</version>
         </dependency>
 
         <dependency>
