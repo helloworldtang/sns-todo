@@ -9,9 +9,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler;
@@ -28,10 +32,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Bean
-    public LogoutHandler logoutHandler() {
-        return new SecurityContextLogoutHandler();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
+
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+/*        auth.inMemoryAuthentication()
+                .withUser("admin").password("yigepingguo.com").roles("ADMIN", "USER")
+                .and()
+                .withUser("user").password("user").roles("USER");*/
+    }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -58,6 +77,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .portMapper().http(80).mapsTo(443)
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+    }
+
+    @Bean
+    public LogoutHandler logoutHandler() {
+        return new SecurityContextLogoutHandler();
     }
 
     @Bean
