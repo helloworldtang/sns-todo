@@ -1,9 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
+      layout:decorate="~{layout/default}"
+      xmlns:wb="http://open.weibo.com/wb">
 <head>
     <title>Login</title>
+    <script src="//tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3795629230" type="text/javascript"
+            charset="utf-8"></script>
 </head>
 <body>
 <div class="section container" layout:fragment="content">
@@ -42,35 +45,34 @@
                 </div>
             </div>
 
-            <div class="row center">
-                <button class="btn indigo waves-effect waves-light" type="submit">
-                    <i class="mdi-content-send right ">Login</i>
-                </button>
-            </div>
 
+            <div class="form-group">
+                <div class="row center">
+                    <button type="submit" class="btn indigo waves-effect waves-light">
+                        <i class="mdi-content-send right ">Login</i>
+                    </button>
+
+                    <a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101446208&redirect_uri=https://chaojihao.net/login/qq"
+                       class="btn indigo waves-effect waves-light"><i class="mdi-content-send right ">QQ登录</i></a>
+                    <wb:login-button type="4,2" onlogin="login" onlogout="logout">登录按钮</wb:login-button>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="input-field col s6 m6 l6">
-                    <p class="margin medium-small"><a href="page-register.html">Register Now!</a></p>
+                    <p class="margin medium-small"><a href="#">Register Now!</a></p>
                 </div>
                 <div class="input-field col s6 m6 l6">
-                    <p class="margin right-align medium-small"><a href="page-forgot-password.html">Forgot password ?</a>
+                    <p class="margin right-align medium-small"><a href="#">Forgot password ?</a>
                     </p>
                 </div>
             </div>
+        </form>
 
-        </form>
-        <form th:action="@{/signin/twitter}" method="POST" class="center">
-            <div class="row">
-                <button class="btn indigo" name="twitterSignin" type="submit">Connect with Twitter
-                    <i class="mdi-social-group-add left"></i>
-                </button>
-            </div>
-        </form>
     </div>
-    <div id="footerbar">
+    <div id="footerbar" class="row center">
         Copyright ©2017<a href="https://chaojihao.net">58TODO</a>保留所有权利<a href="http://www.miitbeian.gov.cn"
-                                                                            target="_blank">豫ICP备16006862号-2</a>
+                                                                          target="_blank">豫ICP备16006862号-2</a>
     </div>
 </div>
 </body>
