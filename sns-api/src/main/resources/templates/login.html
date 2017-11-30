@@ -1,22 +1,22 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}"
+<html data-layout-decorate="~{layout/default}"
       xmlns:wb="http://open.weibo.com/wb">
 <head>
     <title>Login</title>
+    <!--http://open.weibo.com/wiki/Connect/login-->
+    <!--http://open.weibo.com/widget/loginbutton.php-->
     <script src="//tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3795629230" type="text/javascript"
             charset="utf-8"></script>
 </head>
 <body>
-<div class="section container" layout:fragment="content">
-    <div id="errorMessage" class="card-panel red lighten-2" th:if="${param.error}">
+<div class="section container" data-layout-fragment="content">
+    <div id="errorMessage" class="card-panel red lighten-2" data-th-if="${param.error}">
         <span class="card-title">Invalid user name or password</span>
     </div>
     <div class="col s12 z-depth-4 card-panel">
         <form id="login"
               class="login-form"
-              th:action="@{/login}"
+              data-th-action="@{/login}"
               method="post">
             <div class="row">
                 <div class="input-field col s12 center">

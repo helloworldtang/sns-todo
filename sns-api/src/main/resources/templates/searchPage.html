@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
+<html lang="en" data-layout-decorate="~{layout/default}">
 <head>
     <title>Search</title>
 </head>
 <body>
-<div class="row" layout:fragment="content">
+<div class="row" data-layout-fragment="content">
     <h4 class="indigo-text center">Please enter a search term</h4>
     <div class="col s6 offset-s3">
-        <div id="errorMessage" class="card-panel red lighten-2" th:if="${error}">
-            <span class="card-title" th:text="${error}"></span>
+        <div id="errorMessage" class="card-panel red lighten-2" data-th-if="${error}">
+            <span class="card-title" data-th-text="${error}"></span>
         </div>
-        <form th:action="@{/postSearch}" method="post" class="col s12">
+        <form data-th-action="@{/postSearch}" method="post" class="col s12">
             <div class="row center">
                 <div class="input-field">
                     <label for="search"><i class="mdi-action-search prefix" type="text"></i></label>

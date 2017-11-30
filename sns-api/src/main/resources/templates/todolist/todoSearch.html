@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
+<html lang="zh" data-layout-decorate="~{layout/default}">
 <head>
     <title>TodoList</title>
     <link href="/webjars/materializecss/0.96.0/css/materialize.css" type="text/css" rel="stylesheet"
@@ -10,15 +7,15 @@
 </head>
 
 <body>
-<div class="row" layout:fragment="content">
+<div class="row" data-layout-fragment="content">
 
     <h4 class="indigo-text center">Please enter a search term</h4>
 
     <div class="col s12">
-        <div id="errorMessage" class="card-panel red lighten-2" th:if="${error}">
-            <span class="card-title" th:text="${error}"></span>
+        <div id="errorMessage" class="card-panel red lighten-2" data-th-if="${error}">
+            <span class="card-title" data-th-text="${error}"></span>
         </div>
-        <form th:action="@{${url}}" method="post" class="col s12">
+        <form data-th-action="@{${url}}" method="post" class="col s12">
             <div class="row center">
                 <div class="input-field">
                     <label for="key" class="mdi-action-search prefix"></label>
@@ -29,33 +26,33 @@
         </form>
 
 
-        <div class="col s12" th:if="${list!=nul}">
-            <h6 class="indigo-text center" th:text="|results for key: ${key}|">todo</h6>
+        <div class="col s12" data-th-if="${list!=nul}">
+            <h6 class="indigo-text center" data-th-text="|results for key: ${key}|">todo</h6>
 
-            <div class="mdi-alert-warning center" th:if="${#lists.isEmpty(list)}">
+            <div class="mdi-alert-warning center" data-th-if="${#lists.isEmpty(list)}">
                 Find nothing!
             </div>
-            <ul class="collection" th:if="${#lists.size(list)>0}">
-                <li class=" collection-item" th:each="item:${list}">
-                    ID: <span id="todoId" th:text="${item.id}">id</span><br/>
-                    categoryId: <span th:text="${item.categoryId}">categoryId</span><br/>
-                    weight: <span th:text="${item.weight}">weight</span><br/>
-                    digest: <span th:text="${item.digest}">digest</span><br/>
-                    content: <span th:text="${item.content}">content</span><br/>
-                    progress: <span th:class="${item.finished}?'mdi-action-done green-text'"
-                                    th:text="${item.finished}?'DONE':'NEED TO DO' ">finished</span><br/>
-                    createTime: <span
-                        th:text="${#dates.format(item.createTime,'yyyy/MM/dd HH:mm')}">createTime</span><br/>
+            <ul class="collection" data-th-if="${#lists.size(list)>0}">
+                <li class=" collection-item" data-th-each="item:${list}">
+                    ID: <span id="todoId" data-th-text="${item.id}">id</span><br/>
+                    categoryId: <span data-th-text="${item.categoryId}">categoryId</span><br/>
+                    weight: <span data-th-text="${item.weight}">weight</span><br/>
+                    digest: <span data-th-text="${item.digest}">digest</span><br/>
+                    content: <span data-th-text="${item.content}">content</span><br/>
+                    progress: <span data-th-class="${item.finished}?'mdi-action-done green-text'"
+                                    data-th-text="${item.finished}?'DONE':'NEED TO DO' ">finished</span><br/>
+                    createTime:
+                    <span data-th-text="${#dates.format(item.createTime,'yyyy/MM/dd HH:mm')}">createTime</span><br/>
 
-                    <a th:if="!${item.finished}" class="doneTodo" th:id="${item.id}">
+                    <a data-th-if="!${item.finished}" class="doneTodo" data-th-id="${item.id}">
                         <i class="mdi-action-done">Done</i>
                     </a>
                     <i class="mdi-action-tab"></i>
-                    <a th:href="@{/web/v1/user/todo/{id}/modify(id=${item.id})}">
+                    <a data-th-href="@{/web/v1/user/todo/{id}/modify(id=${item.id})}">
                         <i class="mdi-notification-system-update">Modify</i>
                     </a>
                     <i class="mdi-action-tab"></i>
-                    <a class="deleteTodo" th:id="${item.id}">
+                    <a class="deleteTodo" data-th-id="${item.id}">
                         <i class="mdi-action-delete">Delete</i>
                     </a>
 
@@ -69,7 +66,7 @@
 
 </div>
 
-<script layout:fragment="script">
+<script data-layout-fragment="script">
     $(function () {
         $(".doneTodo").click(function () {
 

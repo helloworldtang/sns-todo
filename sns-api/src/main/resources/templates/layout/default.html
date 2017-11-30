@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
@@ -11,8 +9,8 @@
           type="text/css"
           rel="stylesheet"
           media="screen,projection"/>
-    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}" content="_csrf.parameterName"/>
-    <meta name="_csrf" th:content="${_csrf.token}" content="_csrf.token"/>
+    <meta name="_csrf_parameter" data-th-content="${_csrf.parameterName}" content="_csrf.parameterName"/>
+    <meta name="_csrf" data-th-content="${_csrf.token}" content="_csrf.token"/>
 </head>
 <body>
 
@@ -20,13 +18,13 @@
 <nav class="indigo" role="navigation">
     <div class="nav-wrapper container">
         <ul id="userManager-dropdown" class="dropdown-content">
-            <li class="nav-link"><a th:href="@{/web/v1/user/profile/change-pwd}">ChangePwd</a></li>
+            <li class="nav-link"><a data-th-href="@{/web/v1/user/profile/change-pwd}">ChangePwd</a></li>
             <li class="nav-link"><a class="mdi-action-exit-to-app" onclick="logout()">Logout</a></li>
         </ul>
         <span sec:authorize="isAuthenticated()" class="right">
-                <a class="mdi-action-home" th:href="@{/}">Home</a>
+                <a class="mdi-action-home" data-th-href="@{/}">Home</a>
             &nbsp;&nbsp;&nbsp;&nbsp;
-                <a class="mdi-action-search" th:href="@{/web/v1/user/todo/search}">Search</a>
+                <a class="mdi-action-search" data-th-href="@{/web/v1/user/todo/search}">Search</a>
             &nbsp;&nbsp;&nbsp;&nbsp;
                 Welcome &nbsp;
                 <a href="#!"
@@ -42,12 +40,12 @@
 </nav>
 
 <div class="container">
-    <section layout:fragment="content">
+    <section data-layout-fragment="content">
         <p>Page content goes here</p>
     </section>
 </div>
 
-<form id="logout" th:action="@{/logout}" method="post">
+<form id="logout" data-th-action="@{/logout}" method="post">
 </form>
 
 <script src="/webjars/jquery/2.1.4/jquery.js"></script>
@@ -59,7 +57,7 @@
         $("#logout").submit();
     }
 </script>
-<script type="text/javascript" layout:fragment="script">
+<script type="text/javascript" data-layout-fragment="script">
 </script>
 </body>
 </html>

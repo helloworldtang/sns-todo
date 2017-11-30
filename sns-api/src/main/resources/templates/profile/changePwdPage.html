@@ -1,18 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
+<html lang="zh" data-layout-decorate="~{layout/default}">
 <head>
     <meta charset="UTF-8"/>
     <title>Change Pwd</title>
 </head>
 <body>
-<div class="row" layout:fragment="content">
-    <div id="errorMessage" class="card-panel red lighten-2" th:if="${error}!=null">
+<div class="row" data-layout-fragment="content">
+    <div id="errorMessage" class="card-panel red lighten-2" data-th-if="${error}!=null">
         <span class="card-title">Invalid Old Pwd,Please try again!</span>
     </div>
-    <form name="form" th:action="@{/web/v1/user/profile/change-pwd}" method="post">
+    <form name="form" data-th-action="@{/web/v1/user/profile/change-pwd}" method="post">
         <div class="panel panel-body login-form">
             <div class="form-group has-feedback has-feedback-left">
                 <input type="password" id="oldPwd" name="oldPwd" class="form-control"

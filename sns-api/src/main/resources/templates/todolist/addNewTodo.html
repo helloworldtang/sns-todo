@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
+<html lang="zh" data-layout-decorate="~{layout/default}">
 <head>
     <meta charset="UTF-8"/>
     <title>AddNewTodo</title>
 </head>
 <body>
-<div class="section container center s12" layout:fragment="content">
+<div class="section container center s12" data-layout-fragment="content">
     <form name="form"
           class="col s12 "
-          th:action="@{${url}}"
+          data-th-action="@{${url}}"
           method="post">
 
 
@@ -19,9 +16,8 @@
             <div class="input-field col s12">
                 <label for="categoryId">categoryId</label>
 
-                <input type="text"
-                       id="categoryId"
-                       th:value="${item!=null}?${item.categoryId}:1"
+                <input id="categoryId"
+                       data-th-value="${item!=null}?${item.categoryId}:1"
                        name="categoryId"
                        class="form-control"
                        placeholder="categoryId"/>
@@ -32,9 +28,8 @@
             <div class="input-field col s12">
                 <label for="weight">Weight(Desc)</label>
 
-                <input type="text"
-                       id="weight"
-                       th:value="${item!=null}?${item.weight}:1"
+                <input id="weight"
+                       data-th-value="${item!=null}?${item.weight}:1"
                        name="weight"
                        class="form-control"
                        placeholder="digest"/>
@@ -45,9 +40,8 @@
             <div class="input-field col s12">
                 <label for="digest"><i class="mdi-action-stars">Digest(required)</i></label>
 
-                <input type="text"
-                       id="digest"
-                       th:value="${item!=null}?${item.digest}"
+                <input id="digest"
+                       data-th-value="${item!=null}?${item.digest}"
                        name="digest"
                        class="form-control"
                        placeholder="digest"/>
@@ -62,7 +56,7 @@
                 <textarea id="content"
                           name="content"
                           placeholder="content"
-                          th:text="${item!=null}?${item.content}"
+                          data-th-text="${item!=null}?${item.content}"
                           class="materialize-textarea">
 
                 </textarea>
@@ -75,7 +69,7 @@
 
                 <button type="submit"
                         class="btn form-control mdi-content-save"
-                        th:text="${btnShowValue}">
+                        data-th-text="${btnShowValue}">
                     submit
                 </button>
             </div>

@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
+<html lang="zh" data-layout-decorate="~{layout/default}">
 <head>
     <title>TodoList</title>
     <link href="/webjars/materializecss/0.96.0/css/materialize.css" type="text/css" rel="stylesheet"
@@ -10,26 +7,24 @@
 </head>
 
 <body>
-<div class="row" layout:fragment="content">
+<div class="row" data-layout-fragment="content">
     <h4 class="indigo-text center">Todolist Detail
-        <a class="btn-floating btn-large waves-effect waves-light indigo"
-           th:if="${#lists.size(list)>0}"
-           th:href="@{/web/v1/user/todo/add}">
+        <a class="btn-floating btn-large waves-effect waves-light indigo" data-th-if="${#lists.size(list)>0}"
+           data-th-href="@{/web/v1/user/todo/add}">
             +
         </a>
     </h4>
 
 
     <div class="row">
-        <div class="center" th:if="${#lists.isEmpty(list)}">
+        <div class="center" data-th-if="${#lists.isEmpty(list)}">
             So great! Add a new Todo first <br/>
-            <a class="btn-floating btn-large waves-effect waves-light indigo"
-               th:href="@{/web/v1/user/todo/add}">
+            <a class="btn-floating btn-large waves-effect waves-light indigo" data-th-href="@{/web/v1/user/todo/add}">
                 +
             </a>
         </div>
 
-        <table class="table table-striped table-hover" th:if="${#lists.size(list)>0}">
+        <table class="table table-striped table-hover" data-th-if="${#lists.size(list)>0}">
             <thead>
             <tr>
                 <th>ID</th>
@@ -43,23 +38,23 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item:${list}">
-                <th th:text="${item.id}">id</th>
-                <td th:text="${item.categoryId}">categoryId</td>
-                <td th:text="${item.weight}">weight</td>
-                <td th:text="${item.digest}">digest</td>
-                <td th:text="${item.content}">content</td>
-                <td th:class="${item.finished}?' mdi-action-done green-text'"
-                    th:text="${item.finished}?'DONE':'NEED TO DO' ">finished
+            <tr data-th-each="item:${list}">
+                <th data-th-text="${item.id}">id</th>
+                <td data-th-text="${item.categoryId}">categoryId</td>
+                <td data-th-text="${item.weight}">weight</td>
+                <td data-th-text="${item.digest}">digest</td>
+                <td data-th-text="${item.content}">content</td>
+                <td data-th-class="${item.finished}?' mdi-action-done green-text'"
+                    data-th-text="${item.finished}?'DONE':'NEED TO DO' ">finished
                 </td>
-                <td th:text=" ${#dates.format(item.createTime,'yyyy/MM/dd HH:mm')}">createTime</td>
-                <td><a th:if="!${item.finished}" class="doneTodo" th:id="${item.id}">
+                <td data-th-text=" ${#dates.format(item.createTime,'yyyy/MM/dd HH:mm')}">createTime</td>
+                <td><a data-th-if="!${item.finished}" class="doneTodo" data-th-id="${item.id}">
                     <i class="mdi-action-done">Done</i></a>
                 </td>
-                <td><a th:href="@{/web/v1/user/todo/{id}/modify(id=${item.id})}">
+                <td><a data-th-href="@{/web/v1/user/todo/{id}/modify(id=${item.id})}">
                     <i class="mdi-notification-system-update">Modify</i></a>
                 </td>
-                <td><a class="deleteTodo" th:id="${item.id}">
+                <td><a class="deleteTodo" data-th-id="${item.id}">
                     <i class="mdi-action-delete">Delete</i></a>
                 </td>
             </tr>
@@ -69,7 +64,7 @@
 
 </div>
 
-<script layout:fragment="script">
+<script data-layout-fragment="script">
     $(function () {
         $(".doneTodo").click(function () {
 
