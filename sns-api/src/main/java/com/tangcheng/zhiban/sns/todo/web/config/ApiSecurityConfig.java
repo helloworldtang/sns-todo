@@ -17,7 +17,9 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.antMatcher(ApiVersion.API_V1 + "/**")
+        http.authorizeRequests().antMatchers("/api/v1/wx").permitAll()
+                .and()
+                .antMatcher(ApiVersion.API_V1 + "/**")
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET).hasAnyRole("USER", "ADMIN")

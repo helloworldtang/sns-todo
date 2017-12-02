@@ -39,7 +39,7 @@ public class UserController {
         int count = userService.changePwd(principal.getName(), changePwdReqVO);
         if (count == 1) {
             logoutHandler.logout(request, response, SecurityContextHolder.getContext().getAuthentication());
-            return "redirect:/login";
+            return "redirect:" + ApiVersion.WEB_V1 + "/login";
         }
         redirectAttributes.addFlashAttribute("error", true);
         return "profile/changePwdPage";
