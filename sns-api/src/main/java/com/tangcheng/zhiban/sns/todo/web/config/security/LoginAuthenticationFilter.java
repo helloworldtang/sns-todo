@@ -2,6 +2,7 @@ package com.tangcheng.zhiban.sns.todo.web.config.security;
 
 import com.google.code.kaptcha.Constants;
 import com.tangcheng.zhiban.sns.todo.domain.exception.CaptchaException;
+import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     public LoginAuthenticationFilter() {
-        AntPathRequestMatcher requestMatcher = new AntPathRequestMatcher("/login", "POST");
+        AntPathRequestMatcher requestMatcher = new AntPathRequestMatcher(ApiVersion.WEB_V1 + "/login", "POST");
         this.setRequiresAuthenticationRequestMatcher(requestMatcher);
         this.setAuthenticationManager(getAuthenticationManager());
     }

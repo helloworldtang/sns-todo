@@ -2,6 +2,7 @@ package com.tangcheng.zhiban.sns.todo.web.config;
 
 import com.tangcheng.zhiban.sns.todo.domain.exception.CaptchaException;
 import com.tangcheng.zhiban.sns.todo.web.config.security.LoginAuthenticationFailureHandler;
+import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,26 +56,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("/login")
+                .loginPage(ApiVersion.WEB_V1 + "/login")
                 .defaultSuccessUrl("/", true)
                 .and()
                 .logout()
                 .invalidateHttpSession(true)//用户的HTTP session将会在退出时被失效。在一些场景下，这是必要的（如用户拥有一个购物车时）
                 .clearAuthentication(true)
-                .logoutSuccessUrl("/login")//用户在退出后将要被重定向到的URL。默认为/。将会通过HttpServletResponse.redirect来处理。
+                .logoutSuccessUrl(ApiVersion.WEB_V1 + "/login")//用户在退出后将要被重定向到的URL。默认为/。将会通过HttpServletResponse.redirect来处理。
                 .and()
                 .authorizeRequests()
                 .antMatchers("/wx/**").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/web/jars/**",
                         "/favicon.ico",
-                        "/logo.png",
-                        "/css/**",
-                        "/js/**",
-                        "/login").permitAll()
+                        "/static/**",
+                        ApiVersion.WEB_V1 + "/login").permitAll()
+                .antMatchers(HttpMethod.POST, ApiVersion.WEB_V1 + "/login").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .portMapper().http(80).mapsTo(443)
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }

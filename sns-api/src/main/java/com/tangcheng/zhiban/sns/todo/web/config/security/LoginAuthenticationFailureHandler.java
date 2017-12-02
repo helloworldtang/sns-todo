@@ -1,6 +1,7 @@
 package com.tangcheng.zhiban.sns.todo.web.config.security;
 
 import com.tangcheng.zhiban.sns.todo.domain.exception.CaptchaException;
+import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
@@ -14,11 +15,11 @@ import java.io.IOException;
  */
 public class LoginAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-    public static final String PASS_ERROR_URL = "/login?error";
-    public static final String CODE_ERROR_URL = "/login?code";
-    public static final String EXPIRED_URL = "/login?expire";
-    public static final String DISABLED_URL = "/login?disabled";
-    public static final String LOCKED_URL = "/login?locked";
+    public static final String PASS_ERROR_URL = ApiVersion.WEB_V1 + "/login?error";
+    public static final String CODE_ERROR_URL = ApiVersion.WEB_V1 + "/login?code";
+    public static final String EXPIRED_URL = ApiVersion.WEB_V1 + "/login?expire";
+    public static final String DISABLED_URL = ApiVersion.WEB_V1 + "/login?disabled";
+    public static final String LOCKED_URL = ApiVersion.WEB_V1 + "/login?locked";
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {

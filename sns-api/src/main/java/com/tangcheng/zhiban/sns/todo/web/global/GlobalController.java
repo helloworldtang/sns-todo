@@ -2,6 +2,7 @@ package com.tangcheng.zhiban.sns.todo.web.global;
 
 import com.tangcheng.zhiban.sns.todo.core.util.NetworkUtil;
 import com.tangcheng.zhiban.sns.todo.core.util.RequestHolder;
+import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import static com.tangcheng.zhiban.sns.todo.core.constant.Flag.BizLogFlag.WARN_CHECK;
 
 @Controller
-@RequestMapping("/global")
+@RequestMapping(ApiVersion.WEB_V1 + "/global")
 public class GlobalController {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(GlobalController.class);
