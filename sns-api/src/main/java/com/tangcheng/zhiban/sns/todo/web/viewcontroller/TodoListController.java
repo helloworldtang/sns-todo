@@ -6,6 +6,8 @@ import com.tangcheng.zhiban.sns.todo.domain.req.TodoSearchReqVO;
 import com.tangcheng.zhiban.sns.todo.domain.res.TodoDetailResVO;
 import com.tangcheng.zhiban.sns.todo.service.biz.TodoDetailService;
 import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+@Api(tags = "Todo View", description = "Todo View")
 @Controller
 @RequestMapping(ApiVersion.WEB_V1 + "/user/todo")
 public class TodoListController {
+
     @Autowired
     private TodoDetailService todoDetailService;
 
+    @ApiOperation("display todo list")
     @GetMapping
     public String listTodoList(TodoDetailListReqVO todoDetailListReqVO, Model model) {
         List<TodoDetailResVO> detailResVOList = todoDetailService.listWeb(todoDetailListReqVO);
@@ -30,6 +35,7 @@ public class TodoListController {
         return "todolist/todolistPage";
     }
 
+    @ApiOperation("display todo item page for add ")
     @GetMapping("add")
     public String add(Model model) {
         model.addAttribute("url", ApiVersion.WEB_V1 + "/user/todo");
@@ -37,6 +43,7 @@ public class TodoListController {
         return "todolist/addNewTodo";
     }
 
+    @ApiOperation("display todo item page for add ")
     @PostMapping
     public String save(@Valid TodoDetailReqVO todoDetailReqVO) {
         todoDetailService.save(todoDetailReqVO);
@@ -44,6 +51,7 @@ public class TodoListController {
     }
 
 
+    @ApiOperation("display todo item page for modify ")
     @GetMapping("{id}/modify")
     public String update(@PathVariable Long id, Model model) {
         TodoDetailResVO detailResVO = todoDetailService.get(id);
@@ -57,6 +65,7 @@ public class TodoListController {
         return "todolist/addNewTodo";
     }
 
+    @ApiOperation("modify todo item")
     @PostMapping("{id}/modify")
     public String update(@PathVariable Long id,
                          @Valid TodoDetailReqVO todoDetailReqVO,
@@ -68,19 +77,22 @@ public class TodoListController {
         return listTodoList(todoDetailListReqVO, model);
     }
 
-
+    @ApiOperation("finish one todo item")
     @PostMapping("{id}")
     public void finish(@PathVariable Long id) {
         todoDetailService.finish(id);
     }
 
 
+    @ApiOperation("display todo list for search")
     @GetMapping("search")
     public String search(Model model) {
         model.addAttribute("url", ApiVersion.WEB_V1 + "/user/todo/search");
         return "todolist/todoSearch";
     }
 
+
+    @ApiOperation("search target todo item")
     @PostMapping("search")
     public String search(@Valid TodoSearchReqVO searchReqVO, Model model) {
         List<TodoDetailResVO> detailResVOList = todoDetailService.search(searchReqVO);

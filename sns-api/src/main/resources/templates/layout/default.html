@@ -9,8 +9,6 @@
           type="text/css"
           rel="stylesheet"
           media="screen,projection"/>
-    <meta name="_csrf_parameter" data-th-content="${_csrf.parameterName}" content="_csrf.parameterName"/>
-    <meta name="_csrf" data-th-content="${_csrf.token}" content="_csrf.token"/>
 </head>
 <body>
 
@@ -45,7 +43,7 @@
     </section>
 </div>
 
-<form id="logout" data-th-action="@{/logout}" method="post">
+<form id="logout" data-th-action="@{/api/v1/logout}" method="post">
 </form>
 
 <script src="/webjars/jquery/2.1.4/jquery.js"></script>

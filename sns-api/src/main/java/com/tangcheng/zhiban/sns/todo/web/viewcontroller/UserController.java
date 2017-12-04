@@ -3,6 +3,8 @@ package com.tangcheng.zhiban.sns.todo.web.viewcontroller;
 import com.tangcheng.zhiban.sns.todo.domain.req.ChangePwdReqVO;
 import com.tangcheng.zhiban.sns.todo.service.biz.UserService;
 import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -20,6 +22,7 @@ import java.security.Principal;
 /**
  * Created by tangcheng on 9/1/2017.
  */
+@Api(value = "User Profile Value", tags = "User Profile", description = "User Profile")
 @Controller
 @RequestMapping(ApiVersion.WEB_V1 + "/user/profile")
 public class UserController {
@@ -30,6 +33,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation("do change pwd")
     @PostMapping("change-pwd")
     public String changePwd(HttpServletRequest request,
                             HttpServletResponse response,
@@ -45,6 +49,7 @@ public class UserController {
         return "profile/changePwdPage";
     }
 
+    @ApiOperation("display change pwd page")
     @GetMapping("change-pwd")
     public String changePwd() {
         return "profile/changePwdPage";

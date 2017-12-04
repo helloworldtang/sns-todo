@@ -4,8 +4,7 @@ package com.tangcheng.zhiban.sns.todo.web.config;
 import com.tangcheng.zhiban.sns.todo.core.constant.Flag;
 import com.tangcheng.zhiban.sns.todo.core.util.NetworkUtil;
 import com.tangcheng.zhiban.sns.todo.core.util.RequestHolder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
@@ -19,16 +18,14 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
+@Slf4j
 @ControllerAdvice
 public class WebGlobalHandler {
-
-    public static final Logger LOGGER = LoggerFactory.getLogger(WebGlobalHandler.class);
-
 
     @ModelAttribute
     public void addAttribute(HttpServletResponse response, Model model, Exception e) {
         String lastAccessUri = RequestHolder.getLastAccessUri();
-        LOGGER.warn("{} {} visit {},msg:{}", Flag.BizLogFlag.WARN_CHECK, NetworkUtil.getRemoteIp(), lastAccessUri, e.getMessage());
+        log.warn("{} {} visit {},msg:{}", Flag.BizLogFlag.WARN_CHECK, NetworkUtil.getRemoteIp(), lastAccessUri, e.getMessage());
         model.addAttribute("uri", lastAccessUri);
         model.addAttribute("status", response.getStatus());
     }
@@ -59,7 +56,7 @@ public class WebGlobalHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ModelAndView handleMethodArgumentNotValidException(MethodArgumentNotValidException e, ModelAndView modelAndView) {
-        LOGGER.error("MethodArgumentNotValidException:{},url:{}", e.getMessage(), RequestHolder.getLastAccessUri());
+        log.error("MethodArgumentNotValidException:{},url:{}", e.getMessage(), RequestHolder.getLastAccessUri());
         StringBuilder builder = new StringBuilder();
         for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
             builder.append(fieldError.getField())
@@ -75,7 +72,7 @@ public class WebGlobalHandler {
 
     @ExceptionHandler(Exception.class)
     public ModelAndView handleDbException(Exception e, ModelAndView modelAndView) {
-        LOGGER.error("default:{}", e.getMessage(), e);
+        log.error("default:{}", e.getMessage(), e);
         modelAndView.setViewName("error");
         if (e instanceof SQLException || e instanceof DataAccessException) {
             String msg = "has error.Look for tangcheng@hujiang.com to solve";

@@ -1,12 +1,10 @@
 <!DOCTYPE HTML>
 <html data-layout-decorate="~{layout/default}"
-      xmlns:wb="http://open.weibo.com/wb">
+>
 <head>
     <title>Login</title>
     <!--http://open.weibo.com/wiki/Connect/login-->
     <!--http://open.weibo.com/widget/loginbutton.php-->
-    <script src="//tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3795629230" type="text/javascript"
-            charset="utf-8"></script>
 </head>
 <body>
 <div class="section container" data-layout-fragment="content">
@@ -16,7 +14,7 @@
     <div class="col s12 z-depth-4 card-panel">
         <form id="login"
               class="login-form"
-              data-th-action="@{/web/v1/login}"
+              data-th-action="@{/api/v1/login}"
               method="post">
             <div class="row">
                 <div class="input-field col s12 center">
@@ -52,9 +50,10 @@
                         <i class="mdi-content-send right ">Login</i>
                     </button>
 
-                    <a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101446208&redirect_uri=https://chaojihao.net/login/qq"
+                    <a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101446208&redirect_uri=https://chaojihao.net/api/v1/login/qq"
                        class="btn indigo waves-effect waves-light"><i class="mdi-content-send right ">QQ登录</i></a>
-                    <wb:login-button type="4,2" onlogin="login" onlogout="logout">登录按钮</wb:login-button>
+                    <a href="https://api.weibo.com/oauth2/authorize?client_id=3795629230&response_type=code&redirect_uri=https://chaojihao.net/api/v1/login/sina"
+                       class="btn indigo waves-effect waves-light"><i class="mdi-content-send right ">微博登录</i></a>
                 </div>
             </div>
 

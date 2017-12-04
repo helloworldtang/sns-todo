@@ -3,8 +3,9 @@ package com.tangcheng.zhiban.sns.todo.web.global;
 import com.tangcheng.zhiban.sns.todo.core.util.NetworkUtil;
 import com.tangcheng.zhiban.sns.todo.core.util.RequestHolder;
 import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import static com.tangcheng.zhiban.sns.todo.core.constant.Flag.BizLogFlag.WARN_CHECK;
 
+@Slf4j
+@Api(tags = "Global Error", description = "Global Error")
 @Controller
 @RequestMapping(ApiVersion.WEB_V1 + "/global")
 public class GlobalController {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(GlobalController.class);
 
+    @ApiOperation("display error page")
     @GetMapping("error")
     public ModelAndView globalError(HttpServletRequest request) {
         String remoteIp = NetworkUtil.getRemoteIp();
@@ -33,7 +36,7 @@ public class GlobalController {
         modelAndView.addObject("error", error);
         Object msg = request.getAttribute(WebUtils.ERROR_MESSAGE_ATTRIBUTE);
         modelAndView.addObject("message", msg);
-        LOGGER.warn("{} {} visit {},error:{},msg:{}", WARN_CHECK, remoteIp, lastAccessUri, error, msg);
+        log.warn("{} {} visit {},error:{},msg:{}", WARN_CHECK, remoteIp, lastAccessUri, error, msg);
         return modelAndView;
     }
 

@@ -9,6 +9,7 @@ import com.tangcheng.zhiban.sns.todo.domain.res.TodoDetailResVO;
 import com.tangcheng.zhiban.sns.todo.service.biz.TodoDetailService;
 import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,11 +26,14 @@ public class TodoDetailController {
     @Autowired
     private TodoDetailService todoDetailService;
 
+    @ApiOperation("add one todo item")
     @PostMapping
     public ResultData<Long> save(@Valid TodoDetailReqVO todoDetailReqVO) {
         return new ResultData<Long>(todoDetailService.save(todoDetailReqVO));
     }
 
+
+    @ApiOperation("finish one todo item")
     @PutMapping("{id}")
     public ResultData<String> finish(@PathVariable Long id) {
         todoDetailService.finish(id);
@@ -37,12 +41,15 @@ public class TodoDetailController {
     }
 
 
+    @ApiOperation("delete one todo item")
     @DeleteMapping("{id}")
     public ResultData<String> remove(@PathVariable Long id) {
         todoDetailService.remove(id);
         return new ResultData<>(GlobalCode.SUCCESS);
     }
 
+
+    @ApiOperation("list all todo list which not finished")
     @GetMapping
     public ResultData<PageData<TodoDetailResVO>> list(TodoDetailListReqVO todoDetailListReqVO) {
         PageData<TodoDetailResVO> pageData = todoDetailService.list(todoDetailListReqVO);
