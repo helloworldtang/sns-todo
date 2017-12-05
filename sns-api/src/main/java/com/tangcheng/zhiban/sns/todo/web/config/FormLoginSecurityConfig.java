@@ -1,9 +1,12 @@
 package com.tangcheng.zhiban.sns.todo.web.config;
 
 import com.tangcheng.zhiban.sns.todo.domain.exception.CaptchaException;
+import com.tangcheng.zhiban.sns.todo.web.config.security.ClientResources;
 import com.tangcheng.zhiban.sns.todo.web.config.security.LoginAuthenticationFailureHandler;
 import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,16 +20,26 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2ClientContext;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.web.filter.CompositeFilter;
 
 import javax.security.auth.login.AccountExpiredException;
+import javax.servlet.Filter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+@EnableOAuth2Client
 @Configuration
 public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -35,6 +48,9 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    OAuth2ClientContext oauth2ClientContext;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -79,8 +95,37 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ApiVersion.WEB_V1 + "/user/todo/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .antMatchers(ApiVersion.WEB_V1 + "/user/profile/**").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .and()
+                .addFilterBefore(ssoFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
+
+
+    private Filter ssoFilter() {
+        CompositeFilter filter = new CompositeFilter();
+        List<Filter> filters = new ArrayList<>();
+//        filters.add(ssoFilter(facebook(), "/login/facebook"));
+        filters.add(ssoFilter(github(), "/login/github"));
+        filter.setFilters(filters);
+        return filter;
+    }
+
+    @Bean
+    @ConfigurationProperties("github")
+    public ClientResources github() {
+        return new ClientResources();
+    }
+
+    private Filter ssoFilter(ClientResources client, String path) {
+        OAuth2ClientAuthenticationProcessingFilter oAuth2ClientAuthenticationFilter = new OAuth2ClientAuthenticationProcessingFilter(path);
+        OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
+        oAuth2ClientAuthenticationFilter.setRestTemplate(oAuth2RestTemplate);
+        UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(),
+                client.getClient().getClientId());
+        tokenServices.setRestTemplate(oAuth2RestTemplate);
+        oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
+        return oAuth2ClientAuthenticationFilter;
+    }
+
 
     @Bean
     public LogoutHandler logoutHandler() {

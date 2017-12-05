@@ -1,3 +1,5 @@
+# robotstxt.org/
+
 User-agent:  Baiduspider
 Allow:   /web/
 Disallow:  /
