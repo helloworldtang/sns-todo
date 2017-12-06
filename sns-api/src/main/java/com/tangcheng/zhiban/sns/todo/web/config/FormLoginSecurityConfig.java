@@ -7,6 +7,7 @@ import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -23,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
+import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -39,18 +41,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@EnableOAuth2Client
+@EnableOAuth2Client// 启用 OAuth 2.0 客户端
 @Configuration
 public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
+    private final AccessDeniedHandler accessDeniedHandler;
+
+    private final UserDetailsService userDetailsService;
+
+    private final OAuth2ClientContext oauth2ClientContext;
 
     @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    OAuth2ClientContext oauth2ClientContext;
+    public FormLoginSecurityConfig(AccessDeniedHandler accessDeniedHandler, UserDetailsService userDetailsService, OAuth2ClientContext oauth2ClientContext) {
+        this.accessDeniedHandler = accessDeniedHandler;
+        this.userDetailsService = userDetailsService;
+        this.oauth2ClientContext = oauth2ClientContext;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -100,11 +106,42 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
+    /**
+     * Handling the Redirects
+     * <p>
+     * The last change we need to make is to explicitly support the redirects from our app to Facebook.
+     * This is handled in Spring OAuth2 with a servlet Filter, and the filter is already available in the application context because we used @EnableOAuth2Client.
+     * All that is needed is to wire the filter up so that it gets called in the right order in our Spring Boot application.
+     * To do that we need a FilterRegistrationBean:
+     * <p>
+     * We autowire the already available filter, and register it with a sufficiently low order that it comes before the main Spring Security filter.
+     * In this way we can use it to handle redirects signaled by expceptions in authentication requests.
+     * zh:
+     * 注册一个额外的Filter：OAuth2ClientContextFilter，主要作用是重定向，当遇到需要权限的页面或URL，代码抛出异常，
+     * 这时这个Filter将重定向到OAuth鉴权的地址，本例中github的会redirect /login/github
+     *
+     * @param filter
+     * @return
+     */
+    @Bean
+    public FilterRegistrationBean oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter) {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(filter);
+        /**
+         * register it with a sufficiently low order that it comes before the main Spring Security filter.
+         * In this way we can use it to handle redirects signaled by expceptions in authentication requests.
+         */
+        registration.setOrder(-100);
+        return registration;
+    }
+
+
     private Filter ssoFilter() {
         CompositeFilter filter = new CompositeFilter();
         List<Filter> filters = new ArrayList<>();
-//        filters.add(ssoFilter(facebook(), "/login/facebook"));
         filters.add(ssoFilter(github(), "/login/github"));
+        filters.add(ssoFilter(qq(), "/login/qq"));
+        filters.add(ssoFilter(sina(), "/login/sina"));
         filter.setFilters(filters);
         return filter;
     }
@@ -115,12 +152,23 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
         return new ClientResources();
     }
 
+    @Bean
+    @ConfigurationProperties("qq")
+    public ClientResources qq() {
+        return new ClientResources();
+    }
+
+    @Bean
+    @ConfigurationProperties("sina")
+    public ClientResources sina() {
+        return new ClientResources();
+    }
+
     private Filter ssoFilter(ClientResources client, String path) {
         OAuth2ClientAuthenticationProcessingFilter oAuth2ClientAuthenticationFilter = new OAuth2ClientAuthenticationProcessingFilter(path);
         OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
         oAuth2ClientAuthenticationFilter.setRestTemplate(oAuth2RestTemplate);
-        UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(),
-                client.getClient().getClientId());
+        UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
         tokenServices.setRestTemplate(oAuth2RestTemplate);
         oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
         return oAuth2ClientAuthenticationFilter;

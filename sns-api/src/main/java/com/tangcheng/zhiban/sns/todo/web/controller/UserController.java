@@ -1,4 +1,4 @@
-package com.tangcheng.zhiban.sns.todo.web.viewcontroller;
+package com.tangcheng.zhiban.sns.todo.web.controller;
 
 import com.tangcheng.zhiban.sns.todo.domain.req.ChangePwdReqVO;
 import com.tangcheng.zhiban.sns.todo.service.biz.UserService;

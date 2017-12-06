@@ -1,11 +1,12 @@
 package com.tangcheng.zhiban.sns.todo.manager.biz;
 
+import com.tangcheng.zhiban.sns.todo.core.constant.Flag;
 import com.tangcheng.zhiban.sns.todo.core.util.NetworkUtil;
 import com.tangcheng.zhiban.sns.todo.dao.biz.UserRepository;
 import com.tangcheng.zhiban.sns.todo.dao.biz.UserRoleRepository;
-import com.tangcheng.zhiban.sns.todo.core.constant.Flag;
 import com.tangcheng.zhiban.sns.todo.domain.model.CustomUserDetails;
 import com.tangcheng.zhiban.sns.todo.domain.model.SnsUserDO;
+import lombok.extern.slf4j.Slf4j;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,10 +15,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+import static com.tangcheng.zhiban.sns.todo.core.constant.RoleEnum.ADMIN;
+
 
 /**
  * Created by tangcheng on 8/31/2017.
  */
+@Slf4j
 @Service
 public class UserManagerImpl implements UserManager, CommandLineRunner {
 
@@ -32,6 +36,7 @@ public class UserManagerImpl implements UserManager, CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
+        log.info("begin to init account");
         String username = "todoList";
         CustomUserDetails userDetails = userRepository.getUser(username);
         if (userDetails == null) {
@@ -51,8 +56,9 @@ public class UserManagerImpl implements UserManager, CommandLineRunner {
             snsUserDO.setUpdateTime(now);
             snsUserDO.setTodoCount(0);
             Long userId = userRepository.save(snsUserDO);
-            userRoleRepository.save(userId, Flag.UserRoleFlag.ADMIN);
+            userRoleRepository.save(userId, ADMIN);
         }
-
     }
+
+
 }

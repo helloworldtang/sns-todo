@@ -1,4 +1,4 @@
-package com.tangcheng.zhiban.sns.todo.web.viewcontroller;
+package com.tangcheng.zhiban.sns.todo.web.controller;
 
 import com.tangcheng.zhiban.sns.todo.domain.req.TodoDetailListReqVO;
 import com.tangcheng.zhiban.sns.todo.domain.req.TodoDetailReqVO;
@@ -8,6 +8,7 @@ import com.tangcheng.zhiban.sns.todo.service.biz.TodoDetailService;
 import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Api(tags = "Todo View", description = "Todo View")
+@Slf4j
 @Controller
 @RequestMapping(ApiVersion.WEB_V1 + "/user/todo")
 public class TodoListController {

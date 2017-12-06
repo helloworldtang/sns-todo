@@ -1,8 +1,8 @@
 package com.tangcheng.zhiban.sns.todo.dao.biz;
 
 
-import com.tangcheng.zhiban.sns.todo.core.util.NetworkUtil;
 import com.tangcheng.zhiban.sns.todo.core.constant.Flag;
+import com.tangcheng.zhiban.sns.todo.core.util.NetworkUtil;
 import com.tangcheng.zhiban.sns.todo.domain.mapper.SnsTodoDetailDOMapper;
 import com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDO;
 import com.tangcheng.zhiban.sns.todo.domain.model.SnsTodoDetailDOExample;
@@ -25,14 +25,19 @@ import java.util.Map;
 @Repository
 public class TodoDetailRepository {
 
+    private final SnsTodoDetailDOMapper snsTodoDetailDOMapper;
+
     @Autowired
-    private SnsTodoDetailDOMapper snsTodoDetailDOMapper;
+    public TodoDetailRepository(SnsTodoDetailDOMapper snsTodoDetailDOMapper) {
+        this.snsTodoDetailDOMapper = snsTodoDetailDOMapper;
+    }
 
     public Long save(TodoDetailReqVO todoDetailReqVO) {
         SnsTodoDetailDO snsTodoDetailDO = new SnsTodoDetailDO();
         BeanUtils.copyProperties(todoDetailReqVO, snsTodoDetailDO);
 
         snsTodoDetailDO.setUserName(SecurityUtil.getUserName());
+        snsTodoDetailDO.setUserId(SecurityUtil.getUserId());
         snsTodoDetailDO.setCreateIp(NetworkUtil.getRemoteIp());
         snsTodoDetailDO.setFinished(false);
         Date now = new Date();
@@ -46,15 +51,15 @@ public class TodoDetailRepository {
     }
 
 
-    public void finish(String userName, Long id) {
+    public void finish(Long todoDetailId) {
         SnsTodoDetailDO record = new SnsTodoDetailDO();
         record.setFinished(true);
         record.setFinishTime(new Date());
         record.setFinishIp(NetworkUtil.getRemoteIp());
 
         SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
-        example.createCriteria().andIdEqualTo(id)
-                .andUserNameEqualTo(userName)
+        example.createCriteria().andIdEqualTo(todoDetailId)
+                .andUserIdEqualTo(SecurityUtil.getUserId())
                 .andFinishedEqualTo(false);
         snsTodoDetailDOMapper.updateByExampleSelective(record, example);
     }

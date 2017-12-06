@@ -50,9 +50,9 @@
                         <i class="mdi-content-send right ">Login</i>
                     </button>
 
-                    <a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101446208&redirect_uri=https://chaojihao.net/api/v1/qq/login"
+                    <a data-th-href="@{/login/qq}"
                        class="btn indigo waves-effect waves-light"><i class="mdi-content-send right ">QQ登录</i></a>
-                    <a href="https://api.weibo.com/oauth2/authorize?client_id=3795629230&response_type=code&redirect_uri=https://chaojihao.net/api/v1/sina/login"
+                    <a data-th-href="@{/login/sina}"
                        class="btn indigo waves-effect waves-light"><i class="mdi-content-send right ">微博登录</i></a>
                     <a data-th-href="@{/login/github}"
                        class="btn indigo waves-effect waves-light"><i class="mdi-content-send right ">GitHub登录</i></a>

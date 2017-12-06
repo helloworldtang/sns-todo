@@ -17,24 +17,13 @@ public class Flag {
 
     }
 
-    public static final class UserRoleFlag {
-        public static final long ADMIN = 1;
-        public static final long USER = 2;
-
-
-        public static long[] adminRoles() {
-            return new long[]{ADMIN, USER};
-        }
-
-        public static long[] userRoles() {
-            return new long[]{USER};
-        }
-    }
-
     public static final class UserTypeFlag {
         public static final byte SIGN_UP = 1;
-        public static final byte TWITTER = 2;
-        public static final byte FACEBOOK = 3;
+        public static final byte GITHUB = 2;
+        public static final byte QQ = 3;
+        public static final byte SINA = 4;
+        public static final byte TWITTER = 5;
+        public static final byte FACEBOOK = 6;
     }
 
 

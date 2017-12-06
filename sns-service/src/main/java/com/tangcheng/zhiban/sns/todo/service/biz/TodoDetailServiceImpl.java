@@ -31,8 +31,7 @@ public class TodoDetailServiceImpl implements TodoDetailService {
 
     @Override
     public void finish(Long id) {
-        String userName = SecurityUtil.getUserName();
-        todoDetailRepository.finish(userName, id);
+        todoDetailRepository.finish(id);
     }
 
     @Override

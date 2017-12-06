@@ -1,5 +1,6 @@
 package com.tangcheng.zhiban.sns.todo.dao.biz;
 
+import com.tangcheng.zhiban.sns.todo.core.constant.RoleEnum;
 import com.tangcheng.zhiban.sns.todo.domain.mapper.SnsUserRoleDOMapper;
 import com.tangcheng.zhiban.sns.todo.domain.model.SnsUserRoleDO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tangcheng.zhiban.sns.todo.core.constant.Flag.UserRoleFlag;
+import static com.tangcheng.zhiban.sns.todo.core.constant.RoleEnum.ADMIN;
+import static com.tangcheng.zhiban.sns.todo.core.constant.RoleEnum.USER;
 
 /**
  * Created by tangcheng on 8/31/2017.
@@ -16,15 +18,23 @@ import static com.tangcheng.zhiban.sns.todo.core.constant.Flag.UserRoleFlag;
 @Repository
 public class UserRoleRepository {
 
-    @Autowired
-    private SnsUserRoleDOMapper snsUserRoleDOMapper;
+    private final SnsUserRoleDOMapper snsUserRoleDOMapper;
 
-    public void save(Long userId, long userRoleFlag) {
+    @Autowired
+    public UserRoleRepository(SnsUserRoleDOMapper snsUserRoleDOMapper) {
+        this.snsUserRoleDOMapper = snsUserRoleDOMapper;
+    }
+
+    public void save(Long userId, RoleEnum roleEnum) {
         long[] roleFlagArray = new long[0];
-        if (userRoleFlag == UserRoleFlag.ADMIN) {
-            roleFlagArray = UserRoleFlag.adminRoles();
-        } else if (userRoleFlag == UserRoleFlag.USER) {
-            roleFlagArray = UserRoleFlag.userRoles();
+        if (roleEnum == ADMIN) {
+            roleFlagArray = RoleEnum.adminRoles();
+        } else if (roleEnum == USER) {
+            roleFlagArray = RoleEnum.userRoles();
+        }
+
+        if (roleFlagArray.length == 0) {
+            return;
         }
 
         List<SnsUserRoleDO> doList = new ArrayList<>(roleFlagArray.length);
@@ -34,9 +44,7 @@ public class UserRoleRepository {
             snsUserRoleDO.setRoleId(roleFlag);
             doList.add(snsUserRoleDO);
         }
-        if (doList.isEmpty()) {
-            return;
-        }
         snsUserRoleDOMapper.insertList(doList);
     }
+
 }

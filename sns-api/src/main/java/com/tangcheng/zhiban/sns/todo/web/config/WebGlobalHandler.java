@@ -41,21 +41,21 @@ public class WebGlobalHandler {
 
 
     @ExceptionHandler(BindException.class)
-    public ModelAndView handleBindException(BindException e, ModelAndView modelAndView) {
+    public ModelAndView handleBindException(BindException e) {
         StringBuilder result = new StringBuilder();
         for (FieldError fieldError : e.getFieldErrors()) {
             result.append(fieldError.getField()).append(":").
                     append(fieldError.getDefaultMessage()).
                     append(System.lineSeparator());
         }
-        modelAndView.setViewName("error");
+        ModelAndView modelAndView = new ModelAndView("error");
         modelAndView.addObject("message", result.toString());
         return modelAndView;
     }
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ModelAndView handleMethodArgumentNotValidException(MethodArgumentNotValidException e, ModelAndView modelAndView) {
+    public ModelAndView handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error("MethodArgumentNotValidException:{},url:{}", e.getMessage(), RequestHolder.getLastAccessUri());
         StringBuilder builder = new StringBuilder();
         for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
@@ -64,16 +64,16 @@ public class WebGlobalHandler {
                     .append(fieldError.getDefaultMessage())
                     .append(System.lineSeparator());
         }
-        modelAndView.setViewName("error");
+        ModelAndView modelAndView = new ModelAndView("error");
         modelAndView.addObject("message", builder.toString());
         return modelAndView;
     }
 
 
     @ExceptionHandler(Exception.class)
-    public ModelAndView handleDbException(Exception e, ModelAndView modelAndView) {
+    public ModelAndView handleDbException(Exception e) {
         log.error("default:{}", e.getMessage(), e);
-        modelAndView.setViewName("error");
+        ModelAndView modelAndView = new ModelAndView("error");
         if (e instanceof SQLException || e instanceof DataAccessException) {
             String msg = "has error.Look for tangcheng@hujiang.com to solve";
             modelAndView.addObject("message", msg);
