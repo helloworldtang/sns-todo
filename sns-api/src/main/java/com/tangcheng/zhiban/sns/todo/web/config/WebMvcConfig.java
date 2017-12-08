@@ -44,7 +44,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         stringHttpMessageConverter.setWriteAcceptCharset(false);
         converters.add(stringHttpMessageConverter);
         converters.add(new ByteArrayHttpMessageConverter());
+        converters.add(fastJsonHttpMessageConverter());
+    }
 
+    private FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
         FastJsonHttpMessageConverter httpMessageConverter = new FastJsonHttpMessageConverter();
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(SerializerFeature.QuoteFieldNames,
@@ -64,7 +67,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
             }
         });
         httpMessageConverter.setFastJsonConfig(fastJsonConfig);
-        converters.add(httpMessageConverter);
+        return httpMessageConverter;
     }
 
 

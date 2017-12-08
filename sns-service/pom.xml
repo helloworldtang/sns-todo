@@ -28,18 +28,10 @@
         <dependency>
             <groupId>com.mxixm</groupId>
             <artifactId>fastboot-weixin</artifactId>
-            <version>0.3.3</version>
+            <version>0.3.4</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-        </dependency>
 
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-        </dependency>
 
     </dependencies>
 

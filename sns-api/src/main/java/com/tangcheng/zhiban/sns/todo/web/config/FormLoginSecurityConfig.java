@@ -3,7 +3,10 @@ package com.tangcheng.zhiban.sns.todo.web.config;
 import com.tangcheng.zhiban.sns.todo.domain.exception.CaptchaException;
 import com.tangcheng.zhiban.sns.todo.web.config.security.ClientResources;
 import com.tangcheng.zhiban.sns.todo.web.config.security.LoginAuthenticationFailureHandler;
+import com.tangcheng.zhiban.sns.todo.web.config.security.qq.QQOAuth2RestTemplate;
+import com.tangcheng.zhiban.sns.todo.web.config.security.qq.QQUserInfoTokenServices;
 import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -42,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 
 @EnableOAuth2Client// 启用 OAuth 2.0 客户端
+@Slf4j
 @Configuration
 public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -52,7 +56,9 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
     private final OAuth2ClientContext oauth2ClientContext;
 
     @Autowired
-    public FormLoginSecurityConfig(AccessDeniedHandler accessDeniedHandler, UserDetailsService userDetailsService, OAuth2ClientContext oauth2ClientContext) {
+    public FormLoginSecurityConfig(AccessDeniedHandler accessDeniedHandler,
+                                   UserDetailsService userDetailsService,
+                                   OAuth2ClientContext oauth2ClientContext) {
         this.accessDeniedHandler = accessDeniedHandler;
         this.userDetailsService = userDetailsService;
         this.oauth2ClientContext = oauth2ClientContext;
@@ -139,9 +145,14 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
     private Filter ssoFilter() {
         CompositeFilter filter = new CompositeFilter();
         List<Filter> filters = new ArrayList<>();
-        filters.add(ssoFilter(github(), "/login/github"));
-        filters.add(ssoFilter(qq(), "/login/qq"));
-        filters.add(ssoFilter(sina(), "/login/sina"));
+        ClientResources github = github();
+        filters.add(ssoFilter(github, "/login/github", new OAuth2RestTemplate(github.getClient(), oauth2ClientContext)));
+
+        filters.add(qqSsoFilter(qq()));
+
+        ClientResources sina = sina();
+        filters.add(ssoFilter(sina, "/login/sina", new OAuth2RestTemplate(sina.getClient(), oauth2ClientContext)));
+
         filter.setFilters(filters);
         return filter;
     }
@@ -152,7 +163,7 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
         return new ClientResources();
     }
 
-    @Bean
+    @Bean(name = "qqClientResources")
     @ConfigurationProperties("qq")
     public ClientResources qq() {
         return new ClientResources();
@@ -164,11 +175,25 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
         return new ClientResources();
     }
 
-    private Filter ssoFilter(ClientResources client, String path) {
+    private Filter ssoFilter(ClientResources client, String path, OAuth2RestTemplate oAuth2RestTemplate) {
         OAuth2ClientAuthenticationProcessingFilter oAuth2ClientAuthenticationFilter = new OAuth2ClientAuthenticationProcessingFilter(path);
-        OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
         oAuth2ClientAuthenticationFilter.setRestTemplate(oAuth2RestTemplate);
+
         UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
+        tokenServices.setRestTemplate(oAuth2RestTemplate);
+        oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
+
+        return oAuth2ClientAuthenticationFilter;
+    }
+
+    private Filter qqSsoFilter(ClientResources client) {
+        QQOAuth2RestTemplate oAuth2RestTemplate = new QQOAuth2RestTemplate(client.getClient(), oauth2ClientContext);
+
+        OAuth2ClientAuthenticationProcessingFilter oAuth2ClientAuthenticationFilter = new OAuth2ClientAuthenticationProcessingFilter("/login/qq");
+        oAuth2ClientAuthenticationFilter.setRestTemplate(oAuth2RestTemplate);
+
+        QQUserInfoTokenServices tokenServices = new QQUserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
+
         tokenServices.setRestTemplate(oAuth2RestTemplate);
         oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
         return oAuth2ClientAuthenticationFilter;
