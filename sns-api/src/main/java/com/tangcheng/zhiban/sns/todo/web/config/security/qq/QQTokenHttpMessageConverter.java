@@ -1,4 +1,4 @@
-package com.tangcheng.zhiban.sns.todo.web.config;
+package com.tangcheng.zhiban.sns.todo.web.config.security.qq;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpInputMessage;

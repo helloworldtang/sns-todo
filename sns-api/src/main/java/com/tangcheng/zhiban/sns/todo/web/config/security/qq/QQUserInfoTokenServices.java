@@ -17,13 +17,14 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 /**
  * @author tangcheng
- * 2017/12/08
+ *         2017/12/08
  */
 @Slf4j
 public class QQUserInfoTokenServices extends UserInfoTokenServices {
@@ -46,6 +47,12 @@ public class QQUserInfoTokenServices extends UserInfoTokenServices {
         this.userInfoEndpointUrl = userInfoEndpointUrl;
     }
 
+
+    @Override
+    protected Object getPrincipal(Map<String, Object> map) {
+        log.info("{}", map);
+        return map.getOrDefault("nickname", "QQUser");
+    }
 
     @Override
     public void setRestTemplate(OAuth2RestOperations restTemplate) {
@@ -110,11 +117,13 @@ public class QQUserInfoTokenServices extends UserInfoTokenServices {
             log.info("{},openId:{}", resultText, openId);
             builder = UriComponentsBuilder
                     .fromHttpUrl(path);
-            builder.queryParam("accessToken", accessToken);
-            builder.queryParam("oauth_consumer_key", clientId);
             builder.queryParam("openid", openId);
+            builder.queryParam("access_token", accessToken);
+            builder.queryParam("oauth_consumer_key", clientId);
             builder.queryParam("format", "json");
-            return restTemplate.getForEntity(builder.build().encode().toUri(), Map.class).getBody();
+            URI userInfoUrl = builder.build().encode().toUri();
+            log.info("userInfoUrl:{}", userInfoUrl.toString());
+            return restTemplate.getForEntity(userInfoUrl, Map.class).getBody();
         } catch (Exception ex) {
             this.logger.warn("Could not fetch user details: " + ex.getClass() + ", "
                     + ex.getMessage());
