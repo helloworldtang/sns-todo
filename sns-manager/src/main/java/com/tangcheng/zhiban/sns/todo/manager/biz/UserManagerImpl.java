@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 import static com.tangcheng.zhiban.sns.todo.core.constant.RoleEnum.ADMIN;
+import static com.tangcheng.zhiban.sns.todo.core.constant.RoleEnum.USER;
 
 
 /**
@@ -41,12 +42,15 @@ public class UserManagerImpl implements UserManager, CommandLineRunner {
         CustomUserDetails userDetails = userRepository.getUser(username);
         if (userDetails == null) {
             SnsUserDO snsUserDO = new SnsUserDO();
+            snsUserDO.setThirdPartId("");
             snsUserDO.setUsername(username);
+            snsUserDO.setNickName(username);
+            snsUserDO.setType(Flag.UserTypeFlag.SIGN_UP);
             snsUserDO.setPassword(passwordEncoder.encode("admin123456"));
             snsUserDO.setEmail("793059909@qq.com");
+            snsUserDO.setSex(true);
             snsUserDO.setCreateIp(NetworkUtil.getRemoteIp());
             snsUserDO.setAccountEnabled(true);
-            snsUserDO.setType(Flag.UserTypeFlag.SIGN_UP);
             Date month3 = LocalDate.now().plusDays(90).toDate();
             snsUserDO.setAccountExpired(month3);
             snsUserDO.setCredentialsExpired(month3);
@@ -58,6 +62,38 @@ public class UserManagerImpl implements UserManager, CommandLineRunner {
             Long userId = userRepository.save(snsUserDO);
             userRoleRepository.save(userId, ADMIN);
         }
+    }
+
+
+    @Override
+    public Long save(String openId, byte type, String nickname, String icon) {
+        SnsUserDO snsUserDO = userRepository.getUser(openId, type);
+        if (snsUserDO != null) {
+            userRepository.update(snsUserDO.getId(), nickname, icon);
+            return snsUserDO.getId();
+        }
+
+        snsUserDO = new SnsUserDO();
+        snsUserDO.setThirdPartId(openId);
+        snsUserDO.setUsername(openId);
+        snsUserDO.setNickName(nickname);
+        snsUserDO.setIcon(icon);
+        snsUserDO.setType(type);
+        snsUserDO.setPassword(passwordEncoder.encode(openId));
+        snsUserDO.setEmail("");
+        snsUserDO.setCreateIp(NetworkUtil.getRemoteIp());
+        snsUserDO.setAccountEnabled(true);
+        Date month3 = LocalDate.now().plusDays(90).toDate();
+        snsUserDO.setAccountExpired(month3);
+        snsUserDO.setCredentialsExpired(month3);
+        snsUserDO.setAccountLocked(false);
+        Date now = new Date();
+        snsUserDO.setCreateTime(now);
+        snsUserDO.setUpdateTime(now);
+        snsUserDO.setTodoCount(0);
+        Long userId = userRepository.save(snsUserDO);
+        userRoleRepository.save(userId, USER);
+        return userId;
     }
 
 

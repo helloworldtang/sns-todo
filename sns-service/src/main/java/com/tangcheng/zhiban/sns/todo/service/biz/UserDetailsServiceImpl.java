@@ -35,18 +35,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         return new UserBO(userDetails.getId(),
-                userDetails.getEmail(),
-                userDetails.getIcon(),
+                userDetails.getThirdPartId(),
                 userDetails.getType(),
+                userDetails.getNickName(),
+                userDetails.getIcon(),
                 userDetails.getSex(),
+                userDetails.getEmail(),
                 userDetails.getMobile(),
                 userDetails.getUsername(),
                 userDetails.getPassword(),
                 userDetails.getAccountEnabled(),
                 userDetails.generateAccountNonExpired(),
                 userDetails.generateCredentialsNonExpired(),
-                !userDetails.getAccountLocked(),
-                userDetails.generateAuthorities());
+                !userDetails.getAccountLocked(), userDetails.generateAuthorities());
     }
 
 

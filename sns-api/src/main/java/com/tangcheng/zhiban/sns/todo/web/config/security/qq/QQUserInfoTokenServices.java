@@ -1,5 +1,8 @@
 package com.tangcheng.zhiban.sns.todo.web.config.security.qq;
 
+import com.tangcheng.zhiban.sns.todo.core.constant.Flag;
+import com.tangcheng.zhiban.sns.todo.domain.bo.UserBO;
+import com.tangcheng.zhiban.sns.todo.service.biz.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.FixedAuthoritiesExtractor;
@@ -24,7 +27,7 @@ import java.util.Map;
 
 /**
  * @author tangcheng
- *         2017/12/08
+ * 2017/12/08
  */
 @Slf4j
 public class QQUserInfoTokenServices extends UserInfoTokenServices {
@@ -39,6 +42,7 @@ public class QQUserInfoTokenServices extends UserInfoTokenServices {
      * 获取 OpenID 的 API 地址
      */
     private final static String openIdUri = "https://graph.qq.com/oauth2.0/me";
+    private UserService userService;
 
 
     public QQUserInfoTokenServices(String userInfoEndpointUrl, String clientId) {
@@ -47,11 +51,17 @@ public class QQUserInfoTokenServices extends UserInfoTokenServices {
         this.userInfoEndpointUrl = userInfoEndpointUrl;
     }
 
-
     @Override
     protected Object getPrincipal(Map<String, Object> map) {
-        log.info("{}", map);
-        return map.getOrDefault("nickname", "QQUser");
+        return new UserBO(Long.parseLong(
+                map.get("id").toString()),
+                map.get("thirdPartId").toString(),
+                Flag.UserTypeFlag.QQ,
+                map.get("nickname").toString(),
+                map.get("icon").toString(),
+                map.get("thirdPartId").toString(),
+                map.get("thirdPartId").toString(),
+                this.authoritiesExtractor.extractAuthorities(map));
     }
 
     @Override
@@ -123,13 +133,44 @@ public class QQUserInfoTokenServices extends UserInfoTokenServices {
             builder.queryParam("format", "json");
             URI userInfoUrl = builder.build().encode().toUri();
             log.info("userInfoUrl:{}", userInfoUrl.toString());
-            return restTemplate.getForEntity(userInfoUrl, Map.class).getBody();
+
+            /**
+             * 参数说明	描述
+             ret	返回码
+             msg	如果ret<0，会有相应的错误信息提示，返回数据全部用UTF-8编码。
+             nickname	用户在QQ空间的昵称。
+             figureurl	大小为30×30像素的QQ空间头像URL。
+             figureurl_1	大小为50×50像素的QQ空间头像URL。
+             figureurl_2	大小为100×100像素的QQ空间头像URL。
+             figureurl_qq_1	大小为40×40像素的QQ头像URL。
+             figureurl_qq_2	大小为100×100像素的QQ头像URL。需要注意，不是所有的用户都拥有QQ的100x100的头像，但40x40像素则是一定会有。
+             gender	性别。 如果获取不到则默认返回"男"
+             is_yellow_vip	标识用户是否为黄钻用户（0：不是；1：是）。
+             vip	标识用户是否为黄钻用户（0：不是；1：是）
+             yellow_vip_level	黄钻等级
+             level	黄钻等级
+             is_yellow_year_vip	标识是否为年费黄钻用户（0：不是； 1：是）
+             */
+            Map result = restTemplate.getForEntity(userInfoUrl, Map.class).getBody();
+            log.info("userInfo:{}", result);
+            if (Integer.parseInt(result.get("ret").toString()) == 0) {
+                String icon = result.get("figureurl_2").toString();
+                Long id = userService.save(openId, Flag.UserTypeFlag.QQ, result.get("nickname").toString(), icon);
+                result.put("id", id);
+                result.put("thirdPartId", openId);
+                result.put("icon", icon);
+            }
+            return result;
         } catch (Exception ex) {
             this.logger.warn("Could not fetch user details: " + ex.getClass() + ", "
                     + ex.getMessage());
             return Collections.<String, Object>singletonMap("error",
                     "Could not fetch user details");
         }
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
 }

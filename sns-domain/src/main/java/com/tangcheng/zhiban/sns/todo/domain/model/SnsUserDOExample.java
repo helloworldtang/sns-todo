@@ -165,6 +165,206 @@ public class SnsUserDOExample {
             return (Criteria) this;
         }
 
+        public Criteria andThirdPartIdIsNull() {
+            addCriterion("third_part_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdPartIdIsNotNull() {
+            addCriterion("third_part_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdPartIdEqualTo(String value) {
+            addCriterion("third_part_id =", value, "thirdPartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdPartIdNotEqualTo(String value) {
+            addCriterion("third_part_id <>", value, "thirdPartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdPartIdGreaterThan(String value) {
+            addCriterion("third_part_id >", value, "thirdPartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdPartIdGreaterThanOrEqualTo(String value) {
+            addCriterion("third_part_id >=", value, "thirdPartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdPartIdLessThan(String value) {
+            addCriterion("third_part_id <", value, "thirdPartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdPartIdLessThanOrEqualTo(String value) {
+            addCriterion("third_part_id <=", value, "thirdPartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdPartIdLike(String value) {
+            addCriterion("third_part_id like", value, "thirdPartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdPartIdNotLike(String value) {
+            addCriterion("third_part_id not like", value, "thirdPartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdPartIdIn(List<String> values) {
+            addCriterion("third_part_id in", values, "thirdPartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdPartIdNotIn(List<String> values) {
+            addCriterion("third_part_id not in", values, "thirdPartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdPartIdBetween(String value1, String value2) {
+            addCriterion("third_part_id between", value1, value2, "thirdPartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdPartIdNotBetween(String value1, String value2) {
+            addCriterion("third_part_id not between", value1, value2, "thirdPartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIsNull() {
+            addCriterion("type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIsNotNull() {
+            addCriterion("type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeEqualTo(Byte value) {
+            addCriterion("type =", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotEqualTo(Byte value) {
+            addCriterion("type <>", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeGreaterThan(Byte value) {
+            addCriterion("type >", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeGreaterThanOrEqualTo(Byte value) {
+            addCriterion("type >=", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeLessThan(Byte value) {
+            addCriterion("type <", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeLessThanOrEqualTo(Byte value) {
+            addCriterion("type <=", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIn(List<Byte> values) {
+            addCriterion("type in", values, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotIn(List<Byte> values) {
+            addCriterion("type not in", values, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeBetween(Byte value1, Byte value2) {
+            addCriterion("type between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotBetween(Byte value1, Byte value2) {
+            addCriterion("type not between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameIsNull() {
+            addCriterion("nick_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameIsNotNull() {
+            addCriterion("nick_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameEqualTo(String value) {
+            addCriterion("nick_name =", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameNotEqualTo(String value) {
+            addCriterion("nick_name <>", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameGreaterThan(String value) {
+            addCriterion("nick_name >", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameGreaterThanOrEqualTo(String value) {
+            addCriterion("nick_name >=", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameLessThan(String value) {
+            addCriterion("nick_name <", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameLessThanOrEqualTo(String value) {
+            addCriterion("nick_name <=", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameLike(String value) {
+            addCriterion("nick_name like", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameNotLike(String value) {
+            addCriterion("nick_name not like", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameIn(List<String> values) {
+            addCriterion("nick_name in", values, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameNotIn(List<String> values) {
+            addCriterion("nick_name not in", values, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameBetween(String value1, String value2) {
+            addCriterion("nick_name between", value1, value2, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameNotBetween(String value1, String value2) {
+            addCriterion("nick_name not between", value1, value2, "nickName");
+            return (Criteria) this;
+        }
+
         public Criteria andUsernameIsNull() {
             addCriterion("username is null");
             return (Criteria) this;
@@ -512,66 +712,6 @@ public class SnsUserDOExample {
 
         public Criteria andSaltNotBetween(String value1, String value2) {
             addCriterion("salt not between", value1, value2, "salt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeIsNull() {
-            addCriterion("type is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeIsNotNull() {
-            addCriterion("type is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeEqualTo(Byte value) {
-            addCriterion("type =", value, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeNotEqualTo(Byte value) {
-            addCriterion("type <>", value, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeGreaterThan(Byte value) {
-            addCriterion("type >", value, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeGreaterThanOrEqualTo(Byte value) {
-            addCriterion("type >=", value, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeLessThan(Byte value) {
-            addCriterion("type <", value, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeLessThanOrEqualTo(Byte value) {
-            addCriterion("type <=", value, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeIn(List<Byte> values) {
-            addCriterion("type in", values, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeNotIn(List<Byte> values) {
-            addCriterion("type not in", values, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeBetween(Byte value1, Byte value2) {
-            addCriterion("type between", value1, value2, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeNotBetween(Byte value1, Byte value2) {
-            addCriterion("type not between", value1, value2, "type");
             return (Criteria) this;
         }
 

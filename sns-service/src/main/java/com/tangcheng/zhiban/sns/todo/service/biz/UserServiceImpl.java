@@ -3,6 +3,7 @@ package com.tangcheng.zhiban.sns.todo.service.biz;
 import com.tangcheng.zhiban.sns.todo.dao.biz.UserRepository;
 import com.tangcheng.zhiban.sns.todo.domain.model.CustomUserDetails;
 import com.tangcheng.zhiban.sns.todo.domain.req.ChangePwdReqVO;
+import com.tangcheng.zhiban.sns.todo.manager.biz.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UserManager userManager;
+
     @Override
     public int changePwd(String username, ChangePwdReqVO changePwdReqVO) {
         CustomUserDetails userDetails = userRepository.getUser(username);
@@ -27,4 +31,11 @@ public class UserServiceImpl implements UserService {
         }
         return 0;
     }
+
+    @Override
+    public Long save(String openId, byte type, String nickname, String icon) {
+       return userManager.save(openId, type, nickname, icon);
+    }
+
+
 }

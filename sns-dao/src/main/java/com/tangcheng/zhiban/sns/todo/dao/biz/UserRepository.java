@@ -36,6 +36,25 @@ public class UserRepository {
         record.setUpdateIp(NetworkUtil.getRemoteIp());
         SnsUserDOExample example = new SnsUserDOExample();
         example.createCriteria().andUsernameEqualTo(username);
-       return snsUserDOMapper.updateByExampleSelective(record, example);
+        return snsUserDOMapper.updateByExampleSelective(record, example);
     }
+
+    public SnsUserDO getUser(String openId, byte type) {
+        SnsUserDOExample example = new SnsUserDOExample();
+        example.createCriteria().andThirdPartIdEqualTo(openId)
+                .andTypeEqualTo(type);
+        return snsUserDOMapper.selectByExample(example).stream().findAny().orElse(null);
+    }
+
+
+    public void update(Long id, String nickname, String icon) {
+        SnsUserDO record = new SnsUserDO();
+        record.setId(id);
+        record.setNickName(nickname);
+        record.setIcon(icon);
+        record.setLastLoginIp(NetworkUtil.getRemoteIp());
+        snsUserDOMapper.updateByPrimaryKeySelective(record);
+    }
+
+
 }

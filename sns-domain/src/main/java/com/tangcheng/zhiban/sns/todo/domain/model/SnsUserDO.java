@@ -9,6 +9,14 @@ public class SnsUserDO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "third_part_id")
+    private String thirdPartId;
+
+    private Byte type;
+
+    @Column(name = "nick_name")
+    private String nickName;
+
     private String username;
 
     private String password;
@@ -18,8 +26,6 @@ public class SnsUserDO {
     private String icon;
 
     private String salt;
-
-    private Byte type;
 
     @Column(name = "account_enabled")
     private Boolean accountEnabled;
@@ -69,6 +75,48 @@ public class SnsUserDO {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * @return third_part_id
+     */
+    public String getThirdPartId() {
+        return thirdPartId;
+    }
+
+    /**
+     * @param thirdPartId
+     */
+    public void setThirdPartId(String thirdPartId) {
+        this.thirdPartId = thirdPartId;
+    }
+
+    /**
+     * @return type
+     */
+    public Byte getType() {
+        return type;
+    }
+
+    /**
+     * @param type
+     */
+    public void setType(Byte type) {
+        this.type = type;
+    }
+
+    /**
+     * @return nick_name
+     */
+    public String getNickName() {
+        return nickName;
+    }
+
+    /**
+     * @param nickName
+     */
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     /**
@@ -139,20 +187,6 @@ public class SnsUserDO {
      */
     public void setSalt(String salt) {
         this.salt = salt;
-    }
-
-    /**
-     * @return type
-     */
-    public Byte getType() {
-        return type;
-    }
-
-    /**
-     * @param type
-     */
-    public void setType(Byte type) {
-        this.type = type;
     }
 
     /**

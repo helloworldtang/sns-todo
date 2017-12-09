@@ -7,4 +7,6 @@ import com.tangcheng.zhiban.sns.todo.domain.req.ChangePwdReqVO;
  */
 public interface UserService {
     int changePwd(String name, ChangePwdReqVO changePwdReqVO);
+
+    Long save(String openId, byte type, String nickname, String icon);
 }

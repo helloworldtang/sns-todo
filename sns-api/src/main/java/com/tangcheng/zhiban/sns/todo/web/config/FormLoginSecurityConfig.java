@@ -1,6 +1,7 @@
 package com.tangcheng.zhiban.sns.todo.web.config;
 
 import com.tangcheng.zhiban.sns.todo.domain.exception.CaptchaException;
+import com.tangcheng.zhiban.sns.todo.service.biz.UserService;
 import com.tangcheng.zhiban.sns.todo.web.config.security.ClientResources;
 import com.tangcheng.zhiban.sns.todo.web.config.security.LoginAuthenticationFailureHandler;
 import com.tangcheng.zhiban.sns.todo.web.config.security.qq.QQOAuth2RestTemplate;
@@ -54,6 +55,10 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
 
     private final OAuth2ClientContext oauth2ClientContext;
+
+    @Autowired
+    private UserService userService;
+
 
     @Autowired
     public FormLoginSecurityConfig(AccessDeniedHandler accessDeniedHandler,
@@ -193,7 +198,7 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
         oAuth2ClientAuthenticationFilter.setRestTemplate(oAuth2RestTemplate);
 
         QQUserInfoTokenServices tokenServices = new QQUserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
-
+        tokenServices.setUserService(userService);
         tokenServices.setRestTemplate(oAuth2RestTemplate);
         oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
         return oAuth2ClientAuthenticationFilter;

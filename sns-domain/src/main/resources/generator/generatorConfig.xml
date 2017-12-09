@@ -30,12 +30,9 @@
                              targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
-
-
-        <table tableName="sns_todo_detail" domainObjectName="SnsTodoDetailDO">
+        <table tableName="sns_user" domainObjectName="SnsUserDO">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
-
         <!--
        <table tableName="sns_user" domainObjectName="SnsUserDO">
            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
