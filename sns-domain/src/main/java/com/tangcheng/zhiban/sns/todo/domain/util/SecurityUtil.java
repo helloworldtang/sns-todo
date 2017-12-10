@@ -40,10 +40,14 @@ public class SecurityUtil {
 
 
     public static Long getUserId() {
+        return getUserBO().getId();
+    }
+
+    public static UserBO getUserBO() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
         if (principal instanceof UserBO) {
-            return ((UserBO) principal).getId();
+            return (UserBO) principal;
         }
         log.info("has no userId");
         throw new ApiBizException(GlobalCode.UNKNOWN);
