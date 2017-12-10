@@ -1,49 +1,50 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tangcheng.zhiban.sns.todo.domain.mapper.SnsUserDOMapper" >
-  <resultMap id="BaseResultMap" type="com.tangcheng.zhiban.sns.todo.domain.model.SnsUserDO" >
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="third_part_id" property="thirdPartId" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="TINYINT" />
-    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="icon" property="icon" jdbcType="VARCHAR" />
-    <result column="salt" property="salt" jdbcType="VARCHAR" />
-    <result column="account_enabled" property="accountEnabled" jdbcType="BIT" />
-    <result column="account_expired" property="accountExpired" jdbcType="TIMESTAMP" />
-    <result column="credentials_expired" property="credentialsExpired" jdbcType="TIMESTAMP" />
-    <result column="account_locked" property="accountLocked" jdbcType="BIT" />
-    <result column="create_ip" property="createIp" jdbcType="VARCHAR" />
-    <result column="update_ip" property="updateIp" jdbcType="VARCHAR" />
-    <result column="sex" property="sex" jdbcType="BIT" />
-    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
-    <result column="location" property="location" jdbcType="VARCHAR" />
-    <result column="todo_count" property="todoCount" jdbcType="INTEGER" />
-    <result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tangcheng.zhiban.sns.todo.domain.mapper.SnsUserDOMapper">
+    <resultMap id="BaseResultMap" type="com.tangcheng.zhiban.sns.todo.domain.model.SnsUserDO">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="third_part_id" jdbcType="VARCHAR" property="thirdPartId"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="bio" jdbcType="VARCHAR" property="bio"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
+        <result column="account_enabled" jdbcType="BIT" property="accountEnabled"/>
+        <result column="account_expired" jdbcType="TIMESTAMP" property="accountExpired"/>
+        <result column="credentials_expired" jdbcType="TIMESTAMP" property="credentialsExpired"/>
+        <result column="account_locked" jdbcType="BIT" property="accountLocked"/>
+        <result column="create_ip" jdbcType="VARCHAR" property="createIp"/>
+        <result column="update_ip" jdbcType="VARCHAR" property="updateIp"/>
+        <result column="sex" jdbcType="BIT" property="sex"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="todo_count" jdbcType="INTEGER" property="todoCount"/>
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
 
 
-  <!-- 查询包装有role的CustomUserDetails的ResultMap -->
-  <resultMap extends="BaseResultMap" id="UserDetailsResultMap"
-             type="com.tangcheng.zhiban.sns.todo.domain.model.CustomUserDetails">
-    <!-- 用户信息使用继承 -->
+    <!-- 查询包装有role的CustomUserDetails的ResultMap -->
+    <resultMap extends="BaseResultMap" id="UserDetailsResultMap"
+               type="com.tangcheng.zhiban.sns.todo.domain.model.CustomUserDetails">
+        <!-- 用户信息使用继承 -->
 
-    <!-- role信息 -->
-    <collection ofType="com.tangcheng.zhiban.sns.todo.domain.model.SnsRoleDO" property="roles">
-      <id column="role_id" property="id"/>
-      <result column="name" property="name"/>
-      <result column="description" property="description"/>
-    </collection>
-  </resultMap>
+        <!-- role信息 -->
+        <collection ofType="com.tangcheng.zhiban.sns.todo.domain.model.SnsRoleDO" property="roles">
+            <id column="role_id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="description" property="description"/>
+        </collection>
+    </resultMap>
 
-  <select id="getUserByName" resultMap="UserDetailsResultMap">
+    <select id="getUserByName" resultMap="UserDetailsResultMap">
     SELECT
     `user`.id,
     `user`.username,
@@ -65,5 +66,6 @@
     WHERE
     user.username = #{username}
   </select>
+
 
 </mapper>

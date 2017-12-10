@@ -58,7 +58,9 @@ public class QQUserInfoTokenServices extends UserInfoTokenServices {
                 map.get("thirdPartId").toString(),
                 Flag.UserTypeFlag.QQ,
                 map.get("nickname").toString(),
+                "",
                 map.get("icon").toString(),
+                "",
                 map.get("thirdPartId").toString(),
                 map.get("thirdPartId").toString(),
                 this.authoritiesExtractor.extractAuthorities(map));

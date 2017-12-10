@@ -4,6 +4,7 @@ import com.tangcheng.zhiban.sns.todo.domain.exception.CaptchaException;
 import com.tangcheng.zhiban.sns.todo.service.biz.UserService;
 import com.tangcheng.zhiban.sns.todo.web.config.security.ClientResources;
 import com.tangcheng.zhiban.sns.todo.web.config.security.LoginAuthenticationFailureHandler;
+import com.tangcheng.zhiban.sns.todo.web.config.security.github.GitHubUserInfoTokenServices;
 import com.tangcheng.zhiban.sns.todo.web.config.security.qq.QQOAuth2RestTemplate;
 import com.tangcheng.zhiban.sns.todo.web.config.security.qq.QQUserInfoTokenServices;
 import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
@@ -184,8 +185,9 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
         OAuth2ClientAuthenticationProcessingFilter oAuth2ClientAuthenticationFilter = new OAuth2ClientAuthenticationProcessingFilter(path);
         oAuth2ClientAuthenticationFilter.setRestTemplate(oAuth2RestTemplate);
 
-        UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
+        GitHubUserInfoTokenServices tokenServices = new GitHubUserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
         tokenServices.setRestTemplate(oAuth2RestTemplate);
+        tokenServices.setUserService(userService);
         oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
 
         return oAuth2ClientAuthenticationFilter;

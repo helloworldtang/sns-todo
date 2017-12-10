@@ -365,6 +365,76 @@ public class SnsUserDOExample {
             return (Criteria) this;
         }
 
+        public Criteria andBioIsNull() {
+            addCriterion("bio is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBioIsNotNull() {
+            addCriterion("bio is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBioEqualTo(String value) {
+            addCriterion("bio =", value, "bio");
+            return (Criteria) this;
+        }
+
+        public Criteria andBioNotEqualTo(String value) {
+            addCriterion("bio <>", value, "bio");
+            return (Criteria) this;
+        }
+
+        public Criteria andBioGreaterThan(String value) {
+            addCriterion("bio >", value, "bio");
+            return (Criteria) this;
+        }
+
+        public Criteria andBioGreaterThanOrEqualTo(String value) {
+            addCriterion("bio >=", value, "bio");
+            return (Criteria) this;
+        }
+
+        public Criteria andBioLessThan(String value) {
+            addCriterion("bio <", value, "bio");
+            return (Criteria) this;
+        }
+
+        public Criteria andBioLessThanOrEqualTo(String value) {
+            addCriterion("bio <=", value, "bio");
+            return (Criteria) this;
+        }
+
+        public Criteria andBioLike(String value) {
+            addCriterion("bio like", value, "bio");
+            return (Criteria) this;
+        }
+
+        public Criteria andBioNotLike(String value) {
+            addCriterion("bio not like", value, "bio");
+            return (Criteria) this;
+        }
+
+        public Criteria andBioIn(List<String> values) {
+            addCriterion("bio in", values, "bio");
+            return (Criteria) this;
+        }
+
+        public Criteria andBioNotIn(List<String> values) {
+            addCriterion("bio not in", values, "bio");
+            return (Criteria) this;
+        }
+
+        public Criteria andBioBetween(String value1, String value2) {
+            addCriterion("bio between", value1, value2, "bio");
+            return (Criteria) this;
+        }
+
+        public Criteria andBioNotBetween(String value1, String value2) {
+            addCriterion("bio not between", value1, value2, "bio");
+            return (Criteria) this;
+        }
+
         public Criteria andUsernameIsNull() {
             addCriterion("username is null");
             return (Criteria) this;

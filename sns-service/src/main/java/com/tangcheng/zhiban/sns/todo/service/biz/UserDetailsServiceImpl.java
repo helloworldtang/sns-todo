@@ -38,6 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 userDetails.getThirdPartId(),
                 userDetails.getType(),
                 userDetails.getNickName(),
+                userDetails.getBio(),
                 userDetails.getIcon(),
                 userDetails.getSex(),
                 userDetails.getEmail(),

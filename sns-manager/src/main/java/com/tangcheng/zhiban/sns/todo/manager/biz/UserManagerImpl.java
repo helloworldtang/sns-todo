@@ -66,21 +66,28 @@ public class UserManagerImpl implements UserManager, CommandLineRunner {
 
 
     @Override
-    public Long save(String openId, byte type, String nickname, String icon) {
-        SnsUserDO snsUserDO = userRepository.getUser(openId, type);
+    public Long save(String thirdPartId, byte type, String nickname, String icon) {
+        return save(thirdPartId, type, nickname, icon, "", "");
+    }
+
+
+    @Override
+    public Long save(String thirdPartId, byte type, String nickname, String icon, String bio, String email) {
+        SnsUserDO snsUserDO = userRepository.getUser(thirdPartId, type);
         if (snsUserDO != null) {
             userRepository.update(snsUserDO.getId(), nickname, icon);
             return snsUserDO.getId();
         }
 
         snsUserDO = new SnsUserDO();
-        snsUserDO.setThirdPartId(openId);
-        snsUserDO.setUsername(openId);
+        snsUserDO.setThirdPartId(thirdPartId);
+        snsUserDO.setUsername(nickname);
         snsUserDO.setNickName(nickname);
         snsUserDO.setIcon(icon);
         snsUserDO.setType(type);
-        snsUserDO.setPassword(passwordEncoder.encode(openId));
-        snsUserDO.setEmail("");
+        snsUserDO.setPassword(passwordEncoder.encode(thirdPartId));
+        snsUserDO.setEmail(email);
+        snsUserDO.setBio(bio);
         snsUserDO.setCreateIp(NetworkUtil.getRemoteIp());
         snsUserDO.setAccountEnabled(true);
         Date month3 = LocalDate.now().plusDays(90).toDate();

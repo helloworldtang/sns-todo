@@ -17,6 +17,8 @@ public class SnsUserDO {
     @Column(name = "nick_name")
     private String nickName;
 
+    private String bio;
+
     private String username;
 
     private String password;
@@ -117,6 +119,20 @@ public class SnsUserDO {
      */
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    /**
+     * @return bio
+     */
+    public String getBio() {
+        return bio;
+    }
+
+    /**
+     * @param bio
+     */
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     /**

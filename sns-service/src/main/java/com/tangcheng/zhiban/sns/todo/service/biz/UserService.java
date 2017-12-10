@@ -8,5 +8,7 @@ import com.tangcheng.zhiban.sns.todo.domain.req.ChangePwdReqVO;
 public interface UserService {
     int changePwd(String name, ChangePwdReqVO changePwdReqVO);
 
-    Long save(String openId, byte type, String nickname, String icon);
+    Long save(String thirdPartId, byte type, String nickname, String icon);
+
+    Long save(String thirdPartId, byte github, String loginName, String icon, String bio, String email);
 }

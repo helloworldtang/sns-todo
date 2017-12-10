@@ -33,8 +33,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long save(String openId, byte type, String nickname, String icon) {
-       return userManager.save(openId, type, nickname, icon);
+    public Long save(String thirdPartId, byte type, String nickname, String icon) {
+       return userManager.save(thirdPartId, type, nickname, icon);
+    }
+
+    @Override
+    public Long save(String thirdPartId, byte type, String nickname, String icon, String bio, String email) {
+        return userManager.save(thirdPartId, type, nickname, icon,bio,email);
     }
 
 
