@@ -7,7 +7,7 @@
         -->
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="user_id" property="userId" jdbcType="BIGINT"/>
-        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
         <result column="category_id" property="categoryId" jdbcType="BIGINT"/>
         <result column="digest" property="digest" jdbcType="VARCHAR"/>
         <result column="weight" property="weight" jdbcType="INTEGER"/>
@@ -32,17 +32,18 @@
 
     <select id="search" resultType="com.tangcheng.zhiban.sns.todo.domain.res.TodoDetailResVO">
     SELECT
-     id,
-     category_id categoryId,
-     weight,
-     digest,
-     content,
-     finished,
-     create_time createTime
-      FROM sns_todo_detail
+    id,
+    category_id categoryId,
+    weight,
+    digest,
+    content,
+    finished,
+    create_time createTime
+    FROM sns_todo_detail
     WHERE (digest like #{key} or content like #{key})
-    and user_name=#{userName}
+    and username=#{userName}
     and status=0
   </select>
+
 
 </mapper>

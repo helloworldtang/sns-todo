@@ -36,7 +36,7 @@ public class TodoDetailRepository {
         SnsTodoDetailDO snsTodoDetailDO = new SnsTodoDetailDO();
         BeanUtils.copyProperties(todoDetailReqVO, snsTodoDetailDO);
 
-        snsTodoDetailDO.setUserName(SecurityUtil.getUserName());
+        snsTodoDetailDO.setUsername(SecurityUtil.getUserName());
         snsTodoDetailDO.setUserId(SecurityUtil.getUserId());
         snsTodoDetailDO.setCreateIp(NetworkUtil.getRemoteIp());
         snsTodoDetailDO.setFinished(false);
@@ -68,7 +68,7 @@ public class TodoDetailRepository {
     public List<SnsTodoDetailDO> list(String userName, Boolean finished, Integer pageNum, Integer pageSize) {
         SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
         SnsTodoDetailDOExample.Criteria criteria = example.createCriteria();
-        criteria.andUserNameEqualTo(userName);
+        criteria.andUsernameEqualTo(userName);
         if (finished != null) {
             if (finished) {
                 criteria.andFinishedEqualTo(true);
@@ -88,7 +88,7 @@ public class TodoDetailRepository {
     public long count(String userName, Boolean finished) {
         SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
         SnsTodoDetailDOExample.Criteria criteria = example.createCriteria();
-        criteria.andUserNameEqualTo(userName);
+        criteria.andUsernameEqualTo(userName);
         if (finished != null) {
             if (finished) {
                 criteria.andFinishedEqualTo(true);
@@ -102,7 +102,7 @@ public class TodoDetailRepository {
     public SnsTodoDetailDO get(Long todoId, String userName) {
         SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
         example.createCriteria().andIdEqualTo(todoId)
-                .andUserNameEqualTo(userName);
+                .andUsernameEqualTo(userName);
         return snsTodoDetailDOMapper.selectByExample(example).stream().findAny().orElse(null);
     }
 
@@ -114,7 +114,7 @@ public class TodoDetailRepository {
 
         SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
         example.createCriteria().andIdEqualTo(todoId)
-                .andUserNameEqualTo(userName)
+                .andUsernameEqualTo(userName)
                 .andStatusEqualTo(Flag.UniversalFlag.NORMAL);
         snsTodoDetailDOMapper.updateByExampleSelective(record, example);
     }
@@ -128,7 +128,7 @@ public class TodoDetailRepository {
 
         SnsTodoDetailDOExample example = new SnsTodoDetailDOExample();
         example.createCriteria().andIdEqualTo(todoId)
-                .andUserNameEqualTo(userName);
+                .andUsernameEqualTo(userName);
         snsTodoDetailDOMapper.updateByExampleSelective(record, example);
     }
 

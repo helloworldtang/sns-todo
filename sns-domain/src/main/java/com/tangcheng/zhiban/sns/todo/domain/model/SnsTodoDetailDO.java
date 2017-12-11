@@ -12,8 +12,7 @@ public class SnsTodoDetailDO {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "user_name")
-    private String userName;
+    private String username;
 
     @Column(name = "category_id")
     private Long categoryId;
@@ -81,17 +80,17 @@ public class SnsTodoDetailDO {
     }
 
     /**
-     * @return user_name
+     * @return username
      */
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     /**
-     * @param userName
+     * @param username
      */
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
