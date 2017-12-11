@@ -25,7 +25,7 @@ public class SecurityUtil {
         }
 
         if (authentication instanceof OAuth2Authentication) {
-            log.info(" user {} not login,from {}", authentication.getName(), NetworkUtil.getRemoteIp());
+            log.info("third part login.authentication:{}, user {},from {}", authentication, authentication.getName(), NetworkUtil.getRemoteIp());
             return authentication.getName();
         }
 

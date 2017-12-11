@@ -45,4 +45,11 @@ public class UserBO extends User {
                 username, password, true, true, true, true,
                 authorities);
     }
+
+    public UserBO(Long id, String thirdPartId, Byte type, String nickName, String bio, String icon, Boolean sex, String email, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        this(id, thirdPartId, type, nickName, bio, icon, sex,
+                email, null,
+                username, password, true, true, true, true,
+                authorities);
+    }
 }

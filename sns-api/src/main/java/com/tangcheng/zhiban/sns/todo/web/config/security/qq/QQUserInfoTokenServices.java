@@ -53,17 +53,53 @@ public class QQUserInfoTokenServices extends UserInfoTokenServices {
 
     @Override
     protected Object getPrincipal(Map<String, Object> map) {
-        return new UserBO(Long.parseLong(
-                map.get("id").toString()),
-                map.get("thirdPartId").toString(),
-                Flag.UserTypeFlag.QQ,
-                map.get("nickname").toString(),
-                "",
-                map.get("icon").toString(),
-                "",
-                map.get("thirdPartId").toString(),
-                map.get("thirdPartId").toString(),
-                this.authoritiesExtractor.extractAuthorities(map));
+        log.info("userInfo:{}", map);
+        /**
+         *http://wiki.open.qq.com/wiki/website/get_user_info
+         *
+         参数说明	描述
+         ret	返回码
+         msg	如果ret<0，会有相应的错误信息提示，返回数据全部用UTF-8编码。
+         nickname	用户在QQ空间的昵称。
+         figureurl	大小为30×30像素的QQ空间头像URL。
+         figureurl_1	大小为50×50像素的QQ空间头像URL。
+         figureurl_2	大小为100×100像素的QQ空间头像URL。
+         figureurl_qq_1	大小为40×40像素的QQ头像URL。
+         figureurl_qq_2	大小为100×100像素的QQ头像URL。需要注意，不是所有的用户都拥有QQ的100x100的头像，但40x40像素则是一定会有。
+         gender	性别。 如果获取不到则默认返回"男"
+         is_yellow_vip	标识用户是否为黄钻用户（0：不是；1：是）。
+         vip	标识用户是否为黄钻用户（0：不是；1：是）
+         yellow_vip_level	黄钻等级
+         level	黄钻等级
+         is_yellow_year_vip	标识是否为年费黄钻用户（0：不是； 1：是）
+         *
+         */
+        if (Integer.parseInt(map.get("ret").toString()) == 0) {
+            String openId = map.get("openId").toString();
+            String icon = map.get("figureurl_2").toString();
+            String nickname = map.get("nickname").toString();
+            Boolean gender = null;
+            String genderStr = map.get("gender").toString().trim();
+            if ("男".equals(genderStr)) {
+                gender = true;
+            } else if ("女".equals(genderStr)) {
+                gender = false;
+            }
+            Long id = userService.save(openId, Flag.UserTypeFlag.QQ, nickname, icon, gender);
+            return new UserBO(
+                    id,
+                    openId,
+                    Flag.UserTypeFlag.QQ,
+                    nickname,
+                    "",
+                    icon,
+                    gender,
+                    "",
+                    openId,
+                    openId,
+                    this.authoritiesExtractor.extractAuthorities(map));
+        }
+        return super.getPrincipal(map);
     }
 
     @Override
@@ -136,32 +172,8 @@ public class QQUserInfoTokenServices extends UserInfoTokenServices {
             URI userInfoUrl = builder.build().encode().toUri();
             log.info("userInfoUrl:{}", userInfoUrl.toString());
 
-            /**
-             * 参数说明	描述
-             ret	返回码
-             msg	如果ret<0，会有相应的错误信息提示，返回数据全部用UTF-8编码。
-             nickname	用户在QQ空间的昵称。
-             figureurl	大小为30×30像素的QQ空间头像URL。
-             figureurl_1	大小为50×50像素的QQ空间头像URL。
-             figureurl_2	大小为100×100像素的QQ空间头像URL。
-             figureurl_qq_1	大小为40×40像素的QQ头像URL。
-             figureurl_qq_2	大小为100×100像素的QQ头像URL。需要注意，不是所有的用户都拥有QQ的100x100的头像，但40x40像素则是一定会有。
-             gender	性别。 如果获取不到则默认返回"男"
-             is_yellow_vip	标识用户是否为黄钻用户（0：不是；1：是）。
-             vip	标识用户是否为黄钻用户（0：不是；1：是）
-             yellow_vip_level	黄钻等级
-             level	黄钻等级
-             is_yellow_year_vip	标识是否为年费黄钻用户（0：不是； 1：是）
-             */
             Map result = restTemplate.getForEntity(userInfoUrl, Map.class).getBody();
-            log.info("userInfo:{}", result);
-            if (Integer.parseInt(result.get("ret").toString()) == 0) {
-                String icon = result.get("figureurl_2").toString();
-                Long id = userService.save(openId, Flag.UserTypeFlag.QQ, result.get("nickname").toString(), icon);
-                result.put("id", id);
-                result.put("thirdPartId", openId);
-                result.put("icon", icon);
-            }
+            result.put("openId", openId);
             return result;
         } catch (Exception ex) {
             this.logger.warn("Could not fetch user details: " + ex.getClass() + ", "

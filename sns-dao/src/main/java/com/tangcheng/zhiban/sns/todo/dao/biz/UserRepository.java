@@ -47,11 +47,14 @@ public class UserRepository {
     }
 
 
-    public void update(Long id, String nickname, String icon) {
+    public void update(Long id, String nickname, String icon, Boolean gender, String bio, String email) {
         SnsUserDO record = new SnsUserDO();
         record.setId(id);
         record.setNickName(nickname);
         record.setIcon(icon);
+        record.setSex(gender);
+        record.setBio(bio);
+        record.setEmail(email);
         record.setLastLoginIp(NetworkUtil.getRemoteIp());
         snsUserDOMapper.updateByPrimaryKeySelective(record);
     }

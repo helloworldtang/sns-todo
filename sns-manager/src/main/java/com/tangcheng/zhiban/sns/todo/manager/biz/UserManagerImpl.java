@@ -67,15 +67,25 @@ public class UserManagerImpl implements UserManager, CommandLineRunner {
 
     @Override
     public Long save(String thirdPartId, byte type, String nickname, String icon) {
-        return save(thirdPartId, type, nickname, icon, "", "");
+        return save(thirdPartId, type, nickname, icon, null, "", "");
+    }
+
+    @Override
+    public Long save(String thirdPartId, byte type, String nickname, String icon, Boolean gender) {
+        return save(thirdPartId, type, nickname, icon, gender, "", "");
     }
 
 
     @Override
     public Long save(String thirdPartId, byte type, String nickname, String icon, String bio, String email) {
+        return save(thirdPartId, type, nickname, icon, null, "", "");
+    }
+
+    @Override
+    public Long save(String thirdPartId, byte type, String nickname, String icon, Boolean gender, String bio, String email) {
         SnsUserDO snsUserDO = userRepository.getUser(thirdPartId, type);
         if (snsUserDO != null) {
-            userRepository.update(snsUserDO.getId(), nickname, icon);
+            userRepository.update(snsUserDO.getId(), nickname, icon, gender, bio, email);
             return snsUserDO.getId();
         }
 
@@ -86,8 +96,9 @@ public class UserManagerImpl implements UserManager, CommandLineRunner {
         snsUserDO.setIcon(icon);
         snsUserDO.setType(type);
         snsUserDO.setPassword(passwordEncoder.encode(thirdPartId));
-        snsUserDO.setEmail(email);
+        snsUserDO.setSex(gender);
         snsUserDO.setBio(bio);
+        snsUserDO.setEmail(email);
         snsUserDO.setCreateIp(NetworkUtil.getRemoteIp());
         snsUserDO.setAccountEnabled(true);
         Date month3 = LocalDate.now().plusDays(90).toDate();

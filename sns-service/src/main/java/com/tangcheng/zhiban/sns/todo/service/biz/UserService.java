@@ -10,5 +10,10 @@ public interface UserService {
 
     Long save(String thirdPartId, byte type, String nickname, String icon);
 
-    Long save(String thirdPartId, byte github, String loginName, String icon, String bio, String email);
+    Long save(String thirdPartId, byte type, String loginName, String icon, String bio, String email);
+
+    Long save(String thirdPartId, byte type, String nickname, String icon, Boolean gender, String bio, String email);
+
+    Long save(String thirdPartId, byte type, String nickname, String icon, Boolean gender);
+
 }

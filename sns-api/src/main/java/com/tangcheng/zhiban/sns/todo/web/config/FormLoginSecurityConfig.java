@@ -7,10 +7,10 @@ import com.tangcheng.zhiban.sns.todo.web.config.security.LoginAuthenticationFail
 import com.tangcheng.zhiban.sns.todo.web.config.security.github.GitHubUserInfoTokenServices;
 import com.tangcheng.zhiban.sns.todo.web.config.security.qq.QQOAuth2RestTemplate;
 import com.tangcheng.zhiban.sns.todo.web.config.security.qq.QQUserInfoTokenServices;
+import com.tangcheng.zhiban.sns.todo.web.config.security.sina.SinaUserInfoTokenServices;
 import com.tangcheng.zhiban.sns.todo.web.constant.ApiVersion;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -154,10 +154,10 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
         ClientResources github = github();
         filters.add(ssoFilter(github, "/login/github", new OAuth2RestTemplate(github.getClient(), oauth2ClientContext)));
 
-        filters.add(qqSsoFilter(qq()));
-
         ClientResources sina = sina();
-        filters.add(ssoFilter(sina, "/login/sina", new OAuth2RestTemplate(sina.getClient(), oauth2ClientContext)));
+        filters.add(sinaSsoFilter(sina, new OAuth2RestTemplate(sina.getClient(), oauth2ClientContext)));
+
+        filters.add(qqSsoFilter(qq()));
 
         filter.setFilters(filters);
         return filter;
@@ -200,6 +200,18 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
         oAuth2ClientAuthenticationFilter.setRestTemplate(oAuth2RestTemplate);
 
         QQUserInfoTokenServices tokenServices = new QQUserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
+        tokenServices.setUserService(userService);
+        tokenServices.setRestTemplate(oAuth2RestTemplate);
+        oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
+        return oAuth2ClientAuthenticationFilter;
+    }
+
+    private Filter sinaSsoFilter(ClientResources client, OAuth2RestTemplate oAuth2RestTemplate) {
+
+        OAuth2ClientAuthenticationProcessingFilter oAuth2ClientAuthenticationFilter = new OAuth2ClientAuthenticationProcessingFilter("/login/sina");
+        oAuth2ClientAuthenticationFilter.setRestTemplate(oAuth2RestTemplate);
+
+        SinaUserInfoTokenServices tokenServices = new SinaUserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
         tokenServices.setUserService(userService);
         tokenServices.setRestTemplate(oAuth2RestTemplate);
         oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
