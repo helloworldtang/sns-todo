@@ -5,7 +5,7 @@
 
     <groupId>com.tangcheng.zhiban.sns.todo</groupId>
     <artifactId>sns-todo</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <modules>
         <module>sns-api</module>
         <module>sns-service</module>
@@ -36,31 +36,31 @@
             <dependency>
                 <groupId>com.tangcheng.zhiban.sns.todo</groupId>
                 <artifactId>sns-service</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.1</version>
             </dependency>
 
             <dependency>
                 <groupId>com.tangcheng.zhiban.sns.todo</groupId>
                 <artifactId>sns-manager</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.1</version>
             </dependency>
 
             <dependency>
                 <groupId>com.tangcheng.zhiban.sns.todo</groupId>
                 <artifactId>sns-dao</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.1</version>
             </dependency>
 
             <dependency>
                 <groupId>com.tangcheng.zhiban.sns.todo</groupId>
                 <artifactId>sns-domain</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.1</version>
             </dependency>
 
             <dependency>
                 <groupId>com.tangcheng.zhiban.sns.todo</groupId>
                 <artifactId>sns-core</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.1</version>
             </dependency>
 
         </dependencies>
