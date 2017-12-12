@@ -17,17 +17,26 @@ public class SnsUserDO {
     @Column(name = "nick_name")
     private String nickName;
 
+    private String icon;
+
+    private String gender;
+
+    private String mobile;
+
     private String bio;
+
+    private String email;
+
+    private String location;
 
     private String username;
 
     private String password;
 
-    private String email;
-
-    private String icon;
-
     private String salt;
+
+    @Column(name = "todo_count")
+    private Integer todoCount;
 
     @Column(name = "account_enabled")
     private Boolean accountEnabled;
@@ -46,15 +55,6 @@ public class SnsUserDO {
 
     @Column(name = "update_ip")
     private String updateIp;
-
-    private Boolean sex;
-
-    private String mobile;
-
-    private String location;
-
-    @Column(name = "todo_count")
-    private Integer todoCount;
 
     @Column(name = "last_login_ip")
     private String lastLoginIp;
@@ -122,6 +122,48 @@ public class SnsUserDO {
     }
 
     /**
+     * @return icon
+     */
+    public String getIcon() {
+        return icon;
+    }
+
+    /**
+     * @param icon
+     */
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    /**
+     * @return gender
+     */
+    public String getGender() {
+        return gender;
+    }
+
+    /**
+     * @param gender
+     */
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    /**
+     * @return mobile
+     */
+    public String getMobile() {
+        return mobile;
+    }
+
+    /**
+     * @param mobile
+     */
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    /**
      * @return bio
      */
     public String getBio() {
@@ -133,6 +175,34 @@ public class SnsUserDO {
      */
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    /**
+     * @return email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return location
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * @param location
+     */
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     /**
@@ -164,34 +234,6 @@ public class SnsUserDO {
     }
 
     /**
-     * @return email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * @return icon
-     */
-    public String getIcon() {
-        return icon;
-    }
-
-    /**
-     * @param icon
-     */
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    /**
      * @return salt
      */
     public String getSalt() {
@@ -203,6 +245,20 @@ public class SnsUserDO {
      */
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    /**
+     * @return todo_count
+     */
+    public Integer getTodoCount() {
+        return todoCount;
+    }
+
+    /**
+     * @param todoCount
+     */
+    public void setTodoCount(Integer todoCount) {
+        this.todoCount = todoCount;
     }
 
     /**
@@ -287,62 +343,6 @@ public class SnsUserDO {
      */
     public void setUpdateIp(String updateIp) {
         this.updateIp = updateIp;
-    }
-
-    /**
-     * @return sex
-     */
-    public Boolean getSex() {
-        return sex;
-    }
-
-    /**
-     * @param sex
-     */
-    public void setSex(Boolean sex) {
-        this.sex = sex;
-    }
-
-    /**
-     * @return mobile
-     */
-    public String getMobile() {
-        return mobile;
-    }
-
-    /**
-     * @param mobile
-     */
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    /**
-     * @return location
-     */
-    public String getLocation() {
-        return location;
-    }
-
-    /**
-     * @param location
-     */
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    /**
-     * @return todo_count
-     */
-    public Integer getTodoCount() {
-        return todoCount;
-    }
-
-    /**
-     * @param todoCount
-     */
-    public void setTodoCount(Integer todoCount) {
-        this.todoCount = todoCount;
     }
 
     /**

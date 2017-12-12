@@ -40,7 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 userDetails.getNickName(),
                 userDetails.getBio(),
                 userDetails.getIcon(),
-                userDetails.getSex(),
+                userDetails.getGender(),
                 userDetails.getEmail(),
                 userDetails.getMobile(),
                 userDetails.getUsername(),

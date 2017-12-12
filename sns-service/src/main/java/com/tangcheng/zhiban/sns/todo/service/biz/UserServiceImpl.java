@@ -1,5 +1,6 @@
 package com.tangcheng.zhiban.sns.todo.service.biz;
 
+import com.tangcheng.zhiban.sns.todo.core.constant.GenderEnum;
 import com.tangcheng.zhiban.sns.todo.dao.biz.UserRepository;
 import com.tangcheng.zhiban.sns.todo.domain.model.CustomUserDetails;
 import com.tangcheng.zhiban.sns.todo.domain.req.ChangePwdReqVO;
@@ -38,17 +39,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long save(String thirdPartId, byte type, String nickname, String icon, String bio, String email) {
-        return userManager.save(thirdPartId, type, nickname, icon, bio, email);
+    public Long save(String thirdPartId, byte type, String nickname, String icon, String bio, String email, String location) {
+        return userManager.save(thirdPartId, type, nickname, icon, bio, email, location);
     }
 
     @Override
-    public Long save(String thirdPartId, byte type, String nickname, String icon, Boolean gender, String bio, String email) {
+    public Long save(String thirdPartId, byte type, String nickname, String icon, GenderEnum gender, String bio, String email) {
         return userManager.save(thirdPartId, type, nickname, icon, gender, bio, email);
     }
 
     @Override
-    public Long save(String thirdPartId, byte type, String nickname, String icon, Boolean gender) {
+    public Long save(String thirdPartId, byte type, String nickname, String icon, GenderEnum gender) {
         return userManager.save(thirdPartId, type, nickname, icon, gender);
     }
 

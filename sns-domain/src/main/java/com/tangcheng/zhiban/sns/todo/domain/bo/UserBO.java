@@ -20,11 +20,11 @@ public class UserBO extends User {
     private String nickName;
     private String bio;
     private String icon;
-    private Boolean sex;
+    private String gender;
     private String email;
     private String mobile;
 
-    public UserBO(Long id, String thirdPartId, Byte type, String nickName, String bio, String icon, Boolean sex, String email, String mobile,
+    public UserBO(Long id, String thirdPartId, Byte type, String nickName, String bio, String icon, String gender, String email, String mobile,
                   String username, String password, boolean enabled, boolean accountNonExpired,
                   boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
@@ -35,7 +35,7 @@ public class UserBO extends User {
         setEmail(email);
         setBio(bio);
         setIcon(icon);
-        setSex(sex);
+        setGender(gender);
         setMobile(mobile);
     }
 
@@ -46,8 +46,8 @@ public class UserBO extends User {
                 authorities);
     }
 
-    public UserBO(Long id, String thirdPartId, Byte type, String nickName, String bio, String icon, Boolean sex, String email, String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        this(id, thirdPartId, type, nickName, bio, icon, sex,
+    public UserBO(Long id, String thirdPartId, Byte type, String nickName, String bio, String icon, String gender, String email, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        this(id, thirdPartId, type, nickName, bio, icon, gender,
                 email, null,
                 username, password, true, true, true, true,
                 authorities);

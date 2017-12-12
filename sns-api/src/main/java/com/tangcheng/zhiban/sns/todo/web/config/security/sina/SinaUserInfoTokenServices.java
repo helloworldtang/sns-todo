@@ -1,6 +1,7 @@
 package com.tangcheng.zhiban.sns.todo.web.config.security.sina;
 
 import com.tangcheng.zhiban.sns.todo.core.constant.Flag;
+import com.tangcheng.zhiban.sns.todo.core.constant.GenderEnum;
 import com.tangcheng.zhiban.sns.todo.domain.bo.UserBO;
 import com.tangcheng.zhiban.sns.todo.service.biz.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -87,12 +88,12 @@ public class SinaUserInfoTokenServices extends UserInfoTokenServices {
         String thirdPartId = map.get("idstr").toString();
         String icon = map.get("profile_image_url").toString();
         String bio = map.get("description").toString();
-        String sex = map.get("gender").toString().trim();
-        Boolean gender = null;
-        if ("m".equals(sex)) {
-            gender = true;
-        } else if ("f".equals(sex)) {
-            gender = false;
+        String genderStr = map.get("gender").toString().trim();
+        GenderEnum gender = GenderEnum.Unknown;
+        if ("m".equals(genderStr)) {
+            gender = GenderEnum.Male;
+        } else if ("f".equals(genderStr)) {
+            gender = GenderEnum.Female;
         }
 
         Long id = userService.save(thirdPartId, Flag.UserTypeFlag.GITHUB, loginName, icon, gender, bio, "");
@@ -102,7 +103,7 @@ public class SinaUserInfoTokenServices extends UserInfoTokenServices {
                 loginName,
                 bio,
                 icon,
-                gender,
+                gender.getShorthand(),
                 "",
                 loginName,
                 thirdPartId,

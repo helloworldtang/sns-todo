@@ -1,5 +1,6 @@
 package com.tangcheng.zhiban.sns.todo.dao.biz;
 
+import com.tangcheng.zhiban.sns.todo.core.constant.GenderEnum;
 import com.tangcheng.zhiban.sns.todo.core.util.NetworkUtil;
 import com.tangcheng.zhiban.sns.todo.domain.mapper.SnsUserDOMapper;
 import com.tangcheng.zhiban.sns.todo.domain.model.CustomUserDetails;
@@ -47,14 +48,15 @@ public class UserRepository {
     }
 
 
-    public void update(Long id, String nickname, String icon, Boolean gender, String bio, String email) {
+    public void update(Long id, String nickname, String icon, GenderEnum gender, String bio, String email, String location) {
         SnsUserDO record = new SnsUserDO();
         record.setId(id);
         record.setNickName(nickname);
         record.setIcon(icon);
-        record.setSex(gender);
+        record.setGender(gender.getShorthand());
         record.setBio(bio);
         record.setEmail(email);
+        record.setLocation(location);
         record.setLastLoginIp(NetworkUtil.getRemoteIp());
         snsUserDOMapper.updateByPrimaryKeySelective(record);
     }

@@ -1,5 +1,6 @@
 package com.tangcheng.zhiban.sns.todo.service.biz;
 
+import com.tangcheng.zhiban.sns.todo.core.constant.GenderEnum;
 import com.tangcheng.zhiban.sns.todo.domain.req.ChangePwdReqVO;
 
 /**
@@ -10,10 +11,10 @@ public interface UserService {
 
     Long save(String thirdPartId, byte type, String nickname, String icon);
 
-    Long save(String thirdPartId, byte type, String loginName, String icon, String bio, String email);
+    Long save(String thirdPartId, byte type, String loginName, String icon, String bio, String email, String location);
 
-    Long save(String thirdPartId, byte type, String nickname, String icon, Boolean gender, String bio, String email);
+    Long save(String thirdPartId, byte type, String nickname, String icon, GenderEnum gender, String bio, String email);
 
-    Long save(String thirdPartId, byte type, String nickname, String icon, Boolean gender);
+    Long save(String thirdPartId, byte type, String nickname, String icon, GenderEnum gender);
 
 }

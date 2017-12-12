@@ -1,6 +1,7 @@
 package com.tangcheng.zhiban.sns.todo.web.config.security.qq;
 
 import com.tangcheng.zhiban.sns.todo.core.constant.Flag;
+import com.tangcheng.zhiban.sns.todo.core.constant.GenderEnum;
 import com.tangcheng.zhiban.sns.todo.domain.bo.UserBO;
 import com.tangcheng.zhiban.sns.todo.service.biz.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -78,12 +79,12 @@ public class QQUserInfoTokenServices extends UserInfoTokenServices {
             String openId = map.get("openId").toString();
             String icon = map.get("figureurl_2").toString();
             String nickname = map.get("nickname").toString();
-            Boolean gender = null;
+            GenderEnum gender = GenderEnum.Unknown;
             String genderStr = map.get("gender").toString().trim();
-            if ("男".equals(genderStr)) {
-                gender = true;
-            } else if ("女".equals(genderStr)) {
-                gender = false;
+            if ("男".equals(genderStr) || "Male".equalsIgnoreCase(genderStr)) {
+                gender = GenderEnum.Male;
+            } else if ("女".equals(genderStr) || "Female".equalsIgnoreCase(genderStr)) {
+                gender = GenderEnum.Female;
             }
             Long id = userService.save(openId, Flag.UserTypeFlag.QQ, nickname, icon, gender);
             return new UserBO(
@@ -93,7 +94,7 @@ public class QQUserInfoTokenServices extends UserInfoTokenServices {
                     nickname,
                     "",
                     icon,
-                    gender,
+                    gender.getShorthand(),
                     "",
                     openId,
                     openId,

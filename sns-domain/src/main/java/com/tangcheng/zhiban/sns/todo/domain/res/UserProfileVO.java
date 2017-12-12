@@ -12,7 +12,7 @@ public class UserProfileVO {
     private String nickName;
     private String bio = "";
     private String icon;
-    private Boolean sex;
+    private String gender;
     private String email = "";
     private String mobile = "";
     private String username;
