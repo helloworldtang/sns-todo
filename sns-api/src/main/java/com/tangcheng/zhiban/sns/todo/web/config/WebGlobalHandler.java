@@ -75,7 +75,7 @@ public class WebGlobalHandler {
         log.error("default:{}", e.getMessage(), e);
         ModelAndView modelAndView = new ModelAndView("error");
         if (e instanceof SQLException || e instanceof DataAccessException) {
-            String msg = "has error.Look for tangcheng@hujiang.com to solve";
+            String msg = "Server must had been spaced-out! .mail to 793059909@qq.com for appeal";
             modelAndView.addObject("message", msg);
             return modelAndView;
         }

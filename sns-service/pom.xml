@@ -22,17 +22,7 @@
             <artifactId>kaptcha</artifactId>
             <version>2.3.2</version>
         </dependency>
-
-
-        <!-- fastbootWeixin的核心依赖 -->
-        <dependency>
-            <groupId>com.mxixm</groupId>
-            <artifactId>fastboot-weixin</artifactId>
-            <version>0.3.4</version>
-        </dependency>
-
-
-
+        
     </dependencies>
 
 </project>

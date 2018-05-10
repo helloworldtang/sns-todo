@@ -22,7 +22,7 @@ public class LoginAuthenticationFailureHandler extends SimpleUrlAuthenticationFa
     public static final String LOCKED_URL = ApiVersion.WEB_V1 + "/login?locked";
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
 
         if (exception instanceof CaptchaException) {
             getRedirectStrategy().sendRedirect(request, response, CODE_ERROR_URL);
