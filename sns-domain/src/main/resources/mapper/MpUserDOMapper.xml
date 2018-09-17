@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tangcheng.zhiban.sns.todo.domain.mapper.MpUserDOMapper">
+    <resultMap id="BaseResultMap" type="com.tangcheng.zhiban.sns.todo.domain.model.MpUserDO">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="appid" jdbcType="VARCHAR" property="appid"/>
+        <result column="unionid" jdbcType="VARCHAR" property="unionid"/>
+        <result column="openid" jdbcType="VARCHAR" property="openid"/>
+        <result column="subscribe" jdbcType="BIT" property="subscribe"/>
+        <result column="subscribe_scene" jdbcType="VARCHAR" property="subscribeScene"/>
+        <result column="qr_scene" jdbcType="VARCHAR" property="qrScene"/>
+        <result column="qr_scene_str" jdbcType="VARCHAR" property="qrSceneStr"/>
+        <result column="count" jdbcType="INTEGER" property="count"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="head_img_url" jdbcType="VARCHAR" property="headImgUrl"/>
+        <result column="country" jdbcType="VARCHAR" property="country"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="language" jdbcType="VARCHAR" property="language"/>
+        <result column="sex_desc" jdbcType="VARCHAR" property="sexDesc"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <update id="markUnsubscribe">
+        update mp_user set subscribe=0,update_time=#{now}
+        where openid=#{openid}
+    </update>
+
+</mapper>
