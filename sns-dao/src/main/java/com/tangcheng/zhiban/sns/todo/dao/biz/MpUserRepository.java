@@ -20,10 +20,19 @@ public class MpUserRepository {
     private MpUserDOMapper mpUserPOMapper;
 
     public void insertUseGeneratedKeys(MpUserDO po) {
-        mpUserPOMapper.insertUseGeneratedKeys(po);
+        MpUserDO userDO = new MpUserDO();
+        userDO.setAppid(po.getAppid());
+        userDO.setOpenid(po.getOpenid());
+        int count = mpUserPOMapper.selectCount(userDO);
+        if (count == 0) {
+            po.setQrSceneStr("现在有134个follower了，加油");
+            mpUserPOMapper.insertUseGeneratedKeys(po);
+            return;
+        }
+        mpUserPOMapper.markSubscribeStatus(po.getAppid(), po.getOpenid(), true, new Date());
     }
 
-    public void markUnsubscribe(String openId) {
-        mpUserPOMapper.markUnsubscribe(openId,new Date());
+    public void markUnsubscribe(String appid, String openId) {
+        mpUserPOMapper.markSubscribeStatus(appid, openId, false, new Date());
     }
 }

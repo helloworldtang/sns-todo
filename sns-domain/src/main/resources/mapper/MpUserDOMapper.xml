@@ -25,9 +25,9 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
 
-    <update id="markUnsubscribe">
-        update mp_user set subscribe=0,update_time=#{now}
-        where openid=#{openid}
+    <update id="markSubscribeStatus">
+        update mp_user set subscribe=#{subscribe},update_time=#{now},count=count+1
+        where openid=#{openid} and appid=#{appid}
     </update>
 
 </mapper>

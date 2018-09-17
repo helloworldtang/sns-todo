@@ -12,4 +12,6 @@ public interface MpUserService {
     Long insert(WxMpUser userWxInfo);
 
     void markUnsubscribe(String openId);
+
+    void insertMpUser(String openId);
 }

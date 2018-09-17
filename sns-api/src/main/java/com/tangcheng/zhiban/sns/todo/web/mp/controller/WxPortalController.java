@@ -25,8 +25,7 @@ public class WxPortalController {
                           @RequestParam(name = "nonce", required = false) String nonce,
                           @RequestParam(name = "echostr", required = false) String echostr) {
 
-        log.info("接收到来自微信服务器的认证消息：[{}, {}, {}, {}]", signature,
-                timestamp, nonce, echostr);
+        log.info("接收到来自微信服务器的认证消息：[{}, {}, {}, {}]", signature, timestamp, nonce, echostr);
         if (StringUtils.isAnyBlank(signature, timestamp, nonce, echostr)) {
             String msg = "请求参数非法，请核实!";
             log.warn(msg);
@@ -41,10 +40,12 @@ public class WxPortalController {
         }
 
         if (wxService.checkSignature(timestamp, nonce, signature)) {
+            log.info("success. echostr:{} ", echostr);
             return echostr;
         }
-
-        return "非法请求";
+        String msg = "非法请求";
+        log.warn(msg);
+        return msg;
     }
 
     @PostMapping(produces = "application/xml; charset=UTF-8")
@@ -62,7 +63,9 @@ public class WxPortalController {
                 openid, signature, encType, msgSignature, timestamp, nonce, requestBody);
 
         if (!wxService.checkSignature(timestamp, nonce, signature)) {
-            throw new IllegalArgumentException("非法请求，可能属于伪造的请求！");
+            String msg = "非法请求，可能属于伪造的请求！";
+            log.info(msg);
+            throw new IllegalArgumentException(msg);
         }
 
         String out = null;
@@ -79,7 +82,7 @@ public class WxPortalController {
             // aes加密的消息
             WxMpXmlMessage inMessage = WxMpXmlMessage.fromEncryptedXml(requestBody, wxService.getWxMpConfigStorage(),
                     timestamp, nonce, msgSignature);
-            log.debug("\n消息解密后内容为：\n{} ", inMessage.toString());
+            log.info("消息解密后内容为：{} ", inMessage.toString());
             WxMpXmlOutMessage outMessage = this.route(inMessage, appid);
             if (outMessage == null) {
                 return "";
@@ -88,7 +91,7 @@ public class WxPortalController {
             out = outMessage.toEncryptedXml(wxService.getWxMpConfigStorage());
         }
 
-        log.debug("组装回复信息：{}", out);
+        log.info("组装回复信息：{}", out);
         return out;
     }
 

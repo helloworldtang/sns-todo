@@ -1,7 +1,7 @@
 package com.tangcheng.zhiban.sns.todo.domain.bo;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -11,8 +11,8 @@ import java.util.Collection;
  * @author tangcheng
  * 2017/12/06
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 public class UserBO extends User {
     private Long id;
     private String thirdPartId;

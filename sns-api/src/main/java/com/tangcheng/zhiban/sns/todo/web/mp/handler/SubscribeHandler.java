@@ -31,19 +31,17 @@ public class SubscribeHandler extends AbstractHandler {
         log.info("新关注用户 OPENID: {} ", wxMessage.getFromUser());
         // 获取微信用户基本信息
         try {
-            WxMpUser userWxInfo = wxMpService.getUserService()
-                    .userInfo(wxMessage.getFromUser(), null);
-            if (userWxInfo != null) {
-                // TODO 可以添加关注用户到本地数据库
-                mpUserService.insert(userWxInfo);
-            }
+            mpUserService.insertMpUser(wxMessage.getFromUser());
+//            WxMpUser userWxInfo = wxMpService.getUserService()
+//                    .userInfo(wxMessage.getFromUser(), null);
+//            if (userWxInfo != null) {
+//                // TODO 可以添加关注用户到本地数据库
+//                mpUserService.insert(userWxInfo);
+//            }
+
             return null;
         } catch (Exception e) {
-            if (e instanceof WxErrorException && ((WxErrorException) e).getError().getErrorCode() == 48001) {
-                log.warn("该公众号没有获取用户信息权限！");
-            } else {
-                log.warn(e.getMessage(), e);
-            }
+            log.warn(e.getMessage(), e);
         }
 
 

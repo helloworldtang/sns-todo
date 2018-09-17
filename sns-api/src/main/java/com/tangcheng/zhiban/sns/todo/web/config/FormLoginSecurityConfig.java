@@ -104,7 +104,7 @@ public class FormLoginSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/wx").permitAll()
+                .antMatchers(ApiVersion.API_V1 + "/wx/**").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/favicon.ico",
                         "/static/**")

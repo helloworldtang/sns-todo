@@ -9,4 +9,6 @@ import java.util.Date;
 
 public interface MpUserDOMapper extends MyMapper<MpUserDO> {
     void markUnsubscribe(@Param("openid") String openId, @Param("now") Date date);
+
+    void markSubscribeStatus(@Param("appid") String appid, @Param("openid") String openid, @Param("subscribe") boolean subscribe, @Param("now") Date date);
 }

@@ -17,13 +17,45 @@ import java.util.Date;
 @Service
 public class MpUserServiceImpl implements MpUserService {
 
+    public static final String APPID = "wx91c9c0fe266f1c5b";
+
     @Autowired
     private MpUserRepository mpUserRepository;
 
+
+    @Override
+    public void insertMpUser(String openId) {
+        MpUserDO po = new MpUserDO();
+        po.setAppid(APPID);
+        po.setOpenid(openId);
+        po.setSubscribe(true);
+        po.setCount(1);
+        Date now = new Date();
+        po.setCreateTime(now);
+        po.setUpdateTime(now);
+        mpUserRepository.insertUseGeneratedKeys(po);
+    }
+
+    /**
+     * 标记取关的用户
+     *
+     * @param openId
+     */
+    @Override
+    public void markUnsubscribe(String openId) {
+        mpUserRepository.markUnsubscribe(APPID, openId);
+    }
+
+    /**
+     * 能获取用户信息的公众号使用
+     *
+     * @param userWxInfo
+     * @return
+     */
     @Override
     public Long insert(WxMpUser userWxInfo) {
         MpUserDO po = new MpUserDO();
-        po.setAppid("wx91c9c0fe266f1c5b");
+        po.setAppid(APPID);
         po.setUnionid(userWxInfo.getUnionId());
         po.setOpenid(userWxInfo.getOpenId());
         po.setSubscribe(userWxInfo.getSubscribe());
@@ -45,13 +77,5 @@ public class MpUserServiceImpl implements MpUserService {
         return po.getId();
     }
 
-    /**
-     * 标记取关的用户
-     *
-     * @param openId
-     */
-    @Override
-    public void markUnsubscribe(String openId) {
-        mpUserRepository.markUnsubscribe(openId);
-    }
+
 }
