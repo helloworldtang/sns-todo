@@ -18,6 +18,13 @@ todo?finished=false:96 Uncaught ReferenceError: $ is not defined
 (4)通过Mapper的最新版本报错的事          
 
 
+JMX:
+-Djava.rmi.server.hostname=127.0.0.1 
+-Dcom.sun.management.jmxremote 
+-Dcom.sun.management.jmxremote.port=8888 
+-Dcom.sun.management.jmxremote.authenticate=false 
+-Dcom.sun.management.jmxremote.ssl=false
+
 
 ####  欢迎Issue，欢迎PR，欢迎Star
 
