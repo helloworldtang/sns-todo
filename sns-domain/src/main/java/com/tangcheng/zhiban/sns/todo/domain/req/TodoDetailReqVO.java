@@ -3,9 +3,9 @@ package com.tangcheng.zhiban.sns.todo.domain.req;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
@@ -25,7 +25,7 @@ public class TodoDetailReqVO {
     @ApiModelProperty(required = true, value = "权重")
     private Integer weight = 1;
 
-    @NotEmpty
+    @NotBlank(message = "摘要不能为空")
     @Size(min = 2, max = 200)
     @ApiModelProperty(required = true, value = "摘要")
     private String digest;
